@@ -1,0 +1,7 @@
+---
+- import_tasks: install.yml
+  become: yes
+
+- import_tasks: install_extensions.yml
+
+- import_tasks: write-settings.yml

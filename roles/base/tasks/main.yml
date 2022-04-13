@@ -1,0 +1,7 @@
+---
+- name: Ensure .bashrc.d exists
+  file:
+    path: "{{ ansible_env.HOME }}/.bashrc.d"
+    state: directory
+    mode: 0755
+

@@ -1,0 +1,18 @@
+---
+- name: Install dotfiles
+  hosts: localhost
+  connection: local
+  
+
+  tasks:
+    # - name: install base packages
+    #   yum:
+    #     name:
+    #       - wget
+    #       - lolcat
+    #     state: present
+        
+    # - import_role: name=vs_code
+      
+    - import_role: name=base
+      become: no
