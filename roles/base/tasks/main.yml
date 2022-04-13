@@ -5,3 +5,8 @@
     state: directory
     mode: 0755
 
+- name: Ensure dots are in {{ ansible_env.HOME }}
+  copy:
+    src: ./
+    dest: "{{ ansible_env.HOME }}"
+    mode: 0644
