@@ -10,6 +10,7 @@
     #     name:
     #       - wget
     #       - lolcat
+    #       - firefox
     #     state: present
         
     # - import_role: name=vs_code
