@@ -4,4 +4,4 @@
 
 - import_tasks: install_extensions.yml
 
-- import_tasks: write-settings.yml
+- import_tasks: write_settings.yml

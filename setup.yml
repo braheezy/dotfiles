@@ -3,17 +3,20 @@
   hosts: localhost
   connection: local
   
-
   tasks:
-    # - name: install base packages
-    #   yum:
-    #     name:
-    #       - wget
-    #       - lolcat
-    #       - firefox
-    #     state: present
-        
-    # - import_role: name=vs_code
-      
+    - name: Install base packages
+      become: yes
+      yum:
+        name:
+          - wget
+          - lolcat
+          - firefox
+        state: present
+    
     - import_role: name=base
-      become: no
+    - import_role: name=vs_code
+    - import_role: name=gtk
+    - import_role: name=rpm-dev
+    - import_role: name=kitty
+    - import_role: name=gnome-terminal
+      

@@ -1,0 +1,5 @@
+---
+
+- name: Shell Reboot
+  debug:
+    msg: Gnome Terminal may need a restart for shell themes to take effect :)

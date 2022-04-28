@@ -1,0 +1,2 @@
+# Make Ansible use the penguin to print messages, if cowsay is installed.
+export ANSIBLE_COW_SELECTION="tux"

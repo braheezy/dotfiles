@@ -1,0 +1,25 @@
+---
+
+- name: Ensure minimize button is present
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/button-layout"
+    value: "'appmenu:minimize,close'"
+    state: present
+
+- name: Enable Focus on Hover for windows
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/focus-mode"
+    value: "'sloppy'"
+    state: present
+
+- name: Enable workspace switching for all monitors
+  community.general.dconf:
+    key: "/org/gnome/mutter/workspaces-only-on-primary"
+    value: "'False'"
+    state: present
+
+- name: Set favorite apps list
+  community.general.dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop']"
+    state: present

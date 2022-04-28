@@ -1,0 +1,40 @@
+---
+# Copr sounds kinda sketch but it seems endorsed by Fedora so...
+- name: Enable Fedora Copr for iosevka fonts
+  community.general.copr:
+    name: peterwu/iosevka
+
+- name: Ensure iosevka fonts are installed
+  yum:
+    name: iosevka-ss03-fonts
+    state: present
+
+- name: Disable Fedora Copr for iosevka fonts
+  community.general.copr:
+    name: peterwu/iosevka
+    state: disabled
+
+- name: Set font-name
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/font-name"
+    value: "'Iosevka SS03 11'"
+    state: present
+
+- name: Set document-font-name
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/document-font-name"
+    value: "'Iosevka SS03 11'"
+    state: present
+  
+- name: Set monospace-font-name
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/monospace-font-name"
+    value: "'Iosevka SS03 Medium Expanded 10'"
+    state: present
+
+- name: Set titlebar-font
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/titlebar-font"
+    value: "'Iosevka SS03 Bold Expanded 11'"
+    state: present
+

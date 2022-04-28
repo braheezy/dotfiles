@@ -5,8 +5,21 @@
     state: directory
     mode: 0755
 
-- name: Ensure dots are in {{ ansible_env.HOME }}
+- name: Ensure some dots are in .bashrc.d
   copy:
-    src: ./
+    src: bashrc.d/
+    dest: "{{ ansible_env.HOME }}/.bashrc.d"
+    mode: 0755
+
+- name: Ensure other dots are in {{ ansible_env.HOME }}
+  copy:
+    src: home/
     dest: "{{ ansible_env.HOME }}"
     mode: 0644
+
+- import_tasks: gnome_extensions.yml
+- import_tasks: configure_gnome.yml
+
+- import_tasks: install_fonts.yml
+  become: yes
+  when: ansible_facts['distribution'] == "Fedora"

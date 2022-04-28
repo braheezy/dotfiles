@@ -1,0 +1,12 @@
+---
+- name: install kitty
+  become: yes
+  yum:
+    name: kitty
+    state: present
+
+- name: Ensure kitty.conf exists
+  copy:
+    src: kitty.conf
+    dest: "{{ ansible_env.HOME }}/.config/kitty/"
+    mode: 0755

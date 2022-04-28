@@ -22,16 +22,20 @@ vs_code_skip_add_repo: no
 # Extensions to install
 # Either an identifier of the form ${publisher}.${name}, which will fetch from the internet
 # Or a local path to a .vsix file.
-vs_code_extensions: ['catppuccin.catppuccin-vsc']
+vs_code_extensions: ['catppuccin.catppuccin-vsc', '1dot75cm.rpmspec']
 
 # Settings to use
 vs_code_settings: {
             "workbench.startupEditor": "none",
             "editor.formatOnSave": true,
-            "editor.renderWhitespace": "all",
             "workbench.colorTheme": "Catppuccin",
+            "editor.renderWhitespace": "all",
             "extensions.ignoreRecommendations": true,
+            "git.confirmSync": false,
+            "files.eol": "\n",
             "files.associations": {
-              "Vagrantfile": "ruby"
+              "Vagrantfile": "ruby",
+              "aliases": "shellscript",
+              "exports": "shellscript"
             }
 }

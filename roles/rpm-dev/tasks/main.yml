@@ -1,0 +1,10 @@
+---
+- name: install base packages
+  become: yes
+  yum:
+    name:
+      - rpm-build
+      - rpmlint
+      # For spectool
+      - rpmdevtools
+    state: present
