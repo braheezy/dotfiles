@@ -1,25 +1,31 @@
 ---
+- name: Ensure hostname is set
+  hostname:
+    name: "{{ hostname }}"
+  when: hostname != None
+
 - name: Ensure .bashrc.d exists
   file:
     path: "{{ ansible_env.HOME }}/.bashrc.d"
     state: directory
     mode: 0755
 
-- name: Ensure some dots are in .bashrc.d
+- name: Ensure dots are in .bashrc.d
   copy:
     src: bashrc.d/
     dest: "{{ ansible_env.HOME }}/.bashrc.d"
     mode: 0755
 
-- name: Ensure other dots are in {{ ansible_env.HOME }}
+- name: Ensure home dots are in {{ ansible_env.HOME }}
   copy:
     src: home/
     dest: "{{ ansible_env.HOME }}"
     mode: 0644
 
+- import_tasks: clean_gnome.yml
+  become: yes
 - import_tasks: gnome_extensions.yml
 - import_tasks: configure_gnome.yml
-
 - import_tasks: install_fonts.yml
   become: yes
   when: ansible_facts['distribution'] == "Fedora"
