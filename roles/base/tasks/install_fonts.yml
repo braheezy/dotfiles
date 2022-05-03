@@ -3,6 +3,7 @@
 - name: Enable Fedora Copr for iosevka fonts
   community.general.copr:
     name: peterwu/iosevka
+  changed_when: false
 
 - name: Ensure iosevka fonts are installed
   yum:
@@ -13,6 +14,7 @@
   community.general.copr:
     name: peterwu/iosevka
     state: disabled
+  changed_when: false
 
 - name: Set font-name
   community.general.dconf:
