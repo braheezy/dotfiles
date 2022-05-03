@@ -1,0 +1,5 @@
+---
+
+- name: Re-Login
+  debug:
+    msg: Things should work fine but you should log out and back in for everything to take effect :)
