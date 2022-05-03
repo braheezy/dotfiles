@@ -1,2 +1,6 @@
 # Make Ansible use the penguin to print messages, if cowsay is installed.
 export ANSIBLE_COW_SELECTION="tux"
+
+# Set up a local spot to install shiny Ruby gems.
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
