@@ -1,13 +1,5 @@
 ---
 
-- name: Ensure packages for customization are installed
-  yum:
-    name:
-      - gnome-tweaks
-      - gnome-extensions-app
-      - gnome-shell-extension-user-theme
-    state: present
-
 - name: Ensure theme source is present
   get_url:
     url: "{{ gtk_theme_source_url }}"

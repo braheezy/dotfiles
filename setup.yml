@@ -13,10 +13,19 @@
           - firefox
         state: present
     
+    # These should probably always install.
     - import_role: name=base
     - import_role: name=vs_code
+    - import_role: name=spotify
+      become: yes
     - import_role: name=gtk
-    - import_role: name=rpm-dev
     - import_role: name=kitty
     - import_role: name=gnome-terminal
-      
+
+    # These might not be installed sometimes. Just comment it out.
+    - import_role: name=rpm-dev
+      become: yes
+    - import_role: name=packer-dev
+      become: yes
+    - import_role: name=virtualbox
+      become: yes
