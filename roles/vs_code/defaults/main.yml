@@ -36,6 +36,7 @@ vs_code_settings: {
             "files.associations": {
               "Vagrantfile": "ruby",
               "aliases": "shellscript",
-              "exports": "shellscript"
+              "exports": "shellscript",
+              "*.pkr.hcl": "terraform"
             }
 }
