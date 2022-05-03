@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+# Ensure system is up to date
+sudo yum -y update
 
 # Install Ansible, which will perform rest of setup.
 sudo yum install -y ansible cowsay
