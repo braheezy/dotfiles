@@ -14,18 +14,29 @@
         state: present
     
     # These should probably always install.
-    - import_role: name=base
-    - import_role: name=vs_code
-    - import_role: name=spotify
-      become: yes
-    - import_role: name=gtk
-    - import_role: name=kitty
-    - import_role: name=gnome-terminal
+    - import_role:
+        name: base
+    - import_role:
+        name: vs_code
 
-    # These might not be installed sometimes. Just comment it out.
-    - import_role: name=rpm-dev
-      become: yes
-    - import_role: name=packer-dev
-      become: yes
-    - import_role: name=virtualbox
-      become: yes
+    # There are specific and more app installs than a dotfile setup. Uncomment to use.
+    # - import_role:
+    #   become: yes
+    #     name: spotify
+    # - import_role:
+    #     name: spicetify
+    # - import_role:
+    #     name: gtk
+    # - import_role:
+    #     name: kitty
+    # - import_role:
+    #     name: gnome-terminal
+    # - import_role:
+    #   become: yes
+    #     name: rpm-dev
+    # - import_role:
+    #   become: yes
+    #     name: packer-dev
+    # - import_role:
+    #   become: yes
+    #     name: virtualbox
