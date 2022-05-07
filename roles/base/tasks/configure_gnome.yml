@@ -23,3 +23,16 @@
     key: "/org/gnome/shell/favorite-apps"
     value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop']"
     state: present
+
+- name: Enable auto-login
+  community.general.ini_file:
+    path: /etc/gdm/custom.conf
+    section: daemon
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    mode: 0644
+    backup: yes
+  loop:
+   - { option: AutomaticLoginEnable, value: True}
+   - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
+
