@@ -1,5 +1,6 @@
 ---
 - name: Ensure packages for customization are installed
+  become: yes
   yum:
     name:
       - gnome-tweaks

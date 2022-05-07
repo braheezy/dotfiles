@@ -1,16 +1,18 @@
 ---
 - name: Remove GNOME software I don't want
   yum:
+    # Asteriks at the end because of a bug in the underlying dnf module
+    # https://github.com/ansible/ansible/issues/64294
     name:
-      - gnome-maps
-      - gnome-abrt
-      - gnome-connections
+      - gnome-maps*
+      - gnome-abrt*
+      - gnome-connections*
+      - gnome-contacts*
+      - gnome-tour*
+      - gnome-boxes*
       - cheese
       - rhythmbox
-      - gnome-contacts
-      - gnome-tour
-      - gnome-boxes
-    state: absent
+    state: removed
   
 - name: Delete home folders I don't want
   file:

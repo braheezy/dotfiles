@@ -1,7 +1,21 @@
 ---
 - name: Ensure hostname is set
-  hostname:
-    name: "{{ hostname }}"
+  become: yes
+  block:
+    - name: Set static hostname
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.1\.1'
+        line: 127.0.1.1 {{ hostname }}
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Reboot
+    
+    - name: Set transient hostname
+      hostname:
+        name: "{{ hostname }}"
+      
   when: hostname != None
 
 - name: Ensure .bashrc.d exists
