@@ -1,0 +1,17 @@
+---
+
+- name: Add hashicorp repo
+  get_url:
+    url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+    dest: /etc/yum.repos.d/hashicorp.repo
+
+- name: Ensure hashicorp RPM key is present  
+  rpm_key:
+    key: https://rpm.releases.hashicorp.com/gpg
+    state: present
+    
+- name: Install Vagrant
+  yum:
+    name: vagrant
+    state: present
+    

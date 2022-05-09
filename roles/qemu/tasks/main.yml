@@ -1,0 +1,41 @@
+---
+
+- name: Install the 'virtualization' group
+  yum:
+    name: "@virtualization"
+    state: present
+
+- name: Install extra libvirt packages
+  yum:
+    name:
+      - libvirt
+      - libvirt-devel
+      - libxml2-devel
+    state: present
+
+- name: Enable/start libvirtd service
+  systemd:
+    name: libvirtd
+    state: started
+    enabled: yes
+
+- name: Ensure libvirt group exists
+  group:
+    name: libvirt
+    state: present
+
+- name: Ensure user is in libvirt group
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: libvirt
+    append: yes
+
+# TODO: Ensure this exists at /etc/polkit-1/rules.d/10-virt.rules
+# polkit.addRule(function(action, subject) {
+#     if (action.id == "org.libvirt.unix.manage"
+#             && subject.local
+#             && subject.active
+#             && subject.isInGroup("libvirt")) {
+#         return polkit.Result.YES;
+#     }
+# });
