@@ -25,6 +25,7 @@
     state: present
 
 - name: Enable auto-login
+  become: yes
   community.general.ini_file:
     path: /etc/gdm/custom.conf
     section: daemon
@@ -33,6 +34,7 @@
     mode: 0644
     backup: yes
   loop:
-   - { option: AutomaticLoginEnable, value: True}
+   - { option: AutomaticLoginEnable, value: "True"}
    - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
 
+# TODO: Disable screen dimming
