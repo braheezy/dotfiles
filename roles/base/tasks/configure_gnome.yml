@@ -24,6 +24,12 @@
     value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop']"
     state: present
 
+- name: Disable screen turning off
+  community.general.dconf:
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: "0"
+    state: present
+
 - name: Enable auto-login
   become: yes
   community.general.ini_file:
@@ -34,7 +40,5 @@
     mode: 0644
     backup: yes
   loop:
-   - { option: AutomaticLoginEnable, value: "True"}
+   - { option: AutomaticLoginEnable, value: "'True'"}
    - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
-
-# TODO: Disable screen dimming
