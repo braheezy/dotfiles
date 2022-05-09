@@ -38,10 +38,13 @@
 
 - import_tasks: clean_gnome.yml
   become: yes
+
 - import_tasks: gnome_extensions.yml
+
 - import_tasks: configure_gnome.yml
+
 - import_tasks: install_fonts.yml
   become: yes
-  when: ansible_facts['distribution'] == "Fedora"
+
 - import_tasks: oh-my-posh.yml
   become: yes
