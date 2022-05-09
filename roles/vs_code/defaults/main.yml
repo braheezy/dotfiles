@@ -37,6 +37,7 @@ vs_code_settings: {
               "Vagrantfile": "ruby",
               "aliases": "shellscript",
               "exports": "shellscript",
+              "prompt": "shellscript",
               "*.pkr.hcl": "terraform"
             }
 }
