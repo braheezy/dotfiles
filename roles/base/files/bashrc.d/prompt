@@ -1,0 +1,22 @@
+# Run oh-my-posh with a custom theme
+# Things I like in my prompt:
+#   - Full path to current location
+#   - Info on source control: branch name and if there's changes
+#   - Username
+#   - Hostname (hopefully different if remotely accessed)
+#   - If it displays time, 12 hr clock
+#   - Input line is on newline
+
+# Here's a bash function to view different prompts
+view_prompts(){
+    prompts=("cert" "cinnamon" "clean-detailed" "grandpa-style" "markbull" "paradox" "slimfat" "sonicboom_dark" "thecyberden" "tiwahu" "unicorn")
+    for p in "${prompts[@]}"
+        do
+        echo "Here's the ${p} prompt"
+        oh-my-posh print primary --config "~/.poshthemes/${p}.omp.json" --shell uni
+        printf "\n\n\n"
+    done
+}
+
+
+eval "$(oh-my-posh init bash --config ~/.poshthemes/grandpa-style.omp.json)"
