@@ -1,0 +1,5 @@
+---
+
+- name: Make Favorite
+  debug:
+    msg: Remember to add Spotify to your favorites :)
