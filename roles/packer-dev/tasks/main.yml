@@ -13,3 +13,11 @@
   yum:
     name: packer
     state: present
+
+- name: Install extra stuff usually used during Packer dev
+  yum:
+    name:
+      # To view QEMU builds in progress
+      - tigervnc
+      # To work with ISO files, like virtio-win
+      - xorriso
