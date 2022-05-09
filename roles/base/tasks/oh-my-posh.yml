@@ -1,0 +1,33 @@
+---
+
+- name: Download latest release
+  get_url:
+    url: "https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64"
+    dest: /tmp/oh-my-posh
+
+- name: Get checksum of downloaded posh
+  stat:
+    path: /tmp/oh-my-posh
+  register: downloaded_posh_file
+
+- name: Get checksum of current posh
+  stat:
+    path: /usr/local/bin/oh-my-posh
+  register: current_posh_file
+
+- name: Install/update posh
+  copy:
+    src: /tmp/oh-my-posh
+    dest: /usr/local/bin/oh-my-posh
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  register: posh_updated
+  when: not current_posh_file.stat.exists or downloaded_posh_file.stat.checksum != current_posh_file.stat.checksum
+  
+- name: Delete downloaded posh
+  file:
+    path: /tmp/oh-my-posh
+    state: absent
+  when: posh_updated.changed
