@@ -11,11 +11,11 @@
         group: root
         mode: '0644'
       notify: Reboot
-    
+
     - name: Set transient hostname
       hostname:
         name: "{{ hostname }}"
-      
+
   when: hostname != None
 
 - name: Ensure .bashrc.d exists
