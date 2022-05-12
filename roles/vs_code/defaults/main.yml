@@ -33,6 +33,8 @@ vs_code_settings: {
             "extensions.ignoreRecommendations": true,
             "git.confirmSync": false,
             "files.eol": "\n",
+            "files.trimFinalNewlines": true,
+            "files.trimTrailingWhitespace": true,
             "files.associations": {
               "Vagrantfile": "ruby",
               "aliases": "shellscript",
