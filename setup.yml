@@ -2,7 +2,7 @@
 - name: Install dotfiles
   hosts: localhost
   connection: local
-  
+
   tasks:
     - name: Install base packages
       become: yes
@@ -11,8 +11,10 @@
           - wget
           - lolcat
           - firefox
+          - patch
+          - bat
         state: present
-    
+
     # These should probably always install.
     - import_role:
         name: base
@@ -21,22 +23,37 @@
 
     # There are specific and more app installs than a dotfile setup. Uncomment to use.
     # - import_role:
-    #   become: yes
     #     name: spotify
+    #   become: yes
+
     # - import_role:
     #     name: spicetify
+
     # - import_role:
     #     name: gtk
+
     # - import_role:
     #     name: kitty
+
+    # - import_role:
+    #     name: qemu
+    #   become: yes
+
     # - import_role:
     #     name: gnome-terminal
+
     # - import_role:
-    #   become: yes
     #     name: rpm-dev
-    # - import_role:
     #   become: yes
+
+    # - import_role:
     #     name: packer-dev
-    # - import_role:
     #   become: yes
+
+    # - import_role:
     #     name: virtualbox
+    #   become: yes
+
+    # - import_role:
+    #     name: vagrant-dev
+    #   become: yes
