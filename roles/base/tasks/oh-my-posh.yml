@@ -31,3 +31,35 @@
     path: /tmp/oh-my-posh
     state: absent
   when: posh_updated.changed
+
+- name: Check if themes are installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.poshthemes"
+  register: theme_folder
+
+- name: Install themes
+  become: no
+  block:
+    - name: Download themes
+      get_url:
+        url: https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip
+        dest: /tmp/posh-themes.zip
+
+    - name: Create themes directory
+      file:
+        path: "{{ ansible_env.HOME }}/.poshthemes"
+        state: directory
+        mode: '0755'
+    
+    - name: Install themes
+      unarchive:
+        src: /tmp/posh-themes.zip
+        dest: "{{ ansible_env.HOME }}/.poshthemes"
+        mode: 0755
+      
+    - name: Delete downloaded zip
+      file:
+        path: /tmp/posh-themes.zip
+        state: absent
+
+  when: not theme_folder.stat.isdir is defined or not theme_folder.stat.isdir
