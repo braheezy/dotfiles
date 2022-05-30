@@ -15,19 +15,19 @@
 - name: Enable workspace switching for all monitors
   community.general.dconf:
     key: "/org/gnome/mutter/workspaces-only-on-primary"
-    value: "'False'"
+    value: "false"
     state: present
 
 - name: Set favorite apps list
   community.general.dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop']"
+    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop']"
     state: present
 
 - name: Disable screen turning off
   community.general.dconf:
     key: "/org/gnome/desktop/session/idle-delay"
-    value: "0"
+    value: "uint32 0"
     state: present
 
 - name: Enable auto-login
