@@ -17,12 +17,12 @@
         path: /usr/share/fonts/SourceCodePro
         state: directory
         mode: '0755'
-    
+
     - name: Install fonts
       unarchive:
         src: /tmp/SourceCodePro.zip
         dest: /usr/share/fonts/SourceCodePro
-      
+
     - name: Delete downloaded zip
       file:
         path: /tmp/SourceCodePro.zip
@@ -31,26 +31,25 @@
   when: not font_folder.stat.isdir is defined or not font_folder.stat.isdir
 
 - name: Set font-name
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/interface/font-name"
     value: "'SauceCodePro NF Medium'"
     state: present
 
 - name: Set document-font-name
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/interface/document-font-name"
     value: "'Source Code Pro Medium'"
     state: present
-  
+
 - name: Set monospace-font-name
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/interface/monospace-font-name"
     value: "'SauceCodePro Nerd Font Mono Regular'"
     state: present
 
 - name: Set titlebar-font
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/wm/preferences/titlebar-font"
     value: "'Source Code Pro Black'"
     state: present
-

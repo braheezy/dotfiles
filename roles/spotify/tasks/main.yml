@@ -5,13 +5,13 @@
     state: present
 
 - name: Add the flathub flatpak repository remote
-  community.general.flatpak_remote:
+  flatpak_remote:
     name: flathub
     state: present
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
 - name: Install spotify
-  community.general.flatpak:
+  flatpak:
     name: com.spotify.Client
     state: present
   notify: Make Favorite
