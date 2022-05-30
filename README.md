@@ -8,7 +8,22 @@ The great thing about Ansible is the idempotency and support for dry running. Yo
 
 # Prerequites
 * `sudo` access
+* GNOME desktop
 
 # Installation
 1. Clone this repo to the machine you want to set up.
 2. Run `sh install.sh`
+
+# From a minimal machine
+If you often find yourself with a minimal OS install as a starting point, this section's for you.
+
+**Fedora 35**
+
+Install GNOME and update system to use a Desktop.
+```bash
+yum -y update
+yum makecache
+yum -y groupinstall gnome
+systemctl set-default graphical.target
+reboot
+```
