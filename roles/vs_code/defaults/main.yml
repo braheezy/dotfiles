@@ -22,7 +22,7 @@ vs_code_skip_add_repo: no
 # Extensions to install
 # Either an identifier of the form ${publisher}.${name}, which will fetch from the internet
 # Or a local path to a .vsix file.
-vs_code_extensions: ['catppuccin.catppuccin-vsc', '1dot75cm.rpmspec', 'hashicorp.terraform']
+vs_code_extensions: ['catppuccin.catppuccin-vsc', '1dot75cm.rpmspec', 'hashicorp.terraform', 'streetsidesoftware.code-spell-checker']
 
 # Settings to use
 vs_code_settings: {
@@ -39,7 +39,6 @@ vs_code_settings: {
               "Vagrantfile": "ruby",
               "aliases": "shellscript",
               "exports": "shellscript",
-              "prompt": "shellscript",
-              "*.pkr.hcl": "terraform"
+              "prompt": "shellscript"
             }
 }
