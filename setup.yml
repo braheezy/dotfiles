@@ -9,7 +9,6 @@
       yum:
         name:
           - wget
-          - lolcat
           - firefox
           - patch
           - bat
@@ -19,20 +18,20 @@
     - import_role:
         name: base
     - import_role:
+        name: gtk
+    - import_role:
         name: vs_code
     - import_role:
         name: kitty
 
-    # There are specific and more app installs than a dotfile setup. Uncomment to use.
+    # There are specific and more 'app installs' than a dotfile setup. Uncomment to use.
+
     # - import_role:
     #     name: spotify
     #   become: yes
 
     # - import_role:
     #     name: spicetify
-
-    # - import_role:
-    #     name: gtk
 
     # - import_role:
     #     name: qemu
