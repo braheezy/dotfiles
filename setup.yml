@@ -20,6 +20,8 @@
         name: base
     - import_role:
         name: vs_code
+    - import_role:
+        name: kitty
 
     # There are specific and more app installs than a dotfile setup. Uncomment to use.
     # - import_role:
@@ -31,9 +33,6 @@
 
     # - import_role:
     #     name: gtk
-
-    # - import_role:
-    #     name: kitty
 
     # - import_role:
     #     name: qemu
