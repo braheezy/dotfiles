@@ -1,5 +1,5 @@
 ---
-- name: Install dotfiles
+- name: Install dotfiles and some other basics
   hosts: localhost
   connection: local
 
@@ -23,35 +23,6 @@
         name: vs_code
     - import_role:
         name: kitty
-
-    # There are specific and more 'app installs' than a dotfile setup. Uncomment to use.
-
-    # - import_role:
-    #     name: spotify
-    #   become: yes
-
-    # - import_role:
-    #     name: spicetify
-
-    # - import_role:
-    #     name: qemu
-    #   become: yes
-
-    # - import_role:
-    #     name: gnome-terminal
-
-    # - import_role:
-    #     name: rpm-dev
-    #   become: yes
-
-    # - import_role:
-    #     name: packer-dev
-    #   become: yes
-
-    # - import_role:
-    #     name: virtualbox
-    #   become: yes
-
-    # - import_role:
-    #     name: vagrant-dev
-    #   become: yes
+    # Because sometimes the GPU Kitty just doesn't work.
+    - import_role:
+        name: gnome-terminal

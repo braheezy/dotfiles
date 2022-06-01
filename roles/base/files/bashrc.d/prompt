@@ -3,7 +3,7 @@
 #   - Full path to current location
 #   - Info on source control: branch name and if there's changes
 #   - Username
-#   - Hostname (hopefully different if remotely accessed)
+#   - Hostname (hopefully different style if remotely accessed)
 #   - If it displays time, 12 hr clock
 #   - Input line is on newline
 
@@ -19,4 +19,4 @@ view_prompts(){
 }
 
 
-eval "$(oh-my-posh init bash --config ~/.poshthemes/grandpa-style.omp.json)"
+eval "$(oh-my-posh init bash --config ~/.poshthemes/cinnamon.omp.json)"
