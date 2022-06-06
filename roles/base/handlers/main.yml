@@ -1,9 +1,5 @@
 ---
 
-- name: Re-Login
-  debug:
-    msg: Things should work fine but you should log out and back in for everything to take effect :)
-
 - name: Reboot
   debug:
     msg: Some changes were made that require a reboot to take full effect. Please do so at your convenience :)

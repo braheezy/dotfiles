@@ -1,23 +1,4 @@
 ---
-- name: Ensure hostname is set
-  become: yes
-  block:
-    - name: Set static hostname
-      lineinfile:
-        path: /etc/hosts
-        regexp: '^127\.0\.1\.1'
-        line: 127.0.1.1 {{ hostname }}
-        owner: root
-        group: root
-        mode: '0644'
-      notify: Reboot
-
-    - name: Set transient hostname
-      hostname:
-        name: "{{ hostname }}"
-
-  when: hostname != None
-
 - name: Ensure .bashrc.d exists
   file:
     path: "{{ ansible_env.HOME }}/.bashrc.d"
@@ -35,13 +16,6 @@
     src: home/
     dest: "{{ ansible_env.HOME }}"
     mode: 0644
-
-- import_tasks: clean_gnome.yml
-  become: yes
-
-- import_tasks: gnome_extensions.yml
-
-- import_tasks: configure_gnome.yml
 
 - import_tasks: install_fonts.yml
   become: yes

@@ -1,12 +1,21 @@
 ---
-- import_tasks: install.yml
-  become: yes
 
-- import_tasks: install_extensions.yml
+- name: Get VS Code install status
+  package:
+    name: code
+    state: present
+  check_mode: yes
+  register: vscode_install
 
-# I can't stand the green color they chose for strings, the thing I look at most in VS Code. So this patch
-# changes that behavior to use a purple instead, my fav color :)
-# Plus in YAML, the key is green too. This made for green on green YAML files :(
-- import_tasks: patch_catppuccin_theme.yml
+- name: Configure VS Code
+  block:
+    -
+    - import_tasks: install_extensions.yml
 
-- import_tasks: write_settings.yml
+    # I can't stand the green color they chose for strings, the thing I look at most in VS Code. So this patch
+    # changes that behavior to use a purple instead, my fav color :)
+    - import_tasks: patch_catppuccin_theme.yml
+
+    - import_tasks: write_settings.yml
+
+  when: vscode_install is succeeded

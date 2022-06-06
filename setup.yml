@@ -1,12 +1,12 @@
 ---
-- name: Install dotfiles and some other basics
+- name: Install dotfiles and other basics customizations
   hosts: localhost
   connection: local
 
   tasks:
     - name: Install base packages
       become: yes
-      yum:
+      package:
         name:
           - wget
           - firefox
@@ -14,15 +14,12 @@
           - bat
         state: present
 
-    # These should probably always install.
     - import_role:
         name: base
-    - import_role:
-        name: gtk
     - import_role:
         name: vs_code
     - import_role:
         name: kitty
-    # Because sometimes the GPU Kitty just doesn't work.
     - import_role:
         name: gnome-terminal
+      when: ansible_env.DESKTOP_SESSION == 'gnome'

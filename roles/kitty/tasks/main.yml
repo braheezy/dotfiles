@@ -1,41 +1,48 @@
 ---
-- name: install kitty
-  become: yes
-  yum:
+
+- name: Get Kitty install status
+  package:
     name: kitty
     state: present
+  check_mode: yes
+  register: kitty_install
 
-- name: Ensure kitty.conf exists
-  copy:
-    src: kitty.conf
-    dest: "{{ ansible_env.HOME }}/.config/kitty/"
-    mode: 0755
+- name: Configure kitty
+  block:
 
-- name: Disable annoying notifications
-  dconf:
-    key: "/org/gnome/desktop/notifications/application/kitty/enable"
-    value: "false"
-    state: present
+    - name: Ensure kitty.conf exists
+      copy:
+        src: kitty.conf
+        dest: "{{ ansible_env.HOME }}/.config/kitty/"
+        mode: 0755
 
-- name: Add keyboard shortcut for kitty
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
-    value: "'kitty'"
-    state: present
+    - name: Disable annoying notifications
+      dconf:
+        key: "/org/gnome/desktop/notifications/application/kitty/enable"
+        value: "false"
+        state: present
 
-- name: Set keyboard shortcut command to run kitty
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
-    value: "'kitty'"
-    state: present
+    - name: Add keyboard shortcut for kitty
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
+        value: "'kitty'"
+        state: present
 
-- name: Add keyboard shortcut
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
-    value: "'<Alt>t'"
-    state: present
+    - name: Set keyboard shortcut command to run kitty
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
+        value: "'kitty'"
+        state: present
 
-- name: enable custom keybindings
-  dconf:
-    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
-    value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+    - name: Add keyboard shortcut
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
+        value: "'<Alt>t'"
+        state: present
+
+    - name: enable custom keybindings
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+        value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+
+  when: kitty_install is succeeded

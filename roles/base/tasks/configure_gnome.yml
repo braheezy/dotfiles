@@ -40,5 +40,5 @@
     mode: 0644
     backup: yes
   loop:
-   - { option: AutomaticLoginEnable, value: "'True'"}
+   - { option: AutomaticLoginEnable, value: "True"}
    - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
