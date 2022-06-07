@@ -1,0 +1,5 @@
+---
+
+- import_tasks: configure_gnome.yml
+
+- import_tasks: clean_gnome.yml

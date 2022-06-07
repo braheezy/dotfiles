@@ -4,6 +4,9 @@
   connection: local
 
   tasks:
+    - name: Gather package_facts
+      package_facts:
+
     - name: Install base packages
       become: yes
       package:
@@ -20,6 +23,10 @@
         name: vs_code
     - import_role:
         name: kitty
+
+    - import_role:
+        name: gnome
+      when: ansible_env.DESKTOP_SESSION == 'gnome'
     - import_role:
         name: gnome-terminal
       when: ansible_env.DESKTOP_SESSION == 'gnome'

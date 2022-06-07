@@ -1,12 +1,5 @@
 ---
 
-- name: Get Kitty install status
-  package:
-    name: kitty
-    state: present
-  check_mode: yes
-  register: kitty_install
-
 - name: Configure kitty
   block:
 
@@ -45,4 +38,4 @@
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 
-  when: kitty_install is succeeded
+  when: "'kitty' in ansible_facts.packages"

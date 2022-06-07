@@ -1,15 +1,7 @@
 ---
 
-- name: Get VS Code install status
-  package:
-    name: code
-    state: present
-  check_mode: yes
-  register: vscode_install
-
 - name: Configure VS Code
   block:
-    -
     - import_tasks: install_extensions.yml
 
     # I can't stand the green color they chose for strings, the thing I look at most in VS Code. So this patch
@@ -18,4 +10,4 @@
 
     - import_tasks: write_settings.yml
 
-  when: vscode_install is succeeded
+  when: "'code' in ansible_facts.packages"
