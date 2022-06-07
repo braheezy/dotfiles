@@ -1,5 +1,9 @@
 ---
 
+- import_tasks: install.yml
+  become: yes
+  when: do_install_vscode
+
 - name: Configure VS Code
   block:
     - import_tasks: install_extensions.yml

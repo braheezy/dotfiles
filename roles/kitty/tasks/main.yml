@@ -1,5 +1,13 @@
 ---
 
+- name: install kitty
+  become: yes
+  yum:
+    name: kitty
+    state: present
+  register: kitty_installed
+  when: do_install_kitty
+
 - name: Configure kitty
   block:
 
@@ -38,4 +46,4 @@
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 
-  when: "'kitty' in ansible_facts.packages"
+  when: "'kitty' in ansible_facts.packages or kitty_installed.changed"
