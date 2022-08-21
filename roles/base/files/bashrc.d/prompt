@@ -19,4 +19,4 @@ view_prompts(){
 }
 
 
-eval "$(oh-my-posh init bash --config ~/.poshthemes/cinnamon.omp.json)"
+eval "$(oh-my-posh init bash --config ~/.poshthemes/markbull.omp.json)"

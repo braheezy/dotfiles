@@ -1,2 +1,13 @@
 # Ansible power user stuff
 alias ap="ansible-playbook"
+
+# Vagrant power user stuff
+alias vu="vagrant up"
+alias vd="vagrant destroy"
+alias vh="vagrant halt"
+alias vssh="vagrant ssh"
+
+# Python virtual environment stuff
+# Create a new virtual environment
+alias ve="python3 -m venv venv"
+alias va="source venv/bin/activate"
