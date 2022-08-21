@@ -1,0 +1,15 @@
+---
+
+- name: Add Charm repo
+  yum_repository:
+    name: Charm
+    description: Charm Tool and Library
+    baseurl: https://repo.charm.sh/yum/
+
+- name: Install glow
+  yum:
+    name:
+      - glow
+      - gum
+    disable_gpg_check: yes
+    state: present
