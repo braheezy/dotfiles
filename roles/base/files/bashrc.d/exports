@@ -6,6 +6,4 @@ export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
 
 # To support Go development
-export GOROOT="/usr/local/go"
-export GOBIN=$HOME/go/bin
-export PATH=$PATH:$GOBIN
+export PATH=$PATH:/usr/local/go/bin
