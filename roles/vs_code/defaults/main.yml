@@ -24,23 +24,67 @@ vs_code_skip_add_repo: no
 # Extensions to install
 # Either an identifier of the form ${publisher}.${name}, which will fetch from the internet
 # Or a local path to a .vsix file.
-vs_code_extensions: ['catppuccin.catppuccin-vsc', '1dot75cm.rpmspec', 'hashicorp.terraform', 'streetsidesoftware.code-spell-checker']
+vs_code_extensions:
+    - '1dot75cm.RPMSpec'
+    - 'aaron-bond.better-comments'
+    - 'bierner.github-markdown-preview'
+    - 'bierner.markdown-checkbox'
+    - 'bierner.markdown-emoji'
+    - 'bierner.markdown-footnotes'
+    - 'bierner.markdown-mermaid'
+    - 'bierner.markdown-preview-github-styles'
+    - 'bierner.markdown-yaml-preamble'
+    - 'Catppuccin.catppuccin-vsc'
+    - 'cschleiden.vscode-github-actions'
+    - 'golang.go'
+    - 'hashicorp.hcl'
+    - 'hashicorp.terraform'
+    - 'ms-vscode.wordcount'
+    - 's-nlf-fh.glassit'
+    - 'streetsidesoftware.code-spell-checker'
+    - 'tamasfe.even-better-toml'
 
 # Settings to use
 vs_code_settings: {
-            "workbench.startupEditor": "none",
-            "editor.formatOnSave": true,
-            "workbench.colorTheme": "Catppuccin",
-            "editor.renderWhitespace": "all",
-            "extensions.ignoreRecommendations": true,
-            "git.confirmSync": false,
-            "files.eol": "\n",
-            "files.trimFinalNewlines": true,
-            "files.trimTrailingWhitespace": true,
-            "files.associations": {
-              "Vagrantfile": "ruby",
-              "aliases": "shellscript",
-              "exports": "shellscript",
-              "prompt": "shellscript"
-            }
+    "editor.formatOnSave": true,
+    "editor.renderWhitespace": "all",
+    "extensions.ignoreRecommendations": true,
+    "files.associations": {
+        "Vagrantfile": "ruby",
+        "aliases": "shellscript",
+        "exports": "shellscript",
+        "prompt": "shellscript",
+        ".gitmessage": "plaintext"
+    },
+    "files.eol": "\n",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "git.confirmSync": false,
+    "workbench.colorTheme": "Catppuccin Macchiato",
+    "workbench.startupEditor": "none",
+    "cSpell.userWords": [
+        "barbeque",
+        "braheezy",
+        "bubbletea",
+        "Catppuccin",
+        "charmbracelet",
+        "combin",
+        "genericity",
+        "hashicorp",
+        "interwebs",
+        "lipgloss",
+        "Macchiato",
+        "PROGRAMMERZ",
+        "struct",
+        "textinput",
+        "Vectorize",
+        "wordvalue"
+    ],
+    "go.inferGopath": true,
+    "go.toolsManagement.autoUpdate": true,
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 120,
+    "editor.minimap.enabled": false,
+    "git.inputValidation": "always",
+    "glassit.alpha": 240
 }
