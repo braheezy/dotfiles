@@ -23,6 +23,9 @@
         name: vs_code
     - import_role:
         name: kitty
+    - import_role:
+        name: charms
+      become: yes
 
     - import_role:
         name: gnome
