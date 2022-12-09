@@ -1,6 +1,5 @@
 ---
-# If true, take extra steps to install Kitty first
-do_install_vscode: false
+
 # Visual Studio Code version number (defaults to the latest version)
 vs_code_version: ''
 # Mirror server for fetching the public keys and the Visual Studio Code
@@ -60,24 +59,41 @@ vs_code_settings: {
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
     "git.confirmSync": false,
-    "workbench.colorTheme": "Catppuccin Macchiato",
-    "workbench.startupEditor": "none",
     "cSpell.userWords": [
+        "Abser",
         "barbeque",
+        "blockinfile",
         "braheezy",
         "bubbletea",
         "Catppuccin",
         "charmbracelet",
         "combin",
+        "dconf",
+        "devel",
+        "flatpak",
         "genericity",
+        "goreleaser",
         "hashicorp",
+        "homebase",
         "interwebs",
+        "ints",
+        "itertools",
+        "katas",
+        "libvirtd",
+        "lineinfile",
         "lipgloss",
         "Macchiato",
+        "mysecretsalt",
+        "prettybox",
         "PROGRAMMERZ",
+        "Pubkey",
+        "spicetify",
+        "stretchr",
         "struct",
+        "testdata",
         "textinput",
         "Vectorize",
+        "virtnetworkd",
         "wordvalue"
     ],
     "go.inferGopath": true,
@@ -86,5 +102,15 @@ vs_code_settings: {
     "editor.wordWrapColumn": 120,
     "editor.minimap.enabled": false,
     "git.inputValidation": "always",
-    "glassit.alpha": 240
+    "glassit.alpha": 240,
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.startupEditor": "none",
+    "[markdown]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 120,
+    },
+    "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false
+    },
 }

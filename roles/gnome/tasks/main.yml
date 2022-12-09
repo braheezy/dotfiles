@@ -3,3 +3,11 @@
 - import_tasks: configure_gnome.yml
 
 - import_tasks: clean_gnome.yml
+
+- name: Install GNOME config tools
+  become: yes
+  yum:
+    name:
+      - gnome-tweaks
+      - dconf-editor
+    state: present

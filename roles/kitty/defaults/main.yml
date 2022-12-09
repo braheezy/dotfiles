@@ -1,3 +1,0 @@
----
-# If true, take extra steps to install Kitty first
-do_install_kitty: false

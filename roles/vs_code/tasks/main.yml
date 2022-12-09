@@ -2,15 +2,11 @@
 
 - import_tasks: install.yml
   become: yes
-  when: do_install_vscode
+  when: do_install
 
 - name: Configure VS Code
   block:
     - import_tasks: install_extensions.yml
-
-    # I can't stand the green color they chose for strings, the thing I look at most in VS Code. So this patch
-    # changes that behavior to use a purple instead, my fav color :)
-    - import_tasks: patch_catppuccin_theme.yml
 
     - import_tasks: write_settings.yml
 

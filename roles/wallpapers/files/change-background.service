@@ -1,0 +1,10 @@
+[Unit]
+Description=Change user desktop background (on login)
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/bash /usr/local/bin/change-background.sh
+
+[Install]
+WantedBy=basic.target

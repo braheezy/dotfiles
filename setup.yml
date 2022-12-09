@@ -2,6 +2,9 @@
 - name: Install dotfiles and other basics customizations
   hosts: localhost
   connection: local
+  vars:
+    # If true, take extra steps to install apps too
+    do_install: true
 
   tasks:
     - name: Gather package_facts
@@ -11,10 +14,15 @@
       become: yes
       package:
         name:
+          - cronie
           - wget
           - firefox
           - patch
           - bat
+          - ripgrep
+          - neovim
+          - duf
+          - fd-find
         state: present
 
     - import_role:
@@ -25,6 +33,12 @@
         name: kitty
     - import_role:
         name: charms
+      become: yes
+    - import_role:
+        name: cheat
+      become: yes
+    - import_role:
+        name: wallpapers
       become: yes
 
     - import_role:

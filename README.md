@@ -8,8 +8,6 @@ The great thing about Ansible is the idempotency and support for dry running. Yo
 
 # Prerequisites
 * `sudo` access
-* VS Code installed
-* Kitty terminal installed
 
 # Installation
 1. Clone this repo to the machine you want to set up.

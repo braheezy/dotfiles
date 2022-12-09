@@ -30,6 +30,12 @@
     value: "uint32 0"
     state: present
 
+- name: Prefer Dark Mode
+  dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+    state: present
+
 - name: Enable auto-login
   become: yes
   ini_file:

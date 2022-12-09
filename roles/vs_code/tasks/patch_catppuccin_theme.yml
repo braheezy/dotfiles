@@ -1,6 +1,17 @@
 ---
 
+- name: Find extension install dir
+  find:
+    paths: "{{ ansible_env.HOME }}/.vscode/extensions/"
+    file_type: directory
+    patterns: '.*catppuccin*'
+    use_regex: yes
+  register: extension_dir
+
+- debug:
+    var: extension_dir
+
 - name: Apply patch to change 'green' strings to 'mauve'
   patch:
     src: Catppuccin-color-theme.patch
-    basedir: "{{ ansible_env.HOME }}/.vscode/extensions/catppuccin.catppuccin-vsc-1.0.6/themes"
+    basedir: "{{ extension_dir.files[0].path }}/themes"

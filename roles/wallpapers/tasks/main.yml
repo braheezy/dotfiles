@@ -1,0 +1,27 @@
+---
+
+# Git because we want to ability to update
+- name: Download catppuccin wallpapers
+  git:
+    repo: https://github.com/catppuccin/wallpapers.git
+    dest: '{{ ansible_env.HOME }}/Pictures/catppuccin-wallpapers'
+
+- name: Ensure custom script to change background exists
+  become: yes
+  copy:
+    src: change-background.sh
+    dest: /usr/local/bin/change-background
+    mode: 0755
+
+- name: Ensure service for changing background on login exists
+  become: yes
+  copy:
+    src: change-background.service
+    dest: /etc/systemd/system/
+
+- name: Ensure cron job to change background daily exists
+  cron:
+    name: "change background"
+    minute: 0
+    hour: 12
+    job: /usr/local/bin/change-background

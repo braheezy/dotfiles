@@ -6,7 +6,7 @@
     name: kitty
     state: present
   register: kitty_installed
-  when: do_install_kitty
+  when: do_install
 
 - name: Configure kitty
   block:
