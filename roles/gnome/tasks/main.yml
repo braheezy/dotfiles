@@ -11,3 +11,5 @@
       - gnome-tweaks
       - dconf-editor
     state: present
+
+- import_tasks: apply_gtk_theme.yml

@@ -11,11 +11,23 @@
 - name: Configure kitty
   block:
 
-    - name: Ensure kitty.conf exists
+    - name: Ensure base kitty.conf exists
       copy:
         src: kitty.conf
         dest: "{{ ansible_env.HOME }}/.config/kitty/"
-        mode: 0755
+
+    - name: Ensure kitty theme directory exists
+      file:
+        path: "{{ ansible_env.HOME }}/.config/kitty/themes"
+        state: directory
+
+    - name: Ensure kitty theme exists
+      get_url:
+        url: https://raw.githubusercontent.com/catppuccin/kitty/main/mocha.conf
+        dest: "{{ ansible_env.HOME }}/.config/kitty/themes/"
+
+    - name: Set kitty theme
+      command: kitty +kitten themes --reload-in=all Catppuccin-Mocha
 
     - name: Disable annoying notifications
       dconf:

@@ -1,0 +1,22 @@
+---
+
+- name: Download cursors
+  get_url:
+    url: https://github.com/catppuccin/cursors/blob/main/cursors/Catppuccin-Mocha-Mauve-Cursors.zip?raw=true
+    dest: /tmp
+
+- name: Unpack cursors
+  become: yes
+  unarchive:
+    src: /tmp/Catppuccin-Mocha-Mauve-Cursors.zip
+    dest: /usr/share/icons
+    remote_src: yes
+
+- name: Configure a default cursor in settings
+  dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - { key: "/org/gnome/desktop/interface/cursor-size", value: "32" }
+    - { key: "/org/gnome/desktop/interface/cursor-theme", value: "'Catppuccin-Mocha-Mauve-Cursors'" }

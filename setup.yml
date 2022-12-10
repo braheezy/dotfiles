@@ -39,7 +39,8 @@
       become: yes
     - import_role:
         name: wallpapers
-      become: yes
+    - import_role:
+        name: cursors
 
     - import_role:
         name: gnome

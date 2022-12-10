@@ -5,12 +5,20 @@
   git:
     repo: https://github.com/catppuccin/wallpapers.git
     dest: '{{ ansible_env.HOME }}/Pictures/catppuccin-wallpapers'
+    force: true
 
 - name: Ensure custom script to change background exists
   become: yes
   copy:
     src: change-background.sh
     dest: /usr/local/bin/change-background
+    mode: 0755
+
+- name: Ensure custom script to update background exists
+  become: yes
+  copy:
+    src: update-backgrounds.sh
+    dest: /usr/local/bin/update-backgrounds
     mode: 0755
 
 - name: Ensure service for changing background on login exists
@@ -25,3 +33,9 @@
     minute: 0
     hour: 12
     job: /usr/local/bin/change-background
+
+- name: Run update background
+  command: update-backgrounds
+
+- name: Run change background
+  command: change-background
