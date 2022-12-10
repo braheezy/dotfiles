@@ -1,0 +1,13 @@
+---
+
+- name: Register Flathub repository
+  flatpak_remote:
+    name: flathub
+    url: https://flathub.org/repo/flathub.flatpakrepo
+
+- name: Install Flatpak apps
+  flatpak:
+    name:
+      - com.obsproject.Studio
+      - com.spotify.Client
+    state: present

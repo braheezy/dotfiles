@@ -16,3 +16,6 @@
     key: "/org/gnome/desktop/interface/gtk-theme"
     value: "'Catppuccin-Mocha'"
     state: present
+
+- name: Apply theme to GDM
+  script: install-gdm-theme.sh

@@ -21,7 +21,7 @@
 - name: Set favorite apps list
   dconf:
     key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop']"
+    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop', 'com.spotify.Client.desktop']"
     state: present
 
 - name: Disable screen turning off
@@ -48,3 +48,23 @@
   loop:
    - { option: AutomaticLoginEnable, value: "True"}
    - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
+
+- name: Ensure packages for customization are installed
+  become: yes
+  yum:
+    name:
+      - gnome-extensions-app
+      - gnome-shell-extension-user-theme
+    state: present
+
+- name: Ensure extensions are enabled
+  dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['user-theme@gnome-shell-extensions.gcampax.github.com']"
+    state: present
+
+- name: Set shell theme
+  dconf:
+    key: "/org/gnome/shell/extensions/user-theme/name"
+    value: "'Catppuccin-Mocha'"
+    state: present

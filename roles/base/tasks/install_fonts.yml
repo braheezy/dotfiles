@@ -2,54 +2,49 @@
 
 - name: Check if fonts are installed
   stat:
-    path: /usr/share/fonts/SourceCodePro
+    path: /usr/share/fonts/CaskaydiaCoveNF
   register: font_folder
 
 - name: Install fonts
   block:
-    - name: Download fonts
-      get_url:
-        url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip
-        dest: /tmp/
-
     - name: Create font directory
       file:
-        path: /usr/share/fonts/SourceCodePro
+        path: /usr/share/fonts/CaskaydiaCoveNF
         state: directory
         mode: '0755'
 
-    - name: Install fonts
-      unarchive:
-        src: /tmp/SourceCodePro.zip
-        dest: /usr/share/fonts/SourceCodePro
+    - name: Install Regular font
+      get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Regular.otf
+        dest: /usr/share/fonts/CaskaydiaCoveNF/Caskaydia Cove Nerd Font Complete Regular.otf
 
-    - name: Delete downloaded zip
-      file:
-        path: /tmp/SourceCodePro.zip
-        state: absent
+    - name: Install Mono font
+      get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Regular.otf
+        dest: /usr/share/fonts/CaskaydiaCoveNF/Caskaydia Cove Nerd Font Complete Mono Regular.otf
 
   when: not font_folder.stat.isdir is defined or not font_folder.stat.isdir
 
 - name: Set font-name
   dconf:
     key: "/org/gnome/desktop/interface/font-name"
-    value: "'SauceCodePro NF Medium'"
+    value: "'Noto Sans 12'"
     state: present
 
 - name: Set document-font-name
   dconf:
     key: "/org/gnome/desktop/interface/document-font-name"
-    value: "'Source Code Pro Medium'"
+    value: "'Noto Serif 12'"
     state: present
 
 - name: Set monospace-font-name
   dconf:
     key: "/org/gnome/desktop/interface/monospace-font-name"
-    value: "'SauceCodePro Nerd Font Mono Regular'"
+    value: "'CaskaydiaCove Nerd Font Mono 11'"
     state: present
 
 - name: Set titlebar-font
   dconf:
     key: "/org/gnome/desktop/wm/preferences/titlebar-font"
-    value: "'Source Code Pro Black'"
+    value: "'Noto Serif Bold Italic 12'"
     state: present

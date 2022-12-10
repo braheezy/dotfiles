@@ -45,26 +45,21 @@ vs_code_extensions:
 
 # Settings to use
 vs_code_settings: {
-    "editor.formatOnSave": true,
-    "editor.renderWhitespace": "all",
-    "extensions.ignoreRecommendations": true,
-    "files.associations": {
-        "Vagrantfile": "ruby",
-        "aliases": "shellscript",
-        "exports": "shellscript",
-        "prompt": "shellscript",
-        ".gitmessage": "plaintext"
+    "[markdown]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 120
     },
-    "files.eol": "\n",
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
-    "git.confirmSync": false,
+    "[yaml]": {
+        "editor.detectIndentation": false,
+        "editor.tabSize": 2
+    },
     "cSpell.userWords": [
         "Abser",
         "barbeque",
         "blockinfile",
         "braheezy",
         "bubbletea",
+        "Caskaydia",
         "Catppuccin",
         "charmbracelet",
         "combin",
@@ -77,6 +72,7 @@ vs_code_settings: {
         "homebase",
         "interwebs",
         "ints",
+        "isdir",
         "itertools",
         "katas",
         "libvirtd",
@@ -84,6 +80,7 @@ vs_code_settings: {
         "lipgloss",
         "Macchiato",
         "mysecretsalt",
+        "Noto",
         "prettybox",
         "PROGRAMMERZ",
         "Pubkey",
@@ -92,25 +89,33 @@ vs_code_settings: {
         "struct",
         "testdata",
         "textinput",
+        "titlebar",
         "Vectorize",
         "virtnetworkd",
         "wordvalue"
     ],
-    "go.inferGopath": true,
-    "go.toolsManagement.autoUpdate": true,
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 120,
-    "editor.minimap.enabled": false,
+    "extensions.ignoreRecommendations": true,
+    "files.associations": {
+        ".gitmessage": "plaintext",
+        "Vagrantfile": "ruby",
+        "aliases": "shellscript",
+        "exports": "shellscript",
+        "prompt": "shellscript"
+    },
+    "files.eol": "\n",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "git.confirmSync": false,
     "git.inputValidation": "always",
     "glassit.alpha": 240,
+    "go.inferGopath": true,
+    "go.toolsManagement.autoUpdate": true,
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.startupEditor": "none",
-    "[markdown]": {
-        "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 120,
-    },
-    "[yaml]": {
-        "editor.tabSize": 2,
-        "editor.detectIndentation": false
-    },
+    "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono'"
 }
