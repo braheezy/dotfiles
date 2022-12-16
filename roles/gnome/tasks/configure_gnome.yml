@@ -36,6 +36,12 @@
     value: "'prefer-dark'"
     state: present
 
+- name: Set clock display to 12h format
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-format"
+    value: "'12h'"
+    state: present
+
 - name: Enable auto-login
   become: yes
   ini_file:
@@ -48,23 +54,3 @@
   loop:
    - { option: AutomaticLoginEnable, value: "True"}
    - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
-
-- name: Ensure packages for customization are installed
-  become: yes
-  yum:
-    name:
-      - gnome-extensions-app
-      - gnome-shell-extension-user-theme
-    state: present
-
-- name: Ensure extensions are enabled
-  dconf:
-    key: "/org/gnome/shell/enabled-extensions"
-    value: "['user-theme@gnome-shell-extensions.gcampax.github.com']"
-    state: present
-
-- name: Set shell theme
-  dconf:
-    key: "/org/gnome/shell/extensions/user-theme/name"
-    value: "'Catppuccin-Mocha'"
-    state: present
