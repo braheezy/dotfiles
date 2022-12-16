@@ -12,4 +12,4 @@
       - dconf-editor
     state: present
 
-- import_tasks: apply_gtk_theme.yml
+- import_tasks: customize_gtk.yml
