@@ -42,6 +42,7 @@ vs_code_extensions:
     - 's-nlf-fh.glassit'
     - 'streetsidesoftware.code-spell-checker'
     - 'tamasfe.even-better-toml'
+    - 'vscode-icons-team.vscode-icons'
 
 # Settings to use
 vs_code_settings: {
@@ -117,5 +118,6 @@ vs_code_settings: {
     "go.toolsManagement.autoUpdate": true,
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.startupEditor": "none",
-    "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono'"
+    "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono'",
+    "workbench.iconTheme": "vscode-icons"
 }
