@@ -25,7 +25,7 @@ gum spin --spinner minidot --title "Ensuring the system is up to date..." -- \
     sudo yum -y update
 
 gum spin --spinner minidot --title "Checking Ansible is installed..." -- \
-    sudo yum install -y ansible cowsay python3-psutil
+    sudo yum install -y ansible cowsay python3-psutil python3-jmespath
 
 gum spin --spinner minidot --title "Checking Ansible collections are installed..." -- \
     ansible-galaxy collection install community.general
