@@ -1,0 +1,66 @@
+---
+
+- name: Ensure ulauncher is installed
+  become: yes
+  yum:
+    name:
+      - ulauncher
+      # https://github.com/Ulauncher/Ulauncher/wiki/Hotkey-In-Wayland
+      - wmctrl
+    state: present
+
+- name: Add keyboard shortcut for ulauncher (b/c Wayland)
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name"
+    value: "'ulauncher'"
+    state: present
+
+- name: Set keyboard shortcut command to run ulauncher-toggle
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command"
+    value: "'ulauncher-toggle'"
+    state: present
+
+- name: Add keyboard shortcut for ulauncher
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding"
+    value: "'<Control>space'"
+    state: present
+
+- name: Get existing keybinding array
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+    state: read
+  register: current_keybindings
+
+- name: Add new keybinding to array
+  set_fact:
+    current_keybindings_list: "{{ current_keybindings.value[1:-1].split(', ') }}"
+- set_fact:
+    updated_keybindings_list: "{{ current_keybindings_list + [\"'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'\"] }}"
+- set_fact:
+    updated_keybindings: "{{ '[' }}{{ updated_keybindings_list|join(', ') }}{{ ']' }}"
+
+- name: enable custom keybindings
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
+    value: "{{ updated_keybindings }}"
+
+- name: Ensure ulauncher theme dir exists
+  file:
+    path: '{{ ansible_env.HOME }}/.config/ulauncher/user-themes/Catppuccin-Mocha-Round/'
+    state: directory
+
+- name: Ensure the ulauncher theme files are present
+  get_url:
+    url: https://raw.githubusercontent.com/catppuccin/ulauncher/main/src/Catppuccin-Mocha-Round/{{ item }}
+    dest: '{{ ansible_env.HOME }}/.config/ulauncher/user-themes/Catppuccin-Mocha-Round/'
+  loop:
+    - generated.css
+    - manifest.json
+    - theme-gtk-3.20.css
+    - theme.css
+  notify: Manual Theme
+
+- set_fact:
+    handler_message: ulauncher ==> Hotkey Ctrl+Space, open Settings, then set "Color Theme" in Preferences

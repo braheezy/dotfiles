@@ -1,0 +1,10 @@
+---
+
+- name: Manual Theme
+  debug:
+    msg: |
+      The theme for this app requires manual activation. See below:
+
+          {{ handler_message }}
+
+      Enjoy! :]
