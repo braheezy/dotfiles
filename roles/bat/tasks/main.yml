@@ -5,22 +5,29 @@
   yum:
     name: bat
     state: present
+  register: bat_installed
+  when: do_install
 
-- name: Ensure bat theme dir exists
-  file:
-    path: '{{ ansible_env.HOME }}/.config/bat/themes'
-    state: directory
+- name: Configure bat
+  block:
 
-- name: Ensure the bat theme file is installed
-  get_url:
-    url: https://raw.githubusercontent.com/catppuccin/bat/main/Catppuccin-mocha.tmTheme
-    dest: '{{ ansible_env.HOME }}/.config/bat/themes/'
+    - name: Ensure bat theme dir exists
+      file:
+        path: '{{ ansible_env.HOME }}/.config/bat/themes'
+        state: directory
 
-- name: Rebuild bat cache
-  command: bat cache --build
+    - name: Ensure the bat theme file is installed
+      get_url:
+        url: https://raw.githubusercontent.com/catppuccin/bat/main/Catppuccin-mocha.tmTheme
+        dest: '{{ ansible_env.HOME }}/.config/bat/themes/'
 
-- name: Ensure theme is enabled
-  lineinfile:
-    path: '{{ ansible_env.HOME }}/.config/bat/config'
-    create: yes
-    line: --theme="Catppuccin-mocha"
+    - name: Rebuild bat cache
+      command: bat cache --build
+
+    - name: Ensure theme is enabled
+      lineinfile:
+        path: '{{ ansible_env.HOME }}/.config/bat/config'
+        create: yes
+        line: --theme="Catppuccin-mocha"
+
+when: "'bat' in ansible_facts.packages or bat_installed.changed"

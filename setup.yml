@@ -10,6 +10,9 @@
     - name: Gather package_facts
       package_facts:
 
+    - set_fact:
+        user: '{{ ansible_user_id }}'
+
     - name: Install base packages
       become: yes
       package:
@@ -18,9 +21,7 @@
           - wget
           - firefox
           - patch
-          - bat
           - ripgrep
-          - neovim
           - duf
           - fd-find
         state: present
@@ -28,19 +29,29 @@
     - import_role:
         name: base
     - import_role:
+        name: bat
+    - import_role:
+        name: btop
+    - import_role:
         name: vs_code
     - import_role:
         name: kitty
     - import_role:
-        name: charms
-      become: yes
+        name: neovim
     - import_role:
-        name: cheat
-      become: yes
+        name: ulauncher
     - import_role:
         name: wallpapers
-    - import_role:
-        name: cursors
+
+    - name: Run install roles
+      include_role:
+        name: "{{ item }}"
+      with_items:
+        - cursors
+        - cheat
+        - charms
+        - flatpaks
+      when: do_install
 
     - import_role:
         name: gnome

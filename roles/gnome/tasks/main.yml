@@ -11,5 +11,7 @@
       - gnome-tweaks
       - dconf-editor
     state: present
+  when: do_install
 
 - import_tasks: customize_gtk.yml
+  when: do_install

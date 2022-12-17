@@ -19,6 +19,8 @@
 
 - import_tasks: install_fonts.yml
   become: yes
+  when: do_install
 
 - import_tasks: oh-my-posh.yml
   become: yes
+  when: do_install

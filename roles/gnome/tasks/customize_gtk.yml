@@ -92,3 +92,6 @@
 
 - name: Ensure the color switcher script is installed
   shell: /tmp/papirus-folders-install.sh
+
+- name: Change papirus folder colors
+  command: papirus-folders -C violet
