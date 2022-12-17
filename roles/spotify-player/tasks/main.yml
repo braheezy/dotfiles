@@ -1,0 +1,41 @@
+---
+
+- name: Ensure dependencies are installed
+  become: yes
+  yum:
+    name:
+      - openssl-devel
+      - alsa-lib-devel
+      - dbus-devel
+
+- name: Download the latest release
+  get_url:
+    url: https://github.com/aome510/spotify-player/releases/latest/download/spotify_player-x86_64-unknown-linux-gnu.tar.gz
+    dest: /tmp/
+
+- name: Unarchive release
+  become: yes
+  unarchive:
+    src: /tmp/spotify_player-x86_64-unknown-linux-gnu.tar.gz
+    dest: /usr/local/bin/
+
+- name: Set secret variable
+  set_fact:
+    secret: "{{ spotify_client_id | default(ansible_env.SPOTIFY_CLIENT_ID) | default() }}"
+
+- name: Ensure spotify client ID is configured
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/spotify-player/app.toml"
+    create: yes
+    line: client_id = "{{ secret }}"
+  when: secret is defined and secret|length > 0
+
+- name: Ensure the theme file exists
+  get_url:
+    url: https://raw.githubusercontent.com/catppuccin/spotify-player/main/src/theme.toml
+    dest: "{{ ansible_env.HOME }}/.config/spotify-player/"
+
+- name: Ensure spotify client ID is configured
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/spotify-player/app.toml"
+    line: theme = "Catppuccin-macchiato"
