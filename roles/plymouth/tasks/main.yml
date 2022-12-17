@@ -1,0 +1,28 @@
+---
+
+- name: Ensure plymouth is installed
+  become: yes
+  yum:
+    name: plymouth
+  register: plymouth_installed
+  when: do_install
+
+- name: Configure plymouth
+  block:
+
+    - name: Ensure git project is checked out
+      git:
+        repo: https://github.com/catppuccin/plymouth.git
+        dest: /tmp/plymouth
+
+    - name: Ensure themes are provided
+      become: yes
+      copy:
+        src: /tmp/plymouth/themes/catppuccin-mocha
+        dest: /usr/share/plymouth/themes/
+
+    - name: Set plymouth theme
+      become: yes
+      command: plymouth-set-default-theme -R catppuccin-mocha
+
+  when: "'plymouth' in ansible_facts.packages or plymouth_installed.changed"
