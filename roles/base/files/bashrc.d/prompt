@@ -9,7 +9,7 @@
 
 # Here's a bash function to view different prompts
 view_prompts(){
-    prompts=("cert" "cinnamon" "clean-detailed" "grandpa-style" "markbull" "paradox" "slimfat" "sonicboom_dark" "thecyberden" "tiwahu" "unicorn")
+    prompts=("cert" "cinnamon" "clean-detailed" "grandpa-style" "markbull" "paradox" "slimfat" "sonicboom_dark" "thecyberden" "tiwahu" "unicorn" "catppuccin" "catppuccin-mocha")
     for p in "${prompts[@]}"
         do
         echo "Here's the ${p} prompt"
@@ -19,4 +19,4 @@ view_prompts(){
 }
 
 
-eval "$(oh-my-posh init bash --config ~/.poshthemes/markbull.omp.json)"
+eval "$(oh-my-posh init bash --config ~/.poshthemes/catppuccin.omp.json)"
