@@ -13,6 +13,7 @@
       - gnome-boxes*
       - cheese
       - rhythmbox
+      - PackageKit
     state: removed
 
 - name: Delete home folders I don't want
