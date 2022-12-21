@@ -1,0 +1,24 @@
+---
+
+- name: Ensure cava is installed
+  become: yes
+  yum:
+    name: cava
+    state: present
+  register: cava_installed
+  when: do_install
+
+- name: Configure cava
+  block:
+
+    - name: Ensure cava config dir exists
+      file:
+        path: '{{ ansible_env.HOME }}/.config/cava'
+        state: directory
+
+    - name: Ensure the cava config file is present
+      copy:
+        src: config
+        dest: '{{ ansible_env.HOME }}/.config/cava/config'
+
+  when: "'cava' in ansible_facts.packages or cava_installed.changed"
