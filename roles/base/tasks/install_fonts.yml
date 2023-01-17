@@ -13,16 +13,18 @@
         state: directory
         mode: '0755'
 
-    - name: Install Regular font
+    - name: Install different weighted fonts
       get_url:
-        url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Regular.otf
-        dest: /usr/share/fonts/CaskaydiaCoveNF/Caskaydia Cove Nerd Font Complete Regular.otf
+        url: '{{ item }}'
+        dest: /usr/share/fonts/CaskaydiaCoveNF
+      loop:
+        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Regular.otf
+        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Regular.otf
+        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Italic.otf
+        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Bold/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold%20Italic.otf
+        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Bold/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold.otf
 
-    - name: Install Mono font
-      get_url:
-        url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Regular.otf
-        dest: /usr/share/fonts/CaskaydiaCoveNF/Caskaydia Cove Nerd Font Complete Mono Regular.otf
-
+  # TODO: A better check is to ensure all desired font files exist, not just the directory.
   when: not font_folder.stat.isdir is defined or not font_folder.stat.isdir
 
 - name: Set font-name

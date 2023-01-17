@@ -18,5 +18,4 @@ view_prompts(){
     done
 }
 
-
 eval "$(oh-my-posh init bash --config ~/.poshthemes/catppuccin.omp.json)"

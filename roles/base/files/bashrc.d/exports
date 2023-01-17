@@ -1,10 +1,15 @@
 # Make Ansible use the penguin to print messages, if cowsay is installed.
 export ANSIBLE_COW_SELECTION="tux"
 
+# TODO: These PATH mods below seem to be in PATH twice sometimes. Why?
+
 # Set up a local spot to install shiny Ruby gems.
 export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
+PATH="$HOME/gems/bin:$PATH"
 
 # To support Go development
 export GO_PATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$GO_PATH/bin
+PATH=$PATH:/usr/local/go/bin:$GO_PATH/bin
+
+# To support Rust development
+PATH=$PATH:$HOME/.cargo/bin

@@ -10,4 +10,5 @@
     name:
       - com.obsproject.Studio
       - com.spotify.Client
+      - io.github.Foldex.AdwSteamGtk
     state: present

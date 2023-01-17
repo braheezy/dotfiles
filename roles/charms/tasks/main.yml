@@ -5,6 +5,7 @@
     name: Charm
     description: Charm Tool and Library
     baseurl: https://repo.charm.sh/yum/
+    gpgkey: https://repo.charm.sh/yum/gpg.key
 
 - name: Install glow
   yum:

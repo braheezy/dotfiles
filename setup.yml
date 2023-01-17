@@ -44,6 +44,10 @@
         name: wallpapers
     - import_role:
         name: plymouth
+    - import_role:
+        name: cava
+    - import_role:
+        name: steam
 
     - name: Run install roles
       include_role:

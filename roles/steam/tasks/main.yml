@@ -1,0 +1,13 @@
+---
+
+- name: Ensure non-free repos are enabled
+  become: yes
+  yum:
+    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm
+    state: present
+
+- name: Ensure steam is installed
+  become: yes
+  yum:
+    name: steam
+    state: present
