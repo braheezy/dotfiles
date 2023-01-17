@@ -30,4 +30,4 @@
         create: yes
         line: --theme="Catppuccin-mocha"
 
-when: "'bat' in ansible_facts.packages or bat_installed.changed"
+  when: "'bat' in ansible_facts.packages or bat_installed.changed"
