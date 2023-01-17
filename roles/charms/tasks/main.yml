@@ -1,13 +1,15 @@
 ---
 
 - name: Add Charm repo
+  become: yes
   yum_repository:
     name: Charm
     description: Charm Tool and Library
     baseurl: https://repo.charm.sh/yum/
     gpgkey: https://repo.charm.sh/yum/gpg.key
 
-- name: Install glow
+- name: Install charms
+  become: yes
   yum:
     name:
       - glow

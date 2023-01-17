@@ -3,7 +3,9 @@
 - name: Ensure plymouth is installed
   become: yes
   yum:
-    name: plymouth
+    name:
+      - plymouth
+      - plymouth-plugin-two-step
   register: plymouth_installed
   when: do_install
 

@@ -3,7 +3,7 @@
 - name: Register Flathub repository
   flatpak_remote:
     name: flathub
-    url: https://flathub.org/repo/flathub.flatpakrepo
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
 - name: Install Flatpak apps
   flatpak:
