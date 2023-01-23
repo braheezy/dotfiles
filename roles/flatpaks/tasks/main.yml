@@ -1,14 +1,20 @@
 ---
+- name: Ensure flatpak is installed
+  become: yes
+  yum:
+    name: flatpak
+    state: present
 
 - name: Register Flathub repository
   flatpak_remote:
     name: flathub
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+    method: user
 
 - name: Install Flatpak apps
   flatpak:
     name:
-      - com.obsproject.Studio
       - com.spotify.Client
       - io.github.Foldex.AdwSteamGtk
+    method: user
     state: present

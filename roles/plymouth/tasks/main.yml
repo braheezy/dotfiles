@@ -22,6 +22,7 @@
       copy:
         src: /tmp/plymouth/themes/catppuccin-mocha
         dest: /usr/share/plymouth/themes/
+        remote_src: yes
 
     - name: Set plymouth theme
       become: yes

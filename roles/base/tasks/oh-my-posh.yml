@@ -25,7 +25,7 @@
     mode: 0755
   register: posh_updated
   when: not current_posh_file.stat.exists or downloaded_posh_file.stat.checksum != current_posh_file.stat.checksum
-  
+
 - name: Delete downloaded posh
   file:
     path: /tmp/oh-my-posh
@@ -50,16 +50,16 @@
         path: "{{ ansible_env.HOME }}/.poshthemes"
         state: directory
         mode: '0755'
-    
+
     - name: Install themes
       unarchive:
         src: /tmp/posh-themes.zip
         dest: "{{ ansible_env.HOME }}/.poshthemes"
         mode: 0755
-      
+
     - name: Delete downloaded zip
       file:
         path: /tmp/posh-themes.zip
         state: absent
 
-  when: not theme_folder.stat.isdir is defined or not theme_folder.stat.isdir
+  when: theme_folder.stat.isdir is not defined or not theme_folder.stat.isdir

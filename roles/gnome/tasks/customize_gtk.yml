@@ -1,21 +1,31 @@
 ---
 
-# - name: Download theme
-#   get_url:
-#     url: https://github.com/catppuccin/gtk/releases/download/v0.4.0/Catppuccin-Mocha-Standard-Mauve-Dark.zip
-#     dest: /tmp/
+- name: Download theme
+  get_url:
+    url: https://github.com/catppuccin/gtk/releases/download/v0.4.1/Catppuccin-Mocha-Standard-Mauve-Dark.zip
+    dest: /tmp/
 
-# - name: Install theme
-#   become: yes
-#   unarchive:
-#     src: /tmp/Catppuccin-Mocha-Standard-Mauve-Dark.zip
-#     dest: /usr/share/themes/
+- name: Install theme
+  become: yes
+  unarchive:
+    src: /tmp/Catppuccin-Mocha-Standard-Mauve-Dark.zip
+    dest: /usr/share/themes/
 
-# - name: Set theme
-#   dconf:
-#     key: "/org/gnome/desktop/interface/gtk-theme"
-#     value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
-#     state: present
+- name: Set theme
+  dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
+    state: present
+
+- name: Ensure gtk-4 symlinks are present
+  file:
+    src: /usr/share/themes/Catppuccin-Mocha-Standard-Mauve-Dark/gtk-4.0/{{ item }}
+    dest: '{{ ansible_env.HOME }}/.config/gtk-4.0/{{ item }}'
+    state: link
+  loop:
+    - assets
+    - gtk.css
+    - gtk-dark.css
 
 - name: Provide the gresource file
   copy:
@@ -25,80 +35,86 @@
 - name: Apply theme to GDM
   script: install-gdm-theme.sh
 
-# - name: Download custom GDM greeter icon
-#   become: yes
-#   get_url:
-#     url: https://raw.githubusercontent.com/braheezy/catppuccin-gtk-rpm/master/cat.png
-#     dest: /usr/share/pixmaps/
+- name: Download custom GDM greeter icon
+  become: yes
+  get_url:
+    url: https://raw.githubusercontent.com/braheezy/catppuccin-gtk-rpm/master/cat.png
+    dest: /usr/share/pixmaps/
 
-# - name: Ensure the gdm user's dconf file exists
-#   become: yes
-#   copy:
-#     dest: /etc/dconf/profile/gdm
-#     content: |
-#       user-db:user
-#       system-db:gdm
-#       file-db:/usr/share/gdm/greeter-dconf-defaults
+- name: Ensure the gdm user's dconf file exists
+  become: yes
+  copy:
+    dest: /etc/dconf/profile/gdm
+    content: |
+      user-db:user
+      system-db:gdm
+      file-db:/usr/share/gdm/greeter-dconf-defaults
 
-# - name: Define the keyfile to set the greeter logo
-#   become: yes
-#   copy:
-#     dest: /etc/dconf/db/gdm.d/02-logo
-#     content: |
-#       [org/gnome/login-screen]
-#       logo='/usr/share/pixmaps/cat.png'
+- name: Define the keyfile to set the greeter logo
+  become: yes
+  copy:
+    dest: /etc/dconf/db/gdm.d/02-logo
+    content: |
+      [org/gnome/login-screen]
+      logo='/usr/share/pixmaps/cat.png'
 
-# - name: Update the dconf database
-#   become: yes
-#   command: dconf update
+- name: Update the dconf database
+  become: yes
+  command: dconf update
 
-# - name: Change the user login icon
-#   become: yes
-#   lineinfile:
-#     path: /var/lib/AccountsService/users/{{ user }}
-#     regexp: '^Icon='
-#     line: Icon=/usr/share/pixmaps/cat.png
+- name: Ensure the user's AccountsService file exists
+  become: yes
+  file:
+    path: /var/lib/AccountsService/users/{{ user }}
+    state: touch
 
-# - name: Ensure packages for customization are installed
-#   become: yes
-#   yum:
-#     name:
-#       - gnome-extensions-app
-#       - gnome-shell-extension-user-theme
-#     state: present
+- name: Change the user login icon
+  become: yes
+  lineinfile:
+    path: /var/lib/AccountsService/users/{{ user }}
+    regexp: '^Icon='
+    line: Icon=/usr/share/pixmaps/cat.png
 
-# - name: Ensure extensions are enabled
-#   dconf:
-#     key: "/org/gnome/shell/enabled-extensions"
-#     value: "['user-theme@gnome-shell-extensions.gcampax.github.com']"
-#     state: present
+- name: Ensure packages for customization are installed
+  become: yes
+  yum:
+    name:
+      - gnome-extensions-app
+      - gnome-shell-extension-user-theme
+    state: present
 
-# - name: Set shell theme
-#   dconf:
-#     key: "/org/gnome/shell/extensions/user-theme/name"
-#     value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
-#     state: present
+- name: Ensure extensions are enabled
+  dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['user-theme@gnome-shell-extensions.gcampax.github.com']"
+    state: present
 
-# - name: Ensure the papirus icons are installed
-#   become: yes
-#   yum:
-#     name: papirus-icon-theme
-#     state: present
+- name: Set shell theme
+  dconf:
+    key: "/org/gnome/shell/extensions/user-theme/name"
+    value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
+    state: present
 
-# - name: Ensure the icon theme is set to papirus
-#   dconf:
-#     key: "/org/gnome/desktop/interface/icon-theme"
-#     value: "'Papirus-Dark'"
-#     state: present
+- name: Ensure the papirus icons are installed
+  become: yes
+  yum:
+    name: papirus-icon-theme
+    state: present
 
-# - name: Ensure the color switcher installer is available
-#   get_url:
-#     url: https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh
-#     dest: /tmp/papirus-folders-install.sh
+- name: Ensure the icon theme is set to papirus
+  dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    value: "'Papirus-Dark'"
+    state: present
 
-# - name: Ensure the color switcher script is installed
-#   become: yes
-#   shell: sh /tmp/papirus-folders-install.sh
+- name: Ensure the color switcher installer is available
+  get_url:
+    url: https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh
+    dest: /tmp/papirus-folders-install.sh
 
-# - name: Change papirus folder colors
-#   command: papirus-folders -C violet
+- name: Ensure the color switcher script is installed
+  become: yes
+  shell: sh /tmp/papirus-folders-install.sh
+
+- name: Change papirus folder colors
+  command: papirus-folders -C violet

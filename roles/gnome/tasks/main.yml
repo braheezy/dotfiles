@@ -1,17 +1,17 @@
 ---
 
-# - import_tasks: configure_gnome.yml
+- import_tasks: configure_gnome.yml
 
-# - import_tasks: clean_gnome.yml
+- import_tasks: clean_gnome.yml
 
-# - name: Install GNOME config tools
-#   become: yes
-#   yum:
-#     name:
-#       - gnome-tweaks
-#       - dconf-editor
-#     state: present
-#   when: do_install
+- name: Install GNOME config tools
+  become: yes
+  yum:
+    name:
+      - gnome-tweaks
+      - dconf-editor
+    state: present
+  when: do_install
 
 - import_tasks: customize_gtk.yml
   when: do_install

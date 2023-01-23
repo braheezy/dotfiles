@@ -51,23 +51,20 @@
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "{{ updated_keybindings }}"
 
-    - name: Ensure ulauncher theme dir exists
-      file:
-        path: '{{ ansible_env.HOME }}/.config/ulauncher/user-themes/Catppuccin-Mocha-Round/'
-        state: directory
+    - name: Ensure git project is checked out
+      git:
+        repo: https://github.com/catppuccin/ulauncher.git
+        dest: /tmp/ulauncher
 
     - name: Ensure the ulauncher theme files are present
-      get_url:
-        url: https://raw.githubusercontent.com/catppuccin/ulauncher/main/src/Catppuccin-Mocha-Round/{{ item }}
-        dest: '{{ ansible_env.HOME }}/.config/ulauncher/user-themes/Catppuccin-Mocha-Round/'
-      loop:
-        - generated.css
-        - manifest.json
-        - theme-gtk-3.20.css
-        - theme.css
-      notify: Manual Theme
+      command:
+        cmd: sh /tmp/ulauncher/install.sh --mocha-mauve
+        chdir: /tmp/ulauncher/
+        creates: '{{ ansible_env.HOME }}/.config/ulauncher/'
 
-    - set_fact:
-        handler_message: ulauncher ==> Hotkey Ctrl+Space, open Settings, then set "Color Theme" in Preferences
+    - name: Ensure config file is present
+      copy:
+        src: settings.json
+        dest: '{{ ansible_env.HOME }}/.config/ulauncher/settings.json'
 
   when: "'ulauncher' in ansible_facts.packages or ulauncher_installed.changed"

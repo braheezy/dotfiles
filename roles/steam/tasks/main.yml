@@ -1,9 +1,18 @@
 ---
 
+- name: Importing (non-free) key
+  become: yes
+  rpm_key:
+    state: present
+    key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+  register: result
+  retries: 3
+  until: result is succeeded
+
 - name: Ensure non-free repos are enabled
   become: yes
   yum:
-    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm
+    name: https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm
     state: present
 
 - name: Ensure steam is installed
@@ -11,3 +20,23 @@
   yum:
     name: steam
     state: present
+
+- name: Ensure Adwaita for Steam repo is available
+  git:
+    repo: https://github.com/tkashkin/Adwaita-for-Steam
+    dest: '{{ ansible_env.HOME }}/Adwaita-for-Steam'
+    force: true
+
+- name: Install Adwaita for Steam skin
+  command:
+    cmd: ./install.py -w full
+    chdir: '{{ ansible_env.HOME }}/Adwaita-for-Steam'
+
+- name: Replace files with Catppuccin colors
+  patch:
+    src: '{{ item }}'
+    basedir: '{{ ansible_env.HOME }}/Adwaita-for-Steam/'
+    strip: 1
+  loop:
+    - 1_root.css.patch
+    - colors.styles.patch

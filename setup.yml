@@ -5,6 +5,8 @@
   vars:
     # If true, take extra steps to install apps too
     do_install: true
+    # The desktop environment to use
+    desktop_environment: gnome
 
   tasks:
     - name: Gather package_facts
@@ -24,6 +26,7 @@
           - ripgrep
           - duf
           - fd-find
+          - exa
         state: present
 
     - import_role:
@@ -48,11 +51,13 @@
         name: cava
     - import_role:
         name: steam
+    - import_role:
+        name: obs-studio
 
     - name: Run install roles
       include_role:
         name: "{{ item }}"
-      with_items:
+      loop:
         - cursors
         - cheat
         - charms
@@ -62,7 +67,7 @@
 
     - import_role:
         name: gnome
-      when: ansible_env.DESKTOP_SESSION == 'gnome'
+      when: desktop_environment == 'gnome'
     - import_role:
         name: gnome-terminal
-      when: ansible_env.DESKTOP_SESSION == 'gnome'
+      when: desktop_environment == 'gnome'

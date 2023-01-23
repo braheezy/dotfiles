@@ -23,6 +23,11 @@
   set_fact:
     secret: "{{ spotify_client_id | default(ansible_env.SPOTIFY_CLIENT_ID) | default() }}"
 
+- name: Ensure config dir exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/spotify-player/"
+    state: directory
+
 - name: Ensure the theme file exists
   get_url:
     url: https://raw.githubusercontent.com/catppuccin/spotify-player/main/src/theme.toml

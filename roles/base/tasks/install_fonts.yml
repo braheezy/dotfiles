@@ -5,27 +5,40 @@
     path: /usr/share/fonts/CaskaydiaCoveNF
   register: font_folder
 
-- name: Install fonts
-  block:
-    - name: Create font directory
-      file:
-        path: /usr/share/fonts/CaskaydiaCoveNF
-        state: directory
-        mode: '0755'
+- name: Create font directory
+  file:
+    path: /usr/share/fonts/CaskaydiaCoveNF
+    state: directory
+    mode: '0755'
+  when:
+    - font_folder.stat.isdir is not defined
+    - do_install
 
-    - name: Install different weighted fonts
-      get_url:
-        url: '{{ item }}'
-        dest: /usr/share/fonts/CaskaydiaCoveNF
-      loop:
-        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Regular.otf
-        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Regular.otf
-        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Italic.otf
-        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Bold/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold%20Italic.otf
-        - https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Bold/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold.otf
+- name: Install different weighted fonts
+  vars:
+    github_url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode
+  get_url:
+    url: '{{ github_url }}/{{ item.font_type }}/complete/{{ item.font_name }}'
+    dest: /usr/share/fonts/CaskaydiaCoveNF/{{ item.font_name }}
+  loop:
+    - font_type: Regular
+      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Regular.otf
+    - font_type: Regular
+      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Regular.otf
+    - font_type: Regular
+      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Italic.otf
+    - font_type: Bold
+      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold%20Italic.otf
+    - font_type: Bold
+      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold.otf
+  when: do_install
 
-  # TODO: A better check is to ensure all desired font files exist, not just the directory.
-  when: not font_folder.stat.isdir is defined or not font_folder.stat.isdir
+- name: Ensure required dbus package is installed
+  become: yes
+  yum:
+    name: dbus-daemon
+    state: present
+  when: do_install
 
 - name: Set font-name
   dconf:
