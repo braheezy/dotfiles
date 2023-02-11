@@ -63,3 +63,21 @@
         state: absent
 
   when: theme_folder.stat.isdir is not defined or not theme_folder.stat.isdir
+
+- name: Get list of themes
+  find:
+    paths: "{{ ansible_env.HOME }}/.poshthemes"
+    patterns: '*.omp.json'
+  register: theme_files
+
+- name: Select random posh theme
+  set_fact:
+    posh_theme_file: '{{ item.path }}'
+  with_random_choice: '{{ theme_files.files }}'
+  loop_control:
+    label: '{{ item.path }}'
+
+- name: Provide prompt file
+  template:
+    src: prompt.j2
+    dest: '{{ ansible_env.HOME }}/.bashrc.d/prompt'

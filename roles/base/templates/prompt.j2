@@ -18,4 +18,7 @@ view_prompts(){
     done
 }
 
-eval "$(oh-my-posh init bash --config ~/.poshthemes/catppuccin.omp.json)"
+if command -v oh-my-posh &> /dev/null
+then
+    eval "$(oh-my-posh init bash --config {{ posh_theme_file }})"
+fi
