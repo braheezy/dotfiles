@@ -3,6 +3,7 @@ alias ap="ansible-playbook"
 
 # Vagrant power user stuff
 alias vu="vagrant up"
+alias vp="vagrant provision"
 alias vr="vagrant reload"
 alias vd="vagrant destroy"
 alias vh="vagrant halt"
@@ -24,3 +25,6 @@ alias ll="lx"
 
 # Kitty can render arbitrary images directly
 alias icat="kitty +kitten icat"
+
+# Process checker
+alias psa="ps aux | rg -i"
