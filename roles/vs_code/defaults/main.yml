@@ -153,6 +153,12 @@ vs_code_settings: {
     "go.inferGopath": true,
     "go.toolsManagement.autoUpdate": true,
     "workbench.colorTheme": "Catppuccin Mocha",
+    "catppuccin.colorOverrides": {
+        "mocha": {
+            "green": "#f38ba8",
+            "red": "#a6e3a1"
+        }
+    },
     "workbench.startupEditor": "none",
     "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono'",
     "workbench.iconTheme": "vscode-icons",
