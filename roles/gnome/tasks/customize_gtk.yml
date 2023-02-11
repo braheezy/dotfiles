@@ -1,21 +1,26 @@
 ---
 
-- name: Download theme
+- name: Download GTK theme
   get_url:
     url: https://github.com/catppuccin/gtk/releases/download/v0.4.1/Catppuccin-Mocha-Standard-Mauve-Dark.zip
     dest: /tmp/
 
-- name: Install theme
+- name: Install GTK theme
   become: yes
   unarchive:
     src: /tmp/Catppuccin-Mocha-Standard-Mauve-Dark.zip
     dest: /usr/share/themes/
 
-- name: Set theme
+- name: Set GTK theme
   dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
     value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
     state: present
+
+- name: Ensure gtk-4 folder exists
+  file:
+    path: '{{ ansible_env.HOME }}/.config/gtk-4.0/'
+    state: directory
 
 - name: Ensure gtk-4 symlinks are present
   file:
