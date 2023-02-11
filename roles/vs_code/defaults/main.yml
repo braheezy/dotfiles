@@ -155,8 +155,7 @@ vs_code_settings: {
     "workbench.colorTheme": "Catppuccin Mocha",
     "catppuccin.colorOverrides": {
         "mocha": {
-            "green": "#f38ba8",
-            "red": "#a6e3a1"
+            "green": "#72b3ab",
         }
     },
     "workbench.startupEditor": "none",
