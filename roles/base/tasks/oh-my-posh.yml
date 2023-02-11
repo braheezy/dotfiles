@@ -81,3 +81,4 @@
   template:
     src: prompt.j2
     dest: '{{ ansible_env.HOME }}/.bashrc.d/prompt'
+    mode: 'u=rwx,go=rx'
