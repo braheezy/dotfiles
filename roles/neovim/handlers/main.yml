@@ -1,0 +1,6 @@
+---
+
+- name: Install Plugins
+  debug:
+    msg: |
+      Remember to run `:PluginInstall` when first running Neovim!

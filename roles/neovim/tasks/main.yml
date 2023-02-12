@@ -33,8 +33,9 @@
 
     - name: Install neovim config
       copy:
-        src: init.vm
-        dest: '{{ ansible_env.HOME }}/.config/nvim/init.vm'
+        src: init.vim
+        dest: '{{ ansible_env.HOME }}/.config/nvim/'
         mode: 0755
+      notify: Install Plugins
 
   when: "'neovim' in ansible_facts.packages or neovim_installed.changed"
