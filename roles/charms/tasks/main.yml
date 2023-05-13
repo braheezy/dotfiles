@@ -14,5 +14,6 @@
     name:
       - glow
       - gum
+      - skate
     disable_gpg_check: yes
     state: present
