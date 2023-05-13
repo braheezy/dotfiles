@@ -4,6 +4,7 @@ alias ap="ansible-playbook"
 # Vagrant power user stuff
 alias vu="vagrant up"
 alias vp="vagrant provision"
+alias vpp="vagrant provision --provision-with"
 alias vr="vagrant reload"
 alias vd="vagrant destroy"
 alias vh="vagrant halt"
@@ -28,3 +29,9 @@ alias icat="kitty +kitten icat"
 
 # Process checker
 alias psa="ps aux | rg -i"
+
+# Update the machine prettily
+alias yummy="sudo yum update -y | lolcat"
+
+# Pure laziness
+alias open="xdg-open"
