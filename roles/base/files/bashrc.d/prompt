@@ -20,5 +20,5 @@ view_prompts(){
 
 if command -v oh-my-posh &> /dev/null
 then
-    eval "$(oh-my-posh init bash --config {{ posh_theme_file }})"
+    eval "$(oh-my-posh init bash --config $POSH_THEME)"
 fi

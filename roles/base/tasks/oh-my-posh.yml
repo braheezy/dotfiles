@@ -77,8 +77,8 @@
   loop_control:
     label: '{{ item.path }}'
 
-- name: Provide prompt file
+- name: Provide current_prompt file
   template:
-    src: prompt.j2
-    dest: '{{ ansible_env.HOME }}/.bashrc.d/prompt'
+    src: current_prompt.j2
+    dest: '{{ ansible_env.HOME }}/.bashrc.d/current_prompt'
     mode: 'u=rwx,go=rx'
