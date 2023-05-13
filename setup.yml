@@ -27,6 +27,7 @@
           - duf
           - fd-find
           - exa
+          - figlet
         state: present
 
     - import_role:
