@@ -1,4 +1,5 @@
-#!/usr/bin/env bash -x
+#!/bin/bash
+
 set -euo pipefail
 
 SCRIPT_DIR="`dirname $0`"
@@ -14,12 +15,6 @@ gpgcheck=1
 gpgkey=https://repo.charm.sh/yum/gpg.key" > /etc/yum.repos.d/charm.repo'
     sudo yum install -y gum &>/dev/null
 fi
-
-wait_command()
-{
-    echo "gum spin --spinner minidot --title $1 $2"
-     \"${1}\" "${2}"
-}
 
 gum spin --spinner minidot --title "Ensuring the system is up to date..." -- \
     sudo yum -y update
