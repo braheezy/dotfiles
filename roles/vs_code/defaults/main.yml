@@ -24,27 +24,37 @@ vs_code_skip_add_repo: false
 # Either an identifier of the form ${publisher}.${name}, which will fetch from the internet
 # Or a local path to a .vsix file.
 vs_code_extensions:
-    - '1dot75cm.RPMSpec'
-    - 'aaron-bond.better-comments'
-    - 'bierner.github-markdown-preview'
-    - 'bierner.markdown-checkbox'
-    - 'bierner.markdown-emoji'
-    - 'bierner.markdown-footnotes'
-    - 'bierner.markdown-mermaid'
-    - 'bierner.markdown-preview-github-styles'
-    - 'bierner.markdown-yaml-preamble'
-    - 'Catppuccin.catppuccin-vsc'
-    - 'GitHub.vscode-github-actions'
-    - 'golang.go'
-    - 'hashicorp.hcl'
-    - 'hashicorp.terraform'
-    - 'ms-vscode.wordcount'
-    - 's-nlf-fh.glassit'
-    - 'streetsidesoftware.code-spell-checker'
-    - 'tamasfe.even-better-toml'
-    - 'Catppuccin.catppuccin-vsc-icons'
+    - 1dot75cm.rpmspec
+    - aaron-bond.better-comments
+    - bierner.github-markdown-preview
+    - bierner.markdown-checkbox
+    - bierner.markdown-emoji
+    - bierner.markdown-footnotes
+    - bierner.markdown-mermaid
+    - bierner.markdown-preview-github-styles
+    - bierner.markdown-yaml-preamble
+    - catppuccin.catppuccin-vsc
+    - catppuccin.catppuccin-vsc-icons
+    - github.vscode-github-actions
+    - golang.go
+    - hashicorp.hcl
+    - hashicorp.terraform
+    - jinliming2.vscode-go-template
+    - ms-python.isort
+    - ms-python.python
+    - ms-python.vscode-pylance
+    - ms-vscode.wordcount
+    - paragdiwan.gitpatch
     - redhat.ansible
     - redhat.vscode-yaml
+    - s-nlf-fh.glassit
+    - streetsidesoftware.code-spell-checker
+    - svelte.svelte-vscode
+    - tamasfe.even-better-toml
+    - vivaxy.vscode-conventional-commits
+    - vscode-icons-team.vscode-icons
+    - wholroyd.jinja
+    - zfzackfrost.commentbars
 
 # Settings to use
 vs_code_settings: {
