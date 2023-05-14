@@ -1,15 +1,15 @@
 ---
 
 - name: Check if fonts are installed
-  stat:
+  ansible.builtin.stat:
     path: /usr/share/fonts/CaskaydiaCoveNF
   register: font_folder
 
 - name: Create font directory
-  file:
+  ansible.builtin.file:
     path: /usr/share/fonts/CaskaydiaCoveNF
     state: directory
-    mode: '0755'
+    mode: 0755
   when:
     - font_folder.stat.isdir is not defined
     - do_install
@@ -17,9 +17,10 @@
 - name: Install different weighted fonts
   vars:
     github_url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode
-  get_url:
+  ansible.builtin.get_url:
     url: '{{ github_url }}/{{ item.font_type }}/complete/{{ item.font_name }}'
     dest: /usr/share/fonts/CaskaydiaCoveNF/{{ item.font_name }}
+    mode: 0644
   loop:
     - font_type: Regular
       font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Regular.otf
@@ -34,32 +35,32 @@
   when: do_install
 
 - name: Ensure required dbus package is installed
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     name: dbus-daemon
     state: present
   when: do_install
 
 - name: Set font-name
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/interface/font-name"
     value: "'Noto Sans 12'"
     state: present
 
 - name: Set document-font-name
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/interface/document-font-name"
     value: "'Noto Serif 12'"
     state: present
 
 - name: Set monospace-font-name
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/interface/monospace-font-name"
     value: "'CaskaydiaCove Nerd Font Mono 11'"
     state: present
 
 - name: Set titlebar-font
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/wm/preferences/titlebar-font"
     value: "'Noto Serif Bold Italic 12'"
     state: present

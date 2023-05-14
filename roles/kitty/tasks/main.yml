@@ -1,61 +1,64 @@
 ---
 
-- name: install kitty
-  become: yes
-  yum:
+- name: Install kitty
+  become: true
+  ansible.builtin.yum:
     name: kitty
     state: present
   register: kitty_installed
   when: do_install
 
 - name: Configure kitty
+  when: "'kitty' in ansible_facts.packages or kitty_installed.changed" # noqa: no-handler
   block:
 
     - name: Ensure base kitty.conf exists
-      copy:
+      ansible.builtin.copy:
         src: kitty.conf
         dest: "{{ ansible_env.HOME }}/.config/kitty/"
+        mode: 0755
 
     - name: Ensure kitty theme directory exists
-      file:
+      ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config/kitty/themes"
         state: directory
+        mode: 0755
 
     - name: Ensure kitty theme exists
-      get_url:
+      ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/catppuccin/kitty/main/mocha.conf
         dest: "{{ ansible_env.HOME }}/.config/kitty/themes/"
+        mode: 0755
 
     - name: Set kitty theme
-      command: kitty +kitten themes --reload-in=all Catppuccin-Mocha
+      ansible.builtin.command: kitty +kitten themes --reload-in=all Catppuccin-Mocha
+      changed_when: true
 
     - name: Disable annoying notifications
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/desktop/notifications/application/kitty/enable"
         value: "false"
         state: present
 
     - name: Add keyboard shortcut for kitty
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name"
         value: "'kitty'"
         state: present
 
     - name: Set keyboard shortcut command to run kitty
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command"
         value: "'kitty'"
         state: present
 
     - name: Add keyboard shortcut
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding"
         value: "'<Alt>t'"
         state: present
 
-    - name: enable custom keybindings
-      dconf:
+    - name: Enable custom keybindings
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
-
-  when: "'kitty' in ansible_facts.packages or kitty_installed.changed"

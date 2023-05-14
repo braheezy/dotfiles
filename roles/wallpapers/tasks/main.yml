@@ -2,40 +2,44 @@
 
 # Git because we want to ability to update
 - name: Download catppuccin wallpapers
-  git:
+  ansible.builtin.git:
     repo: https://github.com/catppuccin/wallpapers.git
     dest: '{{ ansible_env.HOME }}/Pictures/catppuccin-wallpapers'
     force: true
+    version: main
 
 - name: Ensure custom script to change background exists
-  become: yes
-  copy:
+  become: true
+  ansible.builtin.copy:
     src: change-background.sh
     dest: /usr/local/bin/change-background
     mode: 0755
 
 - name: Ensure custom script to update background exists
-  become: yes
-  copy:
+  become: true
+  ansible.builtin.copy:
     src: update-backgrounds.sh
     dest: /usr/local/bin/update-backgrounds
     mode: 0755
 
 - name: Ensure service for changing background on login exists
-  become: yes
-  copy:
+  become: true
+  ansible.builtin.copy:
     src: change-background.service
     dest: /etc/systemd/system/
+    mode: 0755
 
 - name: Ensure cron job to change background daily exists
-  cron:
+  ansible.builtin.cron:
     name: "change background"
     minute: 0
     hour: 12
     job: /usr/local/bin/change-background
 
 - name: Run update background
-  command: update-backgrounds
+  ansible.builtin.command: update-backgrounds
+  changed_when: true
 
 - name: Run change background
-  command: change-background
+  ansible.builtin.command: change-background
+  changed_when: true

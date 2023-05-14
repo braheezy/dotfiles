@@ -1,6 +1,6 @@
 ---
-- name: install VS Code repo
-  yum_repository:
+- name: Install VS Code repo
+  ansible.builtin.yum_repository:
     name: code
     description: Visual Studio Code repo
     file: vscode
@@ -9,7 +9,7 @@
     gpgcheck: '{{ vs_code_gpgcheck }}'
   when: not vs_code_skip_add_repo
 
-- name: install VS Code
-  yum:
+- name: Install VS Code
+  ansible.builtin.yum:
     name: '{{ vs_code_package }}'
     state: present

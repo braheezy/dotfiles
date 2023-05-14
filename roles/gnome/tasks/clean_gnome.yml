@@ -1,7 +1,7 @@
 ---
 - name: Remove GNOME software I don't want
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     # Asterisks at the end because of a bug in the underlying dnf module
     # https://github.com/ansible/ansible/issues/64294
     name:
@@ -18,7 +18,7 @@
     state: removed
 
 - name: Delete home folders I don't want
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/{{ item }}"
     state: absent
   loop:

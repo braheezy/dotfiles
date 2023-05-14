@@ -1,28 +1,30 @@
 ---
 
 - name: Ensure btop is installed
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     name: btop
     state: present
   register: btop_installed
   when: do_install
 
 - name: Configure btop
+  when: "'btop' in ansible_facts.packages or btop_installed.changed" # noqa: no-handler
   block:
 
     - name: Ensure btop theme dir exists
-      file:
+      ansible.builtin.file:
         path: '{{ ansible_env.HOME }}/.config/btop/themes'
         state: directory
+        mode: 0755
 
     - name: Ensure the btop theme file is installed
-      get_url:
+      ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/catppuccin/btop/main/catppuccin_mocha.theme
         dest: '{{ ansible_env.HOME }}/.config/btop/themes/'
+        mode: 0755
       notify: Manual Theme
 
-    - set_fact:
+    - name: Set handler message
+      ansible.builtin.set_fact:
         handler_message: Run `btop`, press Esc, select Options, use arrows to change Color theme
-
-  when: "'btop' in ansible_facts.packages or btop_installed.changed"

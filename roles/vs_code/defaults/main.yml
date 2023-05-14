@@ -13,12 +13,12 @@ vs_code_package: code
 
 # should the gpgcheck of the repo enabled?
 # if yes, for dnf/yum the option gpgcheck is set to yes
-vs_code_gpgcheck: yes
+vs_code_gpgcheck: true
 
 # skip task to add repo for remote package manager
 # if set to yes, the task 'install VS Code repo' will be skipped
 # if set to no, the repo will be added, this is the default
-vs_code_skip_add_repo: no
+vs_code_skip_add_repo: false
 
 # Extensions to install
 # Either an identifier of the form ${publisher}.${name}, which will fetch from the internet

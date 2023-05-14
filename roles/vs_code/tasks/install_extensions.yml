@@ -1,6 +1,6 @@
 ---
-- name: install extensions
-  command:
+- name: Install extensions
+  ansible.builtin.command:
     cmd: "code --install-extension {{ item }}"
     creates: "{{ ansible_env.HOME }}/.vscode/extensions/{{ item }}-*"
   loop: "{{ vs_code_extensions }}"

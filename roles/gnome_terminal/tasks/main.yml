@@ -1,0 +1,13 @@
+---
+- name: Ensure theme installer file is present
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/catppuccin/gnome-terminal/main/install.py
+    dest: /tmp/
+    mode: 0755
+
+- name: Ensure theme is installed
+  ansible.builtin.command:
+    cmd: /usr/bin/python3 install.py
+    chdir: /tmp
+  changed_when: true
+  notify: Shell Reboot

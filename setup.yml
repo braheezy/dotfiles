@@ -10,14 +10,15 @@
 
   tasks:
     - name: Gather package_facts
-      package_facts:
+      ansible.builtin.package_facts:
 
-    - set_fact:
+    - name: Set user fact
+      ansible.builtin.set_fact:
         user: '{{ ansible_user_id }}'
 
     - name: Install base packages
-      become: yes
-      package:
+      become: true
+      ansible.builtin.yum:
         name:
           - cronie
           - wget
@@ -30,45 +31,59 @@
           - figlet
         state: present
 
-    - import_role:
+    - name: Run base role
+      ansible.builtin.import_role:
         name: base
-    - import_role:
+    - name: Run bat role
+      ansible.builtin.import_role:
         name: bat
-    - import_role:
+    - name: Run btop role
+      ansible.builtin.import_role:
         name: btop
-    - import_role:
+    - name: Run vs_code role
+      ansible.builtin.import_role:
         name: vs_code
-    - import_role:
+    - name: Run kitty role
+      ansible.builtin.import_role:
         name: kitty
-    - import_role:
+    - name: Run neovim role
+      ansible.builtin.import_role:
         name: neovim
-    - import_role:
+    - name: Run ulauncher role
+      ansible.builtin.import_role:
         name: ulauncher
-    - import_role:
-        name: wallpapers
-    - import_role:
+    # - name: Run wallpapers role
+    #   ansible.builtin.import_role:
+    #     name: wallpapers
+    - name: Run plymouth role
+      ansible.builtin.import_role:
         name: plymouth
-    - import_role:
+    - name: Run cava role
+      ansible.builtin.import_role:
         name: cava
-    - import_role:
+    - name: Run steam role
+      ansible.builtin.import_role:
         name: steam
-    - import_role:
-        name: obs-studio
+    - name: Run obs_studio role
+      ansible.builtin.import_role:
+        name: obs_studio
 
     - name: Run install roles
-      include_role:
+      ansible.builtin.include_role:
         name: "{{ item }}"
       loop:
         - cursors
         - cheat
         - charms
         - flatpaks
-        - spotify-player
+        - spotify_player
       when: do_install
 
-    - import_role:
+    - name: Run gnome role
+      ansible.builtin.import_role:
         name: gnome
       when: desktop_environment == 'gnome'
-    - import_role:
-        name: gnome-terminal
+    - name: Run gnome_terminal role
+      ansible.builtin.import_role:
+        name: gnome_terminal
       when: desktop_environment == 'gnome'

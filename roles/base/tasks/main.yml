@@ -1,26 +1,28 @@
 ---
 - name: Ensure .bashrc.d exists
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.bashrc.d"
     state: directory
     mode: 0755
 
 - name: Ensure dots are in .bashrc.d
-  copy:
+  ansible.builtin.copy:
     src: bashrc.d/
     dest: "{{ ansible_env.HOME }}/.bashrc.d"
     mode: 0755
 
 - name: Ensure home dots are in {{ ansible_env.HOME }}
-  copy:
+  ansible.builtin.copy:
     src: home/
     dest: "{{ ansible_env.HOME }}"
     mode: 0644
 
-- import_tasks: install_fonts.yml
-  become: yes
+- name: Add fonts
+  ansible.builtin.import_tasks: install_fonts.yml
+  become: true
   when: do_install
 
-- import_tasks: oh-my-posh.yml
-  become: yes
+- name: Add oh-my-posh
+  ansible.builtin.import_tasks: oh-my-posh.yml
+  become: true
   when: do_install

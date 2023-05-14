@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''
 Small wrapper to basic `dconf` calls to perform operations on /org/gnome/terminal/legacy/profiles:
-where gnome-terminal profiles are saved.
+where gnome terminal profiles are saved.
 
 @flags
     --check-profile-exists: Return True if profile exists

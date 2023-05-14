@@ -1,5 +1,5 @@
 ---
 
 - name: Reboot
-  debug:
+  ansible.builtin.debug:
     msg: Some changes were made that require a reboot to take full effect. Please do so at your convenience :)

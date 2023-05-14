@@ -123,7 +123,7 @@ index bd7c737..f9dc983 100644
 @@ -2,36 +2,35 @@
  /* --- Colors --- */
  /* -------------- */
- 
+
 -:root
 -{
 +:root {
@@ -132,7 +132,7 @@ index bd7c737..f9dc983 100644
 -	--fg: #ffffff;
 +	--bg: #1e1e2e;
 +	--fg: #cdd6f4;
- 
+
 -	--accent: #78aeed;
 -	--accent_bg: #3584e4;
 +	--accent: #f5c2e7;
@@ -144,7 +144,7 @@ index bd7c737..f9dc983 100644
 +	--accent_disabled: rgba(245, 194, 231, 0.5);
 +	--accent_hover_bg: rgba(245, 194, 231, 0.07);
 +	--accent_active_bg: rgba(245, 194, 231, 0.16);
- 
+
 -	--destructive: #ff7b63;
 -	--destructive_bg: #c01c28;
 +	--destructive: #eba0ac;
@@ -156,29 +156,29 @@ index bd7c737..f9dc983 100644
 +	--destructive_disabled: rgba(235, 160, 172, 0.5);
 +	--destructive_hover_bg: rgba(235, 160, 172, 0.07);
 +	--destructive_active_bg: rgba(235, 160, 172, 0.16);
- 
+
 -	--success: #8ff0a4;
 -	--success_bg: #26a269;
 +	--success: #a6e3a1;
 +	--success_bg: #40a02b;
  	--success_fg: var(--fg);
- 
+
 -	--warning: #f8e45c;
 -	--warning_bg: #cd9309;
 +	--warning: #f9e2af;
 +	--warning_bg: #df8e1d;
  	--warning_fg: var(--fg);
- 
+
 -	--error: #ff7b63;
 -	--error_bg: #c01c28;
 +	--error: #eba0ac;
 +	--error_bg: #e64553;
  	--error_fg: var(--fg);
- 
+
  	/* Fonts */
 @@ -67,20 +66,20 @@
- 	--subtitle_weight: normal;
- 
+ 	--subtitle_weight: falsermal;
+
  	/* Widgets */
 -	--button_bg: rgba(255, 255, 255, 0.1);
 -	--button_fg: rgba(255, 255, 255, 1);
@@ -203,35 +203,35 @@ index bd7c737..f9dc983 100644
 +	--button_suggested_hover_bg: rgba(205, 214, 244, 0.1);
 +	--button_suggested_click_bg: rgba(17, 17, 27, 0.2);
  	--button_suggested_blend: overlay;
- 
+
  	--checkbox_checked_bg: var(--button_suggested_bg);
 @@ -89,11 +88,11 @@
  	--checkbox_bg: transparent;
  	--checkbox_bs: inset 0px 0px 0px 2px var(--button_hover_bg);
- 
+
 -	--card_bg: rgba(255, 255, 255, 0.1);
 +	--card_bg: rgba(205, 214, 244, 0.1);
  	--card_fg: var(--fg);
  	--card_radius: calc(var(--button_radius) + 6px);
- 
+
 -	--focus_ring: rgba(120, 174, 237, 0.5);
 +	--focus_ring: rgba(245, 194, 231, 0.5);
  	--focus_ring_bs: inset 0px 0px 0px 2px var(--focus_ring);
- 
+
  	--ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 @@ -112,7 +111,7 @@
  	--entry_subtitle_font_size: var(--subtitle_size);
  	--entry_subtitle_font_weight: var(--subtitle_weight);
- 
+
 -	--dim_label_fg: rgba(255, 255, 255, 0.55);
 +	--dim_label_fg: rgba(205, 214, 244, 0.55);
- 
+
  	--menu_radius: 6px;
  	--menu_margin: 6px;
 @@ -125,18 +124,18 @@
  	--view_bg: #1e1e1e;
  	--view_fg: var(--fg);
- 
+
 -	--headerbar_bg: #303030;
 +	--headerbar_bg: #585b70;
  	--headerbar_fg: var(--fg);
@@ -239,12 +239,12 @@ index bd7c737..f9dc983 100644
  	--headerbar_backdrop: var(--bg);
 -	--headerbar_shade: rgba(0, 0, 0, 0.38);
 +	--headerbar_shade: rgba(30, 30, 46, 0.38);
- 
+
 -	--popover_bg: #383838;
 +	--popover_bg: #6c7086;
  	--popover_fg: var(--fg);
  	--popover_radius: var(--window_radius);
- 
+
 -	--toast_bg: rgba(0, 0, 0, 0.7);
 -	--toast_fg: rgba(255, 255, 255, 0.9);
 +	--toast_bg: rgba(17, 17, 27, 0.7);
@@ -255,7 +255,7 @@ index bd7c737..f9dc983 100644
 @@ -144,10 +143,9 @@
  	--toast_padding: 6px;
  	--toast_padding_left: 12px;
- 
+
 -	--border: rgba(255, 255, 255, 0.15);
 -
 -	--scrollbar: rgba(255, 255, 255, 0.2);
@@ -263,7 +263,7 @@ index bd7c737..f9dc983 100644
 -	--scrollbar_active: rgba(255, 255, 255, 0.6);
 -}
 +	--border: rgba(205, 214, 244, 0.15);
- 
+
 +	--scrollbar: rgba(205, 214, 244, 0.2);
 +	--scrollbar_hover: rgba(205, 214, 244, 0.4);
 +	--scrollbar_active: rgba(205, 214, 244, 0.6);

@@ -1,8 +1,8 @@
 ---
 
 - name: Ensure ulauncher is installed
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     name:
       - ulauncher
       # https://github.com/Ulauncher/Ulauncher/wiki/Hotkey-In-Wayland
@@ -12,59 +12,62 @@
   when: do_install
 
 - name: Configure ulauncher
+  when: "'ulauncher' in ansible_facts.packages or ulauncher_installed.changed" # noqa: no-handler
   block:
 
     - name: Add keyboard shortcut for ulauncher (b/c Wayland)
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name"
         value: "'ulauncher'"
         state: present
 
     - name: Set keyboard shortcut command to run ulauncher-toggle
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command"
         value: "'ulauncher-toggle'"
         state: present
 
     - name: Add keyboard shortcut for ulauncher
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding"
         value: "'<Control>space'"
         state: present
 
     - name: Get existing keybinding array
-      dconf:
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         state: read
       register: current_keybindings
 
-    - name: Add new keybinding to array
-      set_fact:
+    - name: Get current keybindings
+      ansible.builtin.set_fact:
         current_keybindings_list: "{{ current_keybindings.value[1:-1].split(', ') }}"
-    - set_fact:
+    - name: Add new keybinding to array
+      ansible.builtin.set_fact:
         updated_keybindings_list: "{{ current_keybindings_list + [\"'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'\"] }}"
-    - set_fact:
-        updated_keybindings: "{{ '[' }}{{ updated_keybindings_list|join(', ') }}{{ ']' }}"
+    - name: Close array syntax
+      ansible.builtin.set_fact:
+        updated_keybindings: "{{ '[' }}{{ updated_keybindings_list | join(', ') }}{{ ']' }}"
 
-    - name: enable custom keybindings
-      dconf:
+    - name: Enable custom keybindings
+      community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "{{ updated_keybindings }}"
 
     - name: Ensure git project is checked out
-      git:
+      ansible.builtin.git:
         repo: https://github.com/catppuccin/ulauncher.git
         dest: /tmp/ulauncher
+        version: main
 
     - name: Ensure the ulauncher theme files are present
-      command:
+      ansible.builtin.command:
         cmd: sh /tmp/ulauncher/install.sh --mocha-mauve
         chdir: /tmp/ulauncher/
         creates: '{{ ansible_env.HOME }}/.config/ulauncher/'
 
     - name: Ensure config file is present
-      copy:
+      ansible.builtin.copy:
         src: settings.json
         dest: '{{ ansible_env.HOME }}/.config/ulauncher/settings.json'
-
-  when: "'ulauncher' in ansible_facts.packages or ulauncher_installed.changed"
+        mode: 0755

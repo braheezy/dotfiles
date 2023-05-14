@@ -1,19 +1,19 @@
 ---
 
 - name: Add Charm repo
-  become: yes
-  yum_repository:
+  become: true
+  ansible.builtin.yum_repository:
     name: Charm
     description: Charm Tool and Library
     baseurl: https://repo.charm.sh/yum/
     gpgkey: https://repo.charm.sh/yum/gpg.key
 
 - name: Install charms
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     name:
       - glow
       - gum
       - skate
-    disable_gpg_check: yes
+    disable_gpg_check: true
     state: present

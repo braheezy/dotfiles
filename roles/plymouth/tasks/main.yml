@@ -1,8 +1,8 @@
 ---
 
 - name: Ensure plymouth is installed
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     name:
       - plymouth
       - plymouth-plugin-two-step
@@ -10,22 +10,24 @@
   when: do_install
 
 - name: Configure plymouth
+  when: "'plymouth' in ansible_facts.packages or plymouth_installed.changed" # noqa: no-handler
   block:
 
     - name: Ensure git project is checked out
-      git:
+      ansible.builtin.git:
         repo: https://github.com/catppuccin/plymouth.git
         dest: /tmp/plymouth
+        version: main
 
     - name: Ensure themes are provided
-      become: yes
-      copy:
+      become: true
+      ansible.builtin.copy:
         src: /tmp/plymouth/themes/catppuccin-mocha
         dest: /usr/share/plymouth/themes/
-        remote_src: yes
+        remote_src: true
+        mode: 0755
 
     - name: Set plymouth theme
-      become: yes
-      command: plymouth-set-default-theme -R catppuccin-mocha
-
-  when: "'plymouth' in ansible_facts.packages or plymouth_installed.changed"
+      become: true
+      ansible.builtin.command: plymouth-set-default-theme -R catppuccin-mocha
+      changed_when: true

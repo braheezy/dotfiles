@@ -1,18 +1,18 @@
 ---
 - name: Ensure flatpak is installed
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     name: flatpak
     state: present
 
 - name: Register Flathub repository
-  flatpak_remote:
+  community.general.flatpak_remote:
     name: flathub
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
     method: user
 
 - name: Install Flatpak apps
-  flatpak:
+  community.general.flatpak:
     name:
       - com.spotify.Client
       - io.github.Foldex.AdwSteamGtk

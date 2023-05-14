@@ -1,13 +1,14 @@
 ---
 
 - name: Ensure the cheat client is installed
-  become: yes
-  get_url:
+  become: true
+  ansible.builtin.get_url:
     url: https://cht.sh/:cht.sh
     dest: /usr/local/bin/ch.sh
-
-- name: Ensure cheat client is executable
-  become: yes
-  file:
-    path: /usr/local/bin/ch.sh
     mode: 0755
+
+# - name: Ensure cheat client is executable
+#   become: true
+#   ansible.builtin.file:
+#     path: /usr/local/bin/ch.sh
+#     mode: 0755

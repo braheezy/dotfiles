@@ -1,8 +1,8 @@
 ---
 
 - name: Importing (free) key
-  become: yes
-  rpm_key:
+  become: true
+  ansible.builtin.rpm_key:
     state: present
     key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
   when: do_install
@@ -11,37 +11,39 @@
   until: result is succeeded
 
 - name: Ensure free repos are enabled
-  become: yes
-  yum:
-    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm
+  become: true
+  ansible.builtin.yum:
+    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
     state: present
   when: do_install
 
 - name: Install obs
-  become: yes
-  yum:
+  become: true
+  ansible.builtin.yum:
     name: obs-studio
     state: present
   register: obs_installed
   when: do_install
 
 - name: Configure obs
+  when: "'obs-studio' in ansible_facts.packages or obs_installed.changed" # noqa: no-handler
   block:
 
     - name: Ensure git project is checked out
-      git:
+      ansible.builtin.git:
         repo: https://github.com/catppuccin/obs.git
         dest: /tmp/obs
+        version: main
 
     - name: Ensure obs themes dir exists
-      file:
+      ansible.builtin.file:
         path: '{{ ansible_env.HOME }}/.config/obs-studio/themes'
         state: directory
+        mode: 0755
 
     - name: Ensure themes are provided
-      copy:
+      ansible.builtin.copy:
         src: /tmp/obs/themes/
         dest: '{{ ansible_env.HOME }}/.config/obs-studio/themes/'
-        remote_src: yes
-
-  when: "'obs-studio' in ansible_facts.packages or obs_installed.changed"
+        remote_src: true
+        mode: 0755

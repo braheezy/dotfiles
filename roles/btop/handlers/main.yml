@@ -1,7 +1,7 @@
 ---
 
 - name: Manual Theme
-  debug:
+  ansible.builtin.debug:
     msg: |
       The theme for this app requires manual activation. See below:
 

@@ -1,84 +1,78 @@
 ---
-
 - name: Download latest release
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64"
     dest: /tmp/oh-my-posh
+    mode: 0755
 
 - name: Get checksum of downloaded posh
-  stat:
+  ansible.builtin.stat:
     path: /tmp/oh-my-posh
   register: downloaded_posh_file
 
 - name: Get checksum of current posh
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/oh-my-posh
   register: current_posh_file
 
 - name: Install/update posh
-  copy:
+  ansible.builtin.copy:
     src: /tmp/oh-my-posh
     dest: /usr/local/bin/oh-my-posh
-    remote_src: yes
+    remote_src: true
     owner: root
     group: root
     mode: 0755
   register: posh_updated
   when: not current_posh_file.stat.exists or downloaded_posh_file.stat.checksum != current_posh_file.stat.checksum
 
-- name: Delete downloaded posh
-  file:
-    path: /tmp/oh-my-posh
-    state: absent
-  when: posh_updated.changed
-
 - name: Check if themes are installed
-  stat:
+  ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.poshthemes"
   register: theme_folder
 
 - name: Install themes
-  become: no
+  become: false
+  when: theme_folder.stat.isdir is not defined or not theme_folder.stat.isdir
   block:
     - name: Download themes
-      get_url:
+      ansible.builtin.get_url:
         url: https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip
         dest: /tmp/posh-themes.zip
+        mode: 0755
 
     - name: Create themes directory
-      file:
+      ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.poshthemes"
         state: directory
-        mode: '0755'
+        mode: 0755
 
     - name: Install themes
-      unarchive:
+      ansible.builtin.unarchive:
         src: /tmp/posh-themes.zip
         dest: "{{ ansible_env.HOME }}/.poshthemes"
         mode: 0755
 
     - name: Delete downloaded zip
-      file:
+      ansible.builtin.file:
         path: /tmp/posh-themes.zip
         state: absent
 
-  when: theme_folder.stat.isdir is not defined or not theme_folder.stat.isdir
-
 - name: Get list of themes
-  find:
+  ansible.builtin.find:
     paths: "{{ ansible_env.HOME }}/.poshthemes"
     patterns: '*.omp.json'
   register: theme_files
 
 - name: Select random posh theme
-  set_fact:
+  ansible.builtin.set_fact:
     posh_theme_file: '{{ item.path }}'
   with_random_choice: '{{ theme_files.files }}'
   loop_control:
     label: '{{ item.path }}'
 
 - name: Provide current_prompt file
-  template:
+  ansible.builtin.template:
     src: current_prompt.j2
     dest: '{{ ansible_env.HOME }}/.bashrc.d/current_prompt'
     mode: 'u=rwx,go=rx'

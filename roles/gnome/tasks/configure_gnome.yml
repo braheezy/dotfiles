@@ -1,56 +1,56 @@
 ---
 
 - name: Ensure minimize button is present
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/wm/preferences/button-layout"
     value: "'appmenu:minimize,close'"
     state: present
 
 - name: Enable Focus on Hover for windows
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/wm/preferences/focus-mode"
     value: "'sloppy'"
     state: present
 
 - name: Enable workspace switching for all monitors
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/mutter/workspaces-only-on-primary"
     value: "false"
     state: present
 
 - name: Set favorite apps list
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/shell/favorite-apps"
     value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop', 'com.spotify.Client.desktop']"
     state: present
 
 - name: Disable screen turning off
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/session/idle-delay"
     value: "uint32 0"
     state: present
 
 - name: Prefer Dark Mode
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/interface/color-scheme"
     value: "'prefer-dark'"
     state: present
 
 - name: Set clock display to 12h format
-  dconf:
+  community.general.dconf:
     key: "/org/gnome/desktop/interface/clock-format"
     value: "'12h'"
     state: present
 
 - name: Enable auto-login
-  become: yes
-  ini_file:
+  become: true
+  community.general.ini_file:
     path: /etc/gdm/custom.conf
     section: daemon
     option: "{{ item.option }}"
     value: "{{ item.value }}"
     mode: 0644
-    backup: yes
+    backup: true
   loop:
-   - { option: AutomaticLoginEnable, value: "True"}
-   - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
+    - { option: AutomaticLoginEnable, value: "True"}
+    - { option: AutomaticLogin, value: "{{ ansible_env.USER }}" }
