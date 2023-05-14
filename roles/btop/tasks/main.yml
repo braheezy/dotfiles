@@ -20,7 +20,7 @@
 
     - name: Ensure the btop theme file is installed
       ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/catppuccin/btop/main/catppuccin_mocha.theme
+        url: https://raw.githubusercontent.com/catppuccin/btop/main/themes/catppuccin_mocha.theme
         dest: '{{ ansible_env.HOME }}/.config/btop/themes/'
         mode: 0755
       notify: Manual Theme
