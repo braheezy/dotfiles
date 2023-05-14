@@ -1,4 +1,12 @@
 ---
+- name: Ensure minimal GNOME is installed
+  become: true
+  ansible.builtin.yum:
+    name:
+      - gnome-terminal
+    state: present
+  when: do_install
+
 - name: Ensure theme installer file is present
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/catppuccin/gnome-terminal/main/install.py

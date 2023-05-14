@@ -1,4 +1,12 @@
 ---
+- name: Ensure minimal GNOME is installed
+  become: true
+  ansible.builtin.yum:
+    name:
+      - gnome-shell
+      - gdm
+    state: present
+  when: do_install
 
 - name: Run configure gnome tasks
   ansible.builtin.import_tasks: configure_gnome.yml
