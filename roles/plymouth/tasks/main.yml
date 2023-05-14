@@ -31,3 +31,6 @@
       become: true
       ansible.builtin.command: plymouth-set-default-theme -R catppuccin-mocha
       changed_when: true
+      # If run in container, this error is thrown:
+      # dracut: WARNING: running in hostonly mode in a container!!
+      when: ansible_virtualization_type != 'docker'
