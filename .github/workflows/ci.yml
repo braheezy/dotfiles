@@ -21,7 +21,7 @@ jobs:
           apt-get install -y ansible-lint
           ansible-galaxy collection install community.general
       - name: Run ansble-lint
-        uses: ansible-lint setup.yml
+        run: ansible-lint setup.yml
 
   test:
     name: Run once
