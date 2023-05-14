@@ -55,4 +55,4 @@
     - option: AutomaticLoginEnable
       value: "True"
     - option: AutomaticLogin
-      value: "{{ ansible_env.USER }}"
+      value: "{{ ansible_user_id }}"
