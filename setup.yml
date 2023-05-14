@@ -63,9 +63,9 @@
     - name: Run cava role
       ansible.builtin.import_role:
         name: cava
-    - name: Run steam role
-      ansible.builtin.import_role:
-        name: steam
+    # - name: Run steam role
+    #   ansible.builtin.import_role:
+    #     name: steam
     - name: Run obs_studio role
       ansible.builtin.import_role:
         name: obs_studio
