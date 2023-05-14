@@ -3,8 +3,8 @@
 # Git because we want to ability to update
 - name: Download catppuccin wallpapers
   ansible.builtin.git:
-    repo: https://github.com/catppuccin/wallpapers.git
-    dest: '{{ ansible_env.HOME }}/Pictures/catppuccin-wallpapers'
+    repo: https://github.com/braheezy/wallpapers.git
+    dest: '{{ ansible_env.HOME }}/Pictures/wallpapers'
     force: true
     version: main
 

@@ -54,18 +54,18 @@
     - name: Run ulauncher role
       ansible.builtin.import_role:
         name: ulauncher
-    # - name: Run wallpapers role
-    #   ansible.builtin.import_role:
-    #     name: wallpapers
+    - name: Run wallpapers role
+      ansible.builtin.import_role:
+        name: wallpapers
     - name: Run plymouth role
       ansible.builtin.import_role:
         name: plymouth
     - name: Run cava role
       ansible.builtin.import_role:
         name: cava
-    # - name: Run steam role
-    #   ansible.builtin.import_role:
-    #     name: steam
+    - name: Run steam role
+      ansible.builtin.import_role:
+        name: steam
     - name: Run obs_studio role
       ansible.builtin.import_role:
         name: obs_studio

@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-folder=$HOME/Pictures/current-wallpapers
-random_pic=$(ls $folder/*.png | shuf -n1)
+folder=$HOME/Pictures/wallpapers/src
+random_pic=$(ls $folder/*.{png,jpg} | shuf -n1)
 
 dconf write /org/gnome/desktop/background/picture-uri "'ansible.builtin.file://$random_pic'"
 dconf write /org/gnome/desktop/background/picture-uri-dark "'ansible.builtin.file://$random_pic'"

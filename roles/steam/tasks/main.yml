@@ -30,15 +30,6 @@
 
 - name: Install Adwaita for Steam skin
   ansible.builtin.command:
-    cmd: ./install.py -w full
+    cmd: ./install.py --web-theme full --color-theme catppuccin-mocha
     chdir: '{{ ansible_env.HOME }}/Adwaita-for-Steam'
   changed_when: true
-
-- name: Replace files with Catppuccin colors
-  ansible.posix.patch:
-    src: '{{ item }}'
-    basedir: '{{ ansible_env.HOME }}/Adwaita-for-Steam/'
-    strip: 1
-  loop:
-    - 1_root.css.patch
-    - colors.styles.patch
