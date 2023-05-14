@@ -16,15 +16,17 @@ gpgkey=https://repo.charm.sh/yum/gpg.key" > /etc/yum.repos.d/charm.repo'
     sudo yum install -y gum &>/dev/null
 fi
 
-gum spin --spinner minidot --title "Ensuring the system is up to date..." -- \
-    sudo yum -y update
+if [ -z ${CI+z} ]; then
+    RUN_PREFIX="gum spin --spinner minidot --title"
+else
+    RUN_PREFIX="echo"
+fi
+"${RUN_PREFIX}" sudo yum -y update
 
-gum spin --spinner minidot --title "Checking Ansible is installed..." -- \
-    sudo yum install -y ansible cowsay python3-psutil python3-jmespath
+"${RUN_PREFIX}" sudo yum install -y ansible cowsay python3-psutil python3-jmespath
 
-gum spin --spinner minidot --title "Checking Ansible collections are installed..." -- \
-    ansible-galaxy collection install community.general
+"${RUN_PREFIX}" ansible-galaxy collection install community.general
 
-ANSIBLE_CONFIG="$SCRIPT_DIR/ansible.cfg" \
-ANSIBLE_COW_SELECTION=hellokitty \
-    ansible-playbook "$SCRIPT_DIR/setup.yml"
+export ANSIBLE_CONFIG="$SCRIPT_DIR/ansible.cfg"
+export ANSIBLE_COW_SELECTION=hellokitty
+ansible-playbook "$SCRIPT_DIR/setup.yml"
