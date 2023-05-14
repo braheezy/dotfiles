@@ -6,6 +6,8 @@
   register: vs_code_installed
   when: do_install
 
+- debug:
+    var: vs_code_installed
 - name: Configure VS Code
   when: "'code' in ansible_facts.packages or vs_code_installed.changed" # noqa: no-handler
   block:
