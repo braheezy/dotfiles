@@ -18,20 +18,22 @@
   vars:
     github_url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode
   ansible.builtin.get_url:
-    url: '{{ github_url }}/{{ item.font_type }}/complete/{{ item.font_name }}'
+    url: '{{ github_url }}/{{ item.font_type }}/{{ item.font_name }}'
     dest: /usr/share/fonts/CaskaydiaCoveNF/{{ item.font_name }}
     mode: 0644
   loop:
     - font_type: Regular
-      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Regular.otf
+      font_name: CaskaydiaCoveNerdFont-Regular.otf
     - font_type: Regular
-      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Regular.otf
+      font_name: CaskaydiaCoveNerdFontMono-Regular.otf
     - font_type: Regular
-      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Italic.otf
+      font_name: CaskaydiaCoveNerdFontMono-Italic.otf
     - font_type: Bold
-      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold%20Italic.otf
+      font_name: CaskaydiaCoveNerdFontMono-BoldItalic.otf
     - font_type: Bold
-      font_name: Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Bold.otf
+      font_name: CaskaydiaCoveNerdFontMono-Bold.otf
+    - font_type: Bold
+      font_name: CaskaydiaCoveNerdFont-Bold.otf
   when: do_install
 
 - name: Ensure required dbus package is installed
