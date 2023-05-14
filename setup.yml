@@ -30,6 +30,7 @@
           - exa
           - figlet
           - unzip
+          - git
         state: present
 
     - name: Run base role
