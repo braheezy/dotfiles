@@ -4,3 +4,11 @@
     cmd: "code --install-extension {{ item }}"
     creates: "{{ ansible_env.HOME }}/.vscode/extensions/{{ item }}-*"
   loop: "{{ vs_code_extensions }}"
+  when: ansible_user_id != 'root'
+
+- name: Install extensions (if root)
+  ansible.builtin.command:
+    cmd: "code --install-extension {{ item }} --no-sandbox --user-data-dir {{ ansible_env.HOME }}/.vscode"
+    creates: "{{ ansible_env.HOME }}/.vscode/extensions/{{ item }}-*"
+  loop: "{{ vs_code_extensions }}"
+  when: ansible_user_id == 'root'
