@@ -19,13 +19,16 @@ fi
 if [ -z ${CI+z} ]; then
     RUN_PREFIX="gum spin --spinner minidot --title"
 else
-    RUN_PREFIX="echo"
+    print_and_run() {
+        echo "$1" && shift && "$@"
+    }
+    RUN_PREFIX="print_and_run"
 fi
-"${RUN_PREFIX}" sudo yum -y update
+"${RUN_PREFIX}" "Ensuring the system is up to date..." sudo yum -y update
 
-"${RUN_PREFIX}" sudo yum install -y ansible cowsay python3-psutil python3-jmespath
+"${RUN_PREFIX}" "Checking Ansible is installed..." sudo yum install -y ansible cowsay python3-psutil python3-jmespath
 
-"${RUN_PREFIX}" ansible-galaxy collection install community.general
+"${RUN_PREFIX}" "Checking Ansible collections are installed..." ansible-galaxy collection install community.general
 
 export ANSIBLE_CONFIG="$SCRIPT_DIR/ansible.cfg"
 export ANSIBLE_COW_SELECTION=hellokitty
