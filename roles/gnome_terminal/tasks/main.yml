@@ -11,3 +11,6 @@
     chdir: /tmp
   changed_when: true
   notify: Shell Reboot
+  # If run in container, this error is thrown:
+  # error: Cannot autolaunch D-Bus without X11 $DISPLAY
+  when: ansible_virtualization_type != 'docker'

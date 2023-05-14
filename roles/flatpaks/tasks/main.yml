@@ -18,3 +18,7 @@
       - io.github.Foldex.AdwSteamGtk
     method: user
     state: present
+  # If run in container, this error is thrown:
+  # bwrap: Creating new namespace failed: Operation not permitted
+  # Sounds like this: https://discourse.flathub.org/t/error-running-flatpack-in-dockerfile/1636
+  when: ansible_virtualization_type != 'docker'
