@@ -23,17 +23,17 @@
     mode: 0644
   loop:
     - font_type: Regular
-      font_name: CaskaydiaCoveNerdFont-Regular.otf
+      font_name: CaskaydiaCoveNerdFont-Regular.ttf
     - font_type: Regular
-      font_name: CaskaydiaCoveNerdFontMono-Regular.otf
+      font_name: CaskaydiaCoveNerdFontMono-Regular.ttf
     - font_type: Regular
-      font_name: CaskaydiaCoveNerdFontMono-Italic.otf
+      font_name: CaskaydiaCoveNerdFontMono-Italic.ttf
     - font_type: Bold
-      font_name: CaskaydiaCoveNerdFontMono-BoldItalic.otf
+      font_name: CaskaydiaCoveNerdFontMono-BoldItalic.ttf
     - font_type: Bold
-      font_name: CaskaydiaCoveNerdFontMono-Bold.otf
+      font_name: CaskaydiaCoveNerdFontMono-Bold.ttf
     - font_type: Bold
-      font_name: CaskaydiaCoveNerdFont-Bold.otf
+      font_name: CaskaydiaCoveNerdFont-Bold.ttf
   when: do_install
 
 - name: Ensure required dbus package is installed
