@@ -13,3 +13,4 @@
   ansible.builtin.yum:
     name: '{{ vs_code_package }}'
     state: present
+  register: vs_code_installed
