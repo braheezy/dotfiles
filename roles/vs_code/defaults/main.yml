@@ -43,6 +43,8 @@ vs_code_extensions:
     - 'streetsidesoftware.code-spell-checker'
     - 'tamasfe.even-better-toml'
     - 'Catppuccin.catppuccin-vsc-icons'
+    - redhat.ansible
+    - redhat.vscode-yaml
 
 # Settings to use
 vs_code_settings: {

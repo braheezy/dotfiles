@@ -26,7 +26,7 @@
 
     - name: Ensure kitty theme exists
       ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/catppuccin/kitty/main/mocha.conf
+        url: https://raw.githubusercontent.com/catppuccin/kitty/main/themes/mocha.conf
         dest: "{{ ansible_env.HOME }}/.config/kitty/themes/"
         mode: 0755
 
