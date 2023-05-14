@@ -34,7 +34,7 @@ vs_code_extensions:
     - 'bierner.markdown-preview-github-styles'
     - 'bierner.markdown-yaml-preamble'
     - 'Catppuccin.catppuccin-vsc'
-    - 'cschleiden.vscode-github-actions'
+    - 'GitHub.vscode-github-actions'
     - 'golang.go'
     - 'hashicorp.hcl'
     - 'hashicorp.terraform'
@@ -42,7 +42,7 @@ vs_code_extensions:
     - 's-nlf-fh.glassit'
     - 'streetsidesoftware.code-spell-checker'
     - 'tamasfe.even-better-toml'
-    - 'vscode-icons-team.vscode-icons'
+    - 'Catppuccin.catppuccin-vsc-icons'
 
 # Settings to use
 vs_code_settings: {
