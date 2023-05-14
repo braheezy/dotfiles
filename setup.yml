@@ -29,6 +29,7 @@
           - fd-find
           - exa
           - figlet
+          - unzip
         state: present
 
     - name: Run base role
