@@ -17,13 +17,19 @@ gpgkey=https://repo.charm.sh/yum/gpg.key" > /etc/yum.repos.d/charm.repo'
 fi
 
 if [ -z ${CI+z} ]; then
-    RUN_PREFIX="gum spin --spinner minidot --title"
+    print_and_run() {
+        title=$1
+        shift
+        cmd=$@
+        gum spin --spinner minidot --title "$title" -- $cmd
+    }
 else
     print_and_run() {
         echo "$1" && shift && "$@"
     }
-    RUN_PREFIX="print_and_run"
 fi
+RUN_PREFIX="print_and_run"
+
 "${RUN_PREFIX}" "Ensuring the system is up to date..." sudo yum -y update
 
 "${RUN_PREFIX}" "Checking Ansible is installed..." sudo yum install -y ansible cowsay python3-psutil python3-jmespath
