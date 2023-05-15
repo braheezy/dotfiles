@@ -43,9 +43,6 @@
 - name: Run change background
   ansible.builtin.command: change-background
   changed_when: true
-  environment:
-    DISPLAY: ":0"
-    XAUTHORITY: "{{ ansible_env.HOME }}/.Xauthority"
   # If run in container, this error is thrown:
   # error: Cannot autolaunch D-Bus without X11 $DISPLAY
-  # when: ansible_virtualization_type != 'docker'
+  when: ansible_virtualization_type != 'docker'
