@@ -1,6 +1,0 @@
----
-
-- name: Install Plugins
-  ansible.builtin.debug:
-    msg: |
-      Remember to run `:PluginInstall` when first running Neovim!
