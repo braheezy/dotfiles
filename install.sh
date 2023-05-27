@@ -38,4 +38,9 @@ RUN_PREFIX="print_and_run"
 
 export ANSIBLE_CONFIG="$SCRIPT_DIR/ansible.cfg"
 export ANSIBLE_COW_SELECTION=hellokitty
-ansible-playbook "$SCRIPT_DIR/setup.yml"
+if [ -z ${DRY+z} ]; then
+    ansible-playbook "$SCRIPT_DIR/setup.yml"
+else
+    gum style --foreground $YELLOW --bold --italic "Running setup in dry-run mode..."
+    ansible-playbook "$SCRIPT_DIR/setup.yml" --check --diff
+fi
