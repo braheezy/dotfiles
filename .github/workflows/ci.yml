@@ -24,7 +24,7 @@ jobs:
         run: |
           sudo apt install -y ansible-lint
           ansible-galaxy collection install community.general
-      - name: Run ansble-lint
+      - name: Run ansible-lint
         run: ansible-lint
 
   test:
