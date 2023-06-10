@@ -56,7 +56,7 @@ vs_code_extensions:
   - zfzackfrost.commentbars
 
 # Settings to use
-vs_code_settings: >
+vs_code_settings: |
   {
     "[markdown]":
       { "editor.wordWrap": "wordWrapColumn", "editor.wordWrapColumn": 120 },
