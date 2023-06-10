@@ -61,18 +61,22 @@
 - name: Get list of themes
   ansible.builtin.find:
     paths: "{{ ansible_env.HOME }}/.poshthemes"
-    patterns: '*.omp.json'
+    patterns: "*.omp.json"
   register: theme_files
 
 - name: Select random posh theme
   ansible.builtin.set_fact:
-    posh_theme_file: '{{ item.path }}'
-  with_random_choice: '{{ theme_files.files }}'
+    posh_theme_file: "{{ item.path }}"
+  with_random_choice: "{{ theme_files.files }}"
   loop_control:
-    label: '{{ item.path }}'
+    label: "{{ item.path }}"
 
 - name: Provide current_prompt file
   ansible.builtin.template:
     src: current_prompt.j2
-    dest: '{{ ansible_env.HOME }}/.bashrc.d/current_prompt'
-    mode: 'u=rwx,go=rx'
+    dest: "{{ ansible_env.HOME }}/.bashrc.d/current_prompt"
+    mode: "u=rwx,go=rx"
+
+- name: Disable upgrade notice
+  ansible.builtin.command: oh-my-posh disable notice
+  changed_when: true
