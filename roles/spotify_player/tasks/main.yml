@@ -1,5 +1,4 @@
 ---
-
 - name: Ensure dependencies are installed
   become: true
   ansible.builtin.yum:
@@ -21,10 +20,6 @@
     dest: /usr/local/bin/
     mode: 0755
 
-- name: Set secret variable
-  ansible.builtin.set_fact:
-    secret: "{{ spotify_client_id | default(ansible_env.SPOTIFY_CLIENT_ID) | default() }}"
-
 - name: Ensure config dir exists
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/spotify-player/"
@@ -37,7 +32,7 @@
     dest: "{{ ansible_env.HOME }}/.config/spotify-player/"
     mode: 0755
 
-- name: Ensure spotify client ID is configured
+- name: Ensure spotify client is configured
   ansible.builtin.template:
     src: app.toml.j2
     dest: "{{ ansible_env.HOME }}/.config/spotify-player/app.toml"

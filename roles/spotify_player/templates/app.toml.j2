@@ -1,6 +1,6 @@
-client_id = "{{ secret }}"
+client_id = "{{ spotify_client_id | default(ansible_env.SPOTIFY_CLIENT_ID) | default() }}"
 theme = "Catppuccin-macchiato"
 
 [device]
 name = "spotify-player"
-volume = "100"
+volume = 100
