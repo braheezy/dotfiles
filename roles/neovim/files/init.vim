@@ -1,8 +1,15 @@
+let data_dir = '~/.nvim/plugged'
+if empty(glob(data_dir))
+  silent execute 'mkdir -p ~/.nvim/plugged'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.nvim/plugged')
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 

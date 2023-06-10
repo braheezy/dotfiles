@@ -35,8 +35,3 @@
         src: init.vim
         dest: "{{ ansible_env.HOME }}/.config/nvim/"
         mode: 0755
-
-    - name: Install neovim plugins
-      ansible.builtin.command:
-        cmd: nvim +PlugInstall +qall
-        creates: "{{ ansible_env.HOME }}/.nvim/plugged/"
