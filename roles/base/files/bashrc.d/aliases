@@ -35,3 +35,6 @@ alias yummy="sudo yum update -y | lolcat"
 
 # Pure laziness
 alias open="xdg-open"
+
+# Fancy password manager
+alias getskate="skate list -k | gum filter | xargs skate get"
