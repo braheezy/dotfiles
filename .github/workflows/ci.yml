@@ -28,7 +28,7 @@ jobs:
         run: ansible-lint
 
   test:
-    name: Run once
+    name: Full run
     runs-on: ubuntu-latest
     container:
       image: fedora:37
