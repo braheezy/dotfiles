@@ -12,17 +12,18 @@
   when: "'btop' in ansible_facts.packages or btop_installed.changed" # noqa: no-handler
   block:
 
-    - name: Ensure btop theme dir exists
-      ansible.builtin.file:
-        path: '{{ ansible_env.HOME }}/.config/btop/themes'
-        state: directory
-        mode: 0755
-
     - name: Ensure the btop theme file is installed
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/catppuccin/btop/main/themes/catppuccin_mocha.theme
-        dest: '{{ ansible_env.HOME }}/.config/btop/themes/'
-        mode: 0755
+        dest: '{{ playbook_dir }}/../gen_catppuccin_mocha.theme'
+        mode: "0755"
+
+    - name: Enable btop theme
+      ansible.builtin.file:
+        src: '{{ playbook_dir }}/../gen_catppuccin_mocha.theme'
+        dest: '{{ ansible_env.HOME }}/.config/btop/themes/catppuccin_mocha.theme'
+        state: link
+        mode: "0755"
       notify: Manual Theme
 
     - name: Set handler message

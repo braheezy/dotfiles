@@ -54,20 +54,20 @@
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "{{ updated_keybindings }}"
 
-    - name: Ensure git project is checked out
+    - name: Ensure theme git project is checked out
       ansible.builtin.git:
         repo: https://github.com/catppuccin/ulauncher.git
-        dest: /tmp/ulauncher
+        dest: '{{ playbook_dir }}../gen_ulauncher'
         version: main
 
     - name: Ensure the ulauncher theme files are present
       ansible.builtin.command:
-        cmd: sh /tmp/ulauncher/install.sh --mocha-mauve
-        chdir: /tmp/ulauncher/
-        creates: '{{ ansible_env.HOME }}/.config/ulauncher/'
+        cmd: sh install.sh --mocha-mauve
+        chdir: '{{ playbook_dir }}../gen_ulauncher'
+        creates: '{{ ansible_env.HOME }}/.config/ulauncher/user-themes/Catpuccin-Mocha-Mauve/'
 
     - name: Ensure config file is present
-      ansible.builtin.copy:
+      ansible.builtin.file:
         src: settings.json
         dest: '{{ ansible_env.HOME }}/.config/ulauncher/settings.json'
-        mode: 0755
+        mode: "0755"

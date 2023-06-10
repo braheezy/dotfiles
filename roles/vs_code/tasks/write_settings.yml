@@ -1,6 +1,7 @@
 - name: Write Settings
   when: "vs_code_settings is defined and vs_code_settings not in ({}, '', None, omit)"
   block:
+    # It's okay if these aren't symlinks because VS code creates them
     - name: Create config directory
       ansible.builtin.file:
         path: '{{ ansible_env.HOME }}/.config/Code'
@@ -16,5 +17,11 @@
     - name: Write settings
       ansible.builtin.template:
         src: settings.json.j2
+        dest: '{{ playbook_dir }}/../gen_settings.json'
+        mode: 'u=rw,go='
+
+    - name: Ensure settins are linked
+      ansible.builtin.template:
+        src: '{{ playbook_dir }}/../gen_settings.json'
         dest: '{{ ansible_env.HOME }}/.config/Code/User/settings.json'
         mode: 'u=rw,go='

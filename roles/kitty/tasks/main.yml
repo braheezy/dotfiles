@@ -13,22 +13,11 @@
   block:
 
     - name: Ensure base kitty.conf exists
-      ansible.builtin.copy:
-        src: kitty.conf
-        dest: "{{ ansible_env.HOME }}/.config/kitty/"
-        mode: 0755
-
-    - name: Ensure kitty theme directory exists
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/kitty/themes"
-        state: directory
-        mode: 0755
-
-    - name: Ensure kitty theme exists
-      ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/catppuccin/kitty/main/themes/mocha.conf
-        dest: "{{ ansible_env.HOME }}/.config/kitty/themes/"
-        mode: 0755
+        src: kitty.conf
+        dest: "{{ ansible_env.HOME }}/.config/kitty/kitty.conf"
+        state: link
+        mode: "0755"
 
     - name: Set kitty theme
       ansible.builtin.command: kitty +kitten themes --reload-in=all Catppuccin-Mocha

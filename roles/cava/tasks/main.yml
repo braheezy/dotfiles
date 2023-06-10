@@ -12,14 +12,9 @@
   when: "'cava' in ansible_facts.packages or cava_installed.changed" # noqa: no-handler
   block:
 
-    - name: Ensure cava config dir exists
+    - name: Ensure cava config file is installed
       ansible.builtin.file:
-        path: '{{ ansible_env.HOME }}/.config/cava'
-        state: directory
-        mode: 0755
-
-    - name: Ensure the cava config file is present
-      ansible.builtin.copy:
         src: config
         dest: '{{ ansible_env.HOME }}/.config/cava/config'
-        mode: 0755
+        state: link
+        mode: "0755"

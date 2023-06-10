@@ -4,7 +4,7 @@
   ansible.builtin.get_url:
     url: https://github.com/catppuccin/cursors/blob/main/cursors/Catppuccin-Mocha-Mauve-Cursors.zip?raw=true
     dest: /tmp
-    mode: 0755
+    mode: "0755"
 
 - name: Unpack cursors
   become: true
@@ -12,7 +12,7 @@
     src: /tmp/Catppuccin-Mocha-Mauve-Cursors.zip
     dest: /usr/share/icons
     remote_src: true
-    mode: 0755
+    mode: "0755"
 
 - name: Configure a default cursor in settings
   community.general.dconf:

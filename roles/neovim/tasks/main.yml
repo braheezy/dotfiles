@@ -12,26 +12,21 @@
 - name: Configure neovim
   when: "'neovim' in ansible_facts.packages or neovim_installed.changed" # noqa: no-handler
   block:
-    - name: Ensure directory for vim-plug exists
-      ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
-        state: directory
-        mode: 0755
-
     - name: Install vim-plug
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim"
-        mode: 0755
+        dest: "{{ playbook_dir }}/../gen_plug.vim"
+        mode: "0755"
 
-    - name: Ensure neovim config dir exists
+    - name: Ensure directory for vim-plug exists
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/nvim"
-        state: directory
-        mode: 0755
+        src: "{{ playbook_dir }}/../gen_plug.vim"
+        dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim"
+        state: link
+        mode: "0755"
 
     - name: Install neovim config
-      ansible.builtin.copy:
+      ansible.builtin.file:
         src: init.vim
-        dest: "{{ ansible_env.HOME }}/.config/nvim/"
-        mode: 0755
+        dest: "{{ ansible_env.HOME }}/.config/nvim/init.vm"
+        mode: "0755"

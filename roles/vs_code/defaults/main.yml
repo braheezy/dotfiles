@@ -150,7 +150,8 @@ vs_code_settings: |
     "editor.wordWrapColumn": 120,
     "extensions.ignoreRecommendations": true,
     "files.associations":
-      { "Vagrantfile": "ruby", "gum_colors": "shellscript" },
+      { "Vagrantfile": "ruby", "gum_colors": "shellscript", ,
+        "**/roles/**/*.yml": "ansible" },
     "files.eol": "\n",
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,

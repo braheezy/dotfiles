@@ -10,6 +10,8 @@ GUM=gum
 GLOW=glow
 SKATE=skate
 
+rm -rf local_bin
+
 # Install local copies of charm binaries
 get_local_charm() {
     if [ -z "${QUIET+x}" ]; then
