@@ -12,3 +12,6 @@ PATH=$PATH:/usr/local/go/bin:$GOPATH/bin:$GOROOT/bin
 
 # To support Rust development
 PATH=$PATH:$HOME/.cargo/bin
+
+# Set the default text editor
+export EDITOR=nvim
