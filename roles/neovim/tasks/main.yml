@@ -31,6 +31,12 @@
         state: link
         mode: "0755"
 
+    - name: Ensure directory for neovim exists
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/nvim/"
+        state: directory
+        mode: "0755"
+
     - name: Install neovim config
       ansible.builtin.file:
         src: "{{ role_path }}/files/init.vim"
