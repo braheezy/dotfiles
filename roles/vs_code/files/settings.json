@@ -1,68 +1,13 @@
----
-# Visual Studio Code version number (defaults to the latest version)
-vs_code_version: ""
-# Mirror server for fetching the public keys and the Visual Studio Code
-# installation package. The URL may include directories. The URL must not end
-# with a trailing slash.
-vs_code_mirror: "https://packages.microsoft.com"
-
-# Name of package to install. 'code' is the simple default
-# Replace with path to local RPM name if not using mirror
-vs_code_package: code
-
-# should the gpgcheck of the repo enabled?
-# if yes, for dnf/yum the option gpgcheck is set to yes
-vs_code_gpgcheck: true
-
-# skip task to add repo for remote package manager
-# if set to yes, the task 'install VS Code repo' will be skipped
-# if set to no, the repo will be added, this is the default
-vs_code_skip_add_repo: false
-
-# Extensions to install
-# Either an identifier of the form ${publisher}.${name}, which will fetch from the internet
-# Or a local path to a .vsix file.
-vs_code_extensions:
-  - 1dot75cm.rpmspec
-  - aaron-bond.better-comments
-  - bierner.github-markdown-preview
-  - bierner.markdown-checkbox
-  - bierner.markdown-emoji
-  - bierner.markdown-footnotes
-  - bierner.markdown-mermaid
-  - bierner.markdown-preview-github-styles
-  - bierner.markdown-yaml-preamble
-  - catppuccin.catppuccin-vsc
-  - catppuccin.catppuccin-vsc-icons
-  - github.vscode-github-actions
-  - golang.go
-  - hashicorp.hcl
-  - hashicorp.terraform
-  - jinliming2.vscode-go-template
-  - ms-python.isort
-  - ms-python.python
-  - ms-python.vscode-pylance
-  - ms-vscode.wordcount
-  - paragdiwan.gitpatch
-  - redhat.ansible
-  - redhat.vscode-yaml
-  - s-nlf-fh.glassit
-  - streetsidesoftware.code-spell-checker
-  - svelte.svelte-vscode
-  - tamasfe.even-better-toml
-  - vivaxy.vscode-conventional-commits
-  - vscode-icons-team.vscode-icons
-  - wholroyd.jinja
-  - zfzackfrost.commentbars
-
-# Settings to use
-vs_code_settings: >
-  {
-    "[markdown]":
-      { "editor.wordWrap": "wordWrapColumn", "editor.wordWrapColumn": 120 },
-    "[yaml]": { "editor.detectIndentation": false, "editor.tabSize": 2 },
-    "cSpell.ignoreWords":
-      [
+{
+    "[markdown]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 120
+    },
+    "[yaml]": {
+        "editor.detectIndentation": false,
+        "editor.tabSize": 2
+    },
+    "cSpell.ignoreWords": [
         "Abser",
         "Adwaita",
         "Caskaydia",
@@ -140,8 +85,12 @@ vs_code_settings: >
         "wmctrl",
         "wordvalue",
         "yumrepos",
-      ],
-    "catppuccin.colorOverrides": { "mocha": { "green": "#72b3ab" } },
+    ],
+    "catppuccin.colorOverrides": {
+        "mocha": {
+            "green": "#72b3ab"
+        }
+    },
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
@@ -149,9 +98,11 @@ vs_code_settings: >
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 120,
     "extensions.ignoreRecommendations": true,
-    "files.associations":
-      { "Vagrantfile": "ruby", "gum_colors": "shellscript", ,
-        "**/roles/**/*.yml": "ansible" },
+    "files.associations": {
+        "Vagrantfile": "ruby",
+        "gum_colors": "shellscript",
+        "**/roles/**/*.yml": "ansible"
+    },
     "files.eol": "\n",
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
@@ -164,8 +115,7 @@ vs_code_settings: >
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "none",
-    "yaml.customTags":
-      [
+    "yaml.customTags": [
         "!And",
         "!And sequence",
         "!If",
@@ -193,5 +143,5 @@ vs_code_settings: >
         "!Select sequence",
         "!Split",
         "!Split sequence",
-      ],
-  }
+    ],
+}
