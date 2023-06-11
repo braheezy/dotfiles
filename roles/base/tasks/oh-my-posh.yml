@@ -2,29 +2,8 @@
 - name: Download latest release
   ansible.builtin.get_url:
     url: "https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64"
-    dest: /tmp/oh-my-posh
-    mode: "0755"
-
-- name: Get checksum of downloaded posh
-  ansible.builtin.stat:
-    path: /tmp/oh-my-posh
-  register: downloaded_posh_file
-
-- name: Get checksum of current posh
-  ansible.builtin.stat:
-    path: /usr/local/bin/oh-my-posh
-  register: current_posh_file
-
-- name: Install/update posh
-  ansible.builtin.copy:
-    src: /tmp/oh-my-posh
     dest: /usr/local/bin/oh-my-posh
-    remote_src: true
-    owner: root
-    group: root
     mode: "0755"
-  register: posh_updated
-  when: not current_posh_file.stat.exists or downloaded_posh_file.stat.checksum != current_posh_file.stat.checksum
 
 - name: Check if themes are installed
   ansible.builtin.stat:
@@ -74,7 +53,7 @@
 - name: Create current_prompt_theme file
   ansible.builtin.template:
     src: current_prompt_theme.j2
-    dest: "{{ playbook_dir }}/../files/.bashrc.d/gen_current_prompt_theme"
+    dest: "{{ role_path }}/files/bashrc.d/dot_current_prompt_theme"
     mode: "0755"
 
 - name: Disable upgrade notice
