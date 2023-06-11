@@ -20,6 +20,12 @@
 
     - name: Ensure directory for vim-plug exists
       ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/"
+        state: directory
+        mode: "0755"
+
+    - name: Ensure vim-plug exists
+      ansible.builtin.file:
         src: "{{ role_path }}/files/dot_plug.vim"
         dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim"
         state: link
