@@ -32,12 +32,18 @@
     - name: Ensure git project is checked out
       ansible.builtin.git:
         repo: https://github.com/catppuccin/obs.git
-        dest: '{{ playbook_dir }}/../gen_obs'
+        dest: '{{ role_path }}/dot_obs'
         version: main
 
     - name: Ensure obs themes dir exists
       ansible.builtin.file:
-        src: '{{ playbook_dir }}/../gen_obs/themes/'
-        dest: '{{ ansible_env.HOME }}/.config/obs-studio/themes/'
+        path: '{{ ansible_env.HOME }}/.config/obs-studio/'
+        state: directory
+        mode: "0755"
+
+    - name: Ensure obs themes dir exists
+      ansible.builtin.file:
+        src: '{{ role_path }}/dot_obs/themes/'
+        dest: '{{ ansible_env.HOME }}/.config/obs-studio/themes'
         state: link
         mode: "0755"

@@ -23,24 +23,31 @@
 - name: Ensure the theme file exists
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/catppuccin/spotify-player/main/src/theme.toml
-    dest: "{{ playbook_dir }}/../gen_theme.toml"
+    dest: "{{ role_path }}/dot_theme.toml"
+    mode: "0755"
+
+- name: Ensure spotify-player config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/spotify-player/"
+    state: directory
     mode: "0755"
 
 - name: Ensure theme is installed
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/../gen_theme.toml"
+    src: "{{ role_path }}/dot_theme.toml"
     dest: "{{ ansible_env.HOME }}/.config/spotify-player/theme.toml"
-    state: directory
+    state: link
     mode: "0755"
 
 - name: Generate spotify client config file
   ansible.builtin.template:
     src: app.toml.j2
-    dest: "{{ playbook_dir }}/../gen_app.toml"
+    dest: "{{ role_path }}/dot_app.toml"
     mode: "0755"
 
 - name: Ensure spotify client is configured
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/../gen_app.toml"
+    src: "{{ role_path }}/dot_app.toml"
     dest: "{{ ansible_env.HOME }}/.config/spotify-player/app.toml"
+    state: link
     mode: "0755"

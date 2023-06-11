@@ -10,15 +10,21 @@
 - name: Configure bat
   when: "'bat' in ansible_facts.packages or bat_installed.changed" # noqa: no-handler
   block:
-    - name: Ensure the bat theme file is installed
+    - name: Ensure the bat theme file is downloaded
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/catppuccin/bat/main/Catppuccin-mocha.tmTheme
-        dest: "{{ playbook_dir }}/../gen_Catppuccin-mocha.tmTheme"
+        dest: "{{ role_path }}/dot_Catppuccin-mocha.tmTheme"
         mode: "0755"
 
     - name: Ensure bat theme dir exists
       ansible.builtin.file:
-        src: "{{ playbook_dir }}/../gen_Catppuccin-mocha.tmTheme"
+        path: "{{ ansible_env.HOME }}/.config/bat/themes/"
+        state: directory
+        mode: "0755"
+
+    - name: Install bat theme
+      ansible.builtin.file:
+        src: "{{ role_path }}/dot_Catppuccin-mocha.tmTheme"
         dest: "{{ ansible_env.HOME }}/.config/bat/themes/Catppuccin-mocha.tmTheme"
         state: link
         mode: "0755"
@@ -29,7 +35,7 @@
 
     - name: Ensure bat config file is installed
       ansible.builtin.file:
-        src: config
+        src: '{{ role_path }}/files/config'
         dest: "{{ ansible_env.HOME }}/.config/bat/config"
         state: link
         mode: "0755"

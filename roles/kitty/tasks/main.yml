@@ -12,9 +12,15 @@
   when: "'kitty' in ansible_facts.packages or kitty_installed.changed" # noqa: no-handler
   block:
 
+    - name: Ensure kitty config dir exists
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/kitty/"
+        state: directory
+        mode: "0755"
+
     - name: Ensure base kitty.conf exists
       ansible.builtin.file:
-        src: kitty.conf
+        src: '{{ role_path }}/files/kitty.conf'
         dest: "{{ ansible_env.HOME }}/.config/kitty/kitty.conf"
         state: link
         mode: "0755"
