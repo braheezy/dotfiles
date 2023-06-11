@@ -25,9 +25,12 @@
         state: link
         mode: "0755"
 
-    - name: Set kitty theme
-      ansible.builtin.command: kitty +kitten themes --reload-in=all Catppuccin-Mocha
-      changed_when: true
+    - name: Ensure kitty theme file exists
+      ansible.builtin.file:
+        src: '{{ role_path }}/files/current-theme.conf'
+        dest: "{{ ansible_env.HOME }}/.config/kitty/current-theme.conf"
+        state: link
+        mode: "0755"
 
     - name: Disable annoying notifications
       community.general.dconf:
