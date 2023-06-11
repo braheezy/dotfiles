@@ -9,7 +9,7 @@
   ansible.builtin.file:
     path: /usr/share/fonts/CaskaydiaCoveNF
     state: directory
-    mode: 0755
+    mode: "0755"
   when:
     - font_folder.stat.isdir is not defined
     - do_install
@@ -20,7 +20,7 @@
   ansible.builtin.get_url:
     url: '{{ github_url }}/{{ item.font_type }}/{{ item.font_name }}'
     dest: /usr/share/fonts/CaskaydiaCoveNF/{{ item.font_name }}
-    mode: 0644
+    mode: "0644"
   loop:
     - font_type: Regular
       font_name: CaskaydiaCoveNerdFont-Regular.ttf
