@@ -34,7 +34,9 @@ jobs:
       image: fedora:37
     steps:
       - uses: actions/checkout@v3
-      - run: bash install.sh
+      - run: |
+          sudo apt install -y wget ncurses
+          bash install.sh
         env:
           CI: 1
           ANSIBLE_NOCOWS: 1
