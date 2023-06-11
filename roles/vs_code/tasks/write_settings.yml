@@ -17,11 +17,11 @@
     - name: Write settings
       ansible.builtin.template:
         src: settings.json.j2
-        dest: '{{ playbook_dir }}/../gen_settings.json'
+        dest: '{{ role_path }}/dot_settings.json'
         mode: 'u=rw,go='
 
     - name: Ensure settins are linked
       ansible.builtin.template:
-        src: '{{ playbook_dir }}/../gen_settings.json'
+        src: '{{ role_path }}/dot_settings.json'
         dest: '{{ ansible_env.HOME }}/.config/Code/User/settings.json'
         mode: 'u=rw,go='

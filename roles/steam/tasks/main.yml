@@ -24,12 +24,12 @@
 - name: Ensure Adwaita for Steam repo is available
   ansible.builtin.git:
     repo: https://github.com/tkashkin/Adwaita-for-Steam
-    dest: '{{ playbook_dir }}/../gen_Adwaita-for-Steam'
+    dest: '{{ role_path }}/dot_Adwaita-for-Steam'
     force: true
     version: master
 
 - name: Install Adwaita for Steam skin
   ansible.builtin.command:
     cmd: ./install.py --web-theme full --color-theme catppuccin-mocha
-    chdir: '{{ playbook_dir }}/../gen_Adwaita-for-Steam'
+    chdir: '{{ role_path }}/dot_Adwaita-for-Steam'
   changed_when: true

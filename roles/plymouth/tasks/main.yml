@@ -16,14 +16,14 @@
     - name: Ensure git project is checked out
       ansible.builtin.git:
         repo: https://github.com/catppuccin/plymouth.git
-        dest: '{{ playbook_dir }}/../gen_plymouth'
+        dest: '{{ role_path }}/dot_plymouth'
         version: main
 
     - name: Ensure themes are provided
       become: true
       ansible.builtin.file:
-        src: '{{ playbook_dir }}/../gen_plymouth/themes/catppuccin-mocha/'
-        dest: /usr/share/plymouth/themes/
+        src: '{{ role_path }}/dot_plymouth/themes/catppuccin-mocha/'
+        dest: /usr/share/plymouth/themes/catppuccin-mocha
         state: link
         mode: "0755"
 
