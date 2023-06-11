@@ -15,12 +15,12 @@
     - name: Install vim-plug
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        dest: "{{ playbook_dir }}/../dot_plug.vim"
+        dest: "{{ role_path }}/files/dot_plug.vim"
         mode: "0755"
 
     - name: Ensure directory for vim-plug exists
       ansible.builtin.file:
-        src: "{{ playbook_dir }}/../dot_plug.vim"
+        src: "{{ role_path }}/files/dot_plug.vim"
         dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim"
         state: link
         mode: "0755"
