@@ -36,10 +36,12 @@
       font_name: CaskaydiaCoveNerdFont-Bold.ttf
   when: do_install
 
-- name: Ensure required dbus package is installed
+- name: Ensure required packages are installed
   become: true
   ansible.builtin.yum:
-    name: dbus-daemon
+    name:
+      - dbus-daemon
+      - google-noto-emoji-color-fonts
     state: present
   when: do_install
 
@@ -49,7 +51,7 @@
     value: "'Noto Sans 12'"
     state: present
 
-- name: Set document-font-name
+- name: Set document-font-nameoo
   community.general.dconf:
     key: "/org/gnome/desktop/interface/document-font-name"
     value: "'Noto Serif 12'"
