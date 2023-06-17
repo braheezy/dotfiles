@@ -143,5 +143,7 @@
         "!Select sequence",
         "!Split",
         "!Split sequence"
-    ]
+    ],
+    "python.formatting.provider": "yapf",
+    "ansible.python.interpreterPath": "/usr/bin/python"
 }
