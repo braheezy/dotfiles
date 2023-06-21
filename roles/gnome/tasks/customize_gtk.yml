@@ -77,6 +77,11 @@
   ansible.builtin.command: dconf update
   changed_when: true
 
+# Because I think ansible_user_id changes after become: true
+- name: Set current user fact
+  ansible.builtin.set_fact:
+    user: '{{ ansible_user_id }}'
+
 - name: Ensure the user's AccountsService file exists
   become: true
   ansible.builtin.file:
