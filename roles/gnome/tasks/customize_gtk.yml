@@ -4,14 +4,14 @@
   ansible.builtin.get_url:
     url: https://github.com/catppuccin/gtk/releases/download/v0.4.1/Catppuccin-Mocha-Standard-Mauve-Dark.zip
     dest: /tmp/
-    mode: 0755
+    mode: "0755"
 
 - name: Install GTK theme
   become: true
   ansible.builtin.unarchive:
     src: /tmp/Catppuccin-Mocha-Standard-Mauve-Dark.zip
     dest: /usr/share/themes/
-    mode: 0755
+    mode: "0755"
 
 - name: Set GTK theme
   community.general.dconf:
@@ -23,14 +23,14 @@
   ansible.builtin.file:
     path: '{{ ansible_env.HOME }}/.config/gtk-4.0/'
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Ensure gtk-4 symlinks are present
   ansible.builtin.file:
     src: /usr/share/themes/Catppuccin-Mocha-Standard-Mauve-Dark/gtk-4.0/{{ item }}
     dest: '{{ ansible_env.HOME }}/.config/gtk-4.0/{{ item }}'
     state: link
-    mode: 0755
+    mode: "0755"
   loop:
     - assets
     - gtk.css
@@ -40,7 +40,7 @@
   ansible.builtin.copy:
     src: gnome-shell-theme.gresource.xml
     dest: /tmp/gnome-shell-theme.gresource.xml
-    mode: 0755
+    mode: "0755"
 
 - name: Apply theme to GDM
   ansible.builtin.script: install-gdm-theme.sh
@@ -51,7 +51,7 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/braheezy/catppuccin-gtk-rpm/master/cat.png
     dest: /usr/share/pixmaps/
-    mode: 0755
+    mode: "0755"
 
 - name: Ensure the gdm user's dconf file exists
   become: true
@@ -61,7 +61,7 @@
       user-db:user
       system-db:gdm
       file-db:/usr/share/gdm/greeter-dconf-defaults
-    mode: 0644
+    mode: "0644"
 
 - name: Define the keyfile to set the greeter logo
   become: true
@@ -70,7 +70,7 @@
     content: |
       [org/gnome/login-screen]
       logo='/usr/share/pixmaps/cat.png'
-    mode: 0644
+    mode: "0644"
 
 - name: Update the dconf database
   become: true
@@ -82,7 +82,7 @@
   ansible.builtin.file:
     path: /var/lib/AccountsService/users/{{ user }}
     state: touch
-    mode: 0600
+    mode: "0600"
 
 - name: Change the user login icon
   become: true
@@ -90,7 +90,7 @@
     path: /var/lib/AccountsService/users/{{ user }}
     regexp: '^Icon='
     line: Icon=/usr/share/pixmaps/cat.png
-    mode: 0600
+    mode: "0600"
 
 - name: Ensure packages for customization are installed
   become: true
@@ -128,7 +128,7 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh
     dest: /tmp/papirus-folders-install.sh
-    mode: 0755
+    mode: "0755"
 
 - name: Ensure the color switcher script is installed
   become: true

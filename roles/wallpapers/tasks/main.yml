@@ -10,28 +10,31 @@
 
 - name: Ensure custom script to change background exists
   become: true
-  ansible.builtin.copy:
-    src: change-background.sh
+  ansible.builtin.file:
+    src: '{{ role_path }}/files/change-background.sh'
     dest: /usr/local/bin/change-background
-    mode: 0755
+    state: link
+    mode: "0755"
 
 - name: Ensure custom script to update background exists
   become: true
-  ansible.builtin.copy:
-    src: update-backgrounds.sh
+  ansible.builtin.file:
+    src: '{{ role_path }}/files/update-backgrounds.sh'
     dest: /usr/local/bin/update-backgrounds
-    mode: 0755
+    state: link
+    mode: "0755"
 
 - name: Ensure service for changing background on login exists
   become: true
-  ansible.builtin.copy:
-    src: change-background.service
-    dest: /etc/systemd/system/
-    mode: 0755
+  ansible.builtin.file:
+    src: '{{ role_path }}/files/change-background.service'
+    dest: /etc/systemd/system/change-background.service
+    state: link
+    mode: "0755"
 
 - name: Ensure cron job to change background daily exists
   ansible.builtin.cron:
-    name: "change background"
+    name: change background
     minute: 0
     hour: 12
     job: /usr/local/bin/change-background

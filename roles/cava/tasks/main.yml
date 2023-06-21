@@ -14,12 +14,13 @@
 
     - name: Ensure cava config dir exists
       ansible.builtin.file:
-        path: '{{ ansible_env.HOME }}/.config/cava'
+        path: '{{ ansible_env.HOME }}/.config/cava/'
         state: directory
-        mode: 0755
+        mode: "0755"
 
-    - name: Ensure the cava config file is present
-      ansible.builtin.copy:
-        src: config
+    - name: Ensure cava config file is installed
+      ansible.builtin.file:
+        src: '{{ role_path }}/files/config'
         dest: '{{ ansible_env.HOME }}/.config/cava/config'
-        mode: 0755
+        state: link
+        mode: "0755"

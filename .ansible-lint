@@ -1,2 +1,5 @@
 kinds:
   - playbook: "**/setup.yml"
+
+skip_list:
+  - var-naming[no-role-prefix]

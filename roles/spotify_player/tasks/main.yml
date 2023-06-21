@@ -11,29 +11,43 @@
   ansible.builtin.get_url:
     url: https://github.com/aome510/spotify-player/releases/latest/download/spotify_player-x86_64-unknown-linux-gnu.tar.gz
     dest: /tmp/
-    mode: 0755
+    mode: "0755"
 
 - name: Unarchive release
   become: true
   ansible.builtin.unarchive:
     src: /tmp/spotify_player-x86_64-unknown-linux-gnu.tar.gz
     dest: /usr/local/bin/
-    mode: 0755
-
-- name: Ensure config dir exists
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/spotify-player/"
-    state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Ensure the theme file exists
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/catppuccin/spotify-player/main/src/theme.toml
-    dest: "{{ ansible_env.HOME }}/.config/spotify-player/"
-    mode: 0755
+    dest: "{{ role_path }}/dot_theme.toml"
+    mode: "0755"
 
-- name: Ensure spotify client is configured
+- name: Ensure spotify-player config dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/spotify-player/"
+    state: directory
+    mode: "0755"
+
+- name: Ensure theme is installed
+  ansible.builtin.file:
+    src: "{{ role_path }}/dot_theme.toml"
+    dest: "{{ ansible_env.HOME }}/.config/spotify-player/theme.toml"
+    state: link
+    mode: "0755"
+
+- name: Generate spotify client config file
   ansible.builtin.template:
     src: app.toml.j2
+    dest: "{{ role_path }}/dot_app.toml"
+    mode: "0755"
+
+- name: Ensure spotify client is configured
+  ansible.builtin.file:
+    src: "{{ role_path }}/dot_app.toml"
     dest: "{{ ansible_env.HOME }}/.config/spotify-player/app.toml"
-    mode: 0755
+    state: link
+    mode: "0755"

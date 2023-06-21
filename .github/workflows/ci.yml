@@ -28,12 +28,13 @@ jobs:
         run: ansible-lint
 
   test:
-    name: Run once
+    name: Full run
     runs-on: ubuntu-latest
     container:
       image: fedora:37
     steps:
       - uses: actions/checkout@v3
+      - run: sudo yum install -y wget ncurses python3-gobject
       - run: bash install.sh
         env:
           CI: 1

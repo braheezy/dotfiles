@@ -9,7 +9,7 @@
   ansible.builtin.file:
     path: /usr/share/fonts/CaskaydiaCoveNF
     state: directory
-    mode: 0755
+    mode: "0755"
   when:
     - font_folder.stat.isdir is not defined
     - do_install
@@ -20,7 +20,7 @@
   ansible.builtin.get_url:
     url: '{{ github_url }}/{{ item.font_type }}/{{ item.font_name }}'
     dest: /usr/share/fonts/CaskaydiaCoveNF/{{ item.font_name }}
-    mode: 0644
+    mode: "0644"
   loop:
     - font_type: Regular
       font_name: CaskaydiaCoveNerdFont-Regular.ttf
@@ -36,10 +36,12 @@
       font_name: CaskaydiaCoveNerdFont-Bold.ttf
   when: do_install
 
-- name: Ensure required dbus package is installed
+- name: Ensure required packages are installed
   become: true
   ansible.builtin.yum:
-    name: dbus-daemon
+    name:
+      - dbus-daemon
+      - google-noto-emoji-color-fonts
     state: present
   when: do_install
 
@@ -49,7 +51,7 @@
     value: "'Noto Sans 12'"
     state: present
 
-- name: Set document-font-name
+- name: Set document-font-nameoo
   community.general.dconf:
     key: "/org/gnome/desktop/interface/document-font-name"
     value: "'Noto Serif 12'"

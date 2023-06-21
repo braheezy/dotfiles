@@ -11,7 +11,7 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/catppuccin/gnome-terminal/main/install.py
     dest: /tmp/
-    mode: 0755
+    mode: "0755"
 
 - name: Ensure theme is installed
   ansible.builtin.command:
