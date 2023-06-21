@@ -7,85 +7,36 @@
     do_install: true
     # The desktop environment to use
     desktop_environment: gnome
+  pre_tasks:
 
-  tasks:
     - name: Gather package_facts
       ansible.builtin.package_facts:
 
-    - name: Set user fact
-      ansible.builtin.set_fact:
-        user: '{{ ansible_user_id }}'
-
-    - name: Install base packages
-      become: true
-      ansible.builtin.yum:
-        name:
-          - cronie
-          - wget
-          - firefox
-          - patch
-          - ripgrep
-          - duf
-          - fd-find
-          - exa
-          - figlet
-          - unzip
-          - git
-        state: present
-
-    - name: Run base role
-      ansible.builtin.import_role:
-        name: base
-    - name: Run bat role
-      ansible.builtin.import_role:
-        name: bat
-    - name: Run btop role
-      ansible.builtin.import_role:
-        name: btop
-    - name: Run vs_code role
-      ansible.builtin.import_role:
-        name: vs_code
-    - name: Run kitty role
-      ansible.builtin.import_role:
-        name: kitty
-    - name: Run neovim role
-      ansible.builtin.import_role:
-        name: neovim
-    - name: Run ulauncher role
-      ansible.builtin.import_role:
-        name: ulauncher
-    - name: Run wallpapers role
-      ansible.builtin.import_role:
-        name: wallpapers
-    - name: Run plymouth role
-      ansible.builtin.import_role:
-        name: plymouth
-    - name: Run cava role
-      ansible.builtin.import_role:
-        name: cava
-    - name: Run steam role
-      ansible.builtin.import_role:
-        name: steam
-    - name: Run obs_studio role
-      ansible.builtin.import_role:
-        name: obs_studio
-
-    - name: Run install roles
-      ansible.builtin.include_role:
-        name: "{{ item }}"
-      loop:
-        - cursors
-        - cheat
-        - charms
-        - flatpaks
-        - spotify_player
+  roles:
+    - tools
+    - base
+    - bat
+    - btop
+    - vs_code
+    - kitty
+    - neovim
+    - ulauncher
+    - wallpapers
+    - plymouth
+    - cava
+    - steam
+    - obs_studio
+    - role: cursors
       when: do_install
-
-    - name: Run gnome role
-      ansible.builtin.import_role:
-        name: gnome
+    - role: cheat
+      when: do_install
+    - role: charms
+      when: do_install
+    - role: flatpaks
+      when: do_install
+    - role: spotify_player
+      when: do_install
+    - role: gnome
       when: desktop_environment == 'gnome'
-    - name: Run gnome_terminal role
-      ansible.builtin.import_role:
-        name: gnome_terminal
+    - role: gnome_terminal
       when: desktop_environment == 'gnome'

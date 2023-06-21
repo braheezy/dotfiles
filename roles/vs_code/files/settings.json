@@ -144,6 +144,7 @@
         "!Split",
         "!Split sequence"
     ],
+    "python.formatting.provider": "yapf",
     "terminal.integrated.minimumContrastRatio": 1,
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true
