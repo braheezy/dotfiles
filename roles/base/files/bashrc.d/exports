@@ -3,15 +3,17 @@ export ANSIBLE_COW_SELECTION="tux"
 
 # Set up a local spot to install shiny Ruby gems.
 export GEM_HOME="$HOME/gems"
-PATH="$HOME/gems/bin:$PATH"
+pathmunge "$HOME/gems/bin"
 
 # To support Go development
 GOPATH=$HOME/go
 GOROOT="/usr/local/go"
-PATH=$PATH:/usr/local/go/bin:$GOPATH/bin:$GOROOT/bin
+pathmunge /usr/local/go/bin after
+pathmunge "$GOPATH/bin" after
+pathmunge "$GOROOT/bin" after
 
 # To support Rust development
-PATH=$PATH:$HOME/.cargo/bin
+pathmunge "$HOME/.cargo/bin" after
 
 # Set the default text editor
 export EDITOR=nvim
