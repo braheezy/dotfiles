@@ -143,5 +143,8 @@
         "!Select sequence",
         "!Split",
         "!Split sequence"
-    ]
+    ],
+    "terminal.integrated.minimumContrastRatio": 1,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true
 }
