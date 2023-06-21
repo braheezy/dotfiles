@@ -21,6 +21,12 @@
   when: do_install
   block:
 
+    - name: Ensure /usr/local/bin exists
+      ansible.builtin.file:
+        path: /usr/local/bin
+        state: directory
+        mode: "0755"
+
     - name: Install pastel
       ansible.builtin.unarchive:
         src: https://github.com/sharkdp/pastel/releases/download/v0.9.0/pastel-v0.9.0-x86_64-unknown-linux-musl.tar.gz
