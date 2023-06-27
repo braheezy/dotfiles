@@ -38,3 +38,29 @@ alias open="xdg-open"
 
 # Fancy password manager
 alias getskate="skate list -k | gum filter | xargs skate get"
+
+# Fancy help viewer
+# Usage: help <command>
+if command -V bat &> /dev/null; then
+    help() {
+        "$@" --help 2>&1 | bat --plain --language=help
+    }
+fi
+
+# Git Helpers
+alias g="git"
+alias gs="g status"
+alias ga="g add -A"
+alias gap="g add -p"
+alias gd="g diff"
+alias gc="g commit"
+alias gcq="ga && gc"
+alias gcam="gc --amend --no-edit"
+alias gco="g checkout"
+alias gls="g log -n5"
+alias gla="g log --all"
+alias glg="g log --graph"
+alias gtail="g log -n1"
+alias gd="g diff"
+alias gdc="g diff --cached"
+alias gdh="g diff HEAD"

@@ -4,3 +4,9 @@
 
 [init]
 defaultBranch = main
+[core]
+	editor = nvim -c 'startinsert'
+[color]
+	ui = auto
+[format]
+	pretty = "format:%C(#cba6f7)%h %C(#89dceb)%s%C(#f38ba8)%d %C(#89b4fa dim)%ar %C(#fab387 italic)%an%+b%Creset"
