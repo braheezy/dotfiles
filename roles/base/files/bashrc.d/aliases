@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Ansible power user stuff
 alias ap="ansible-playbook"
 
@@ -35,9 +37,15 @@ alias yummy="sudo yum update -y | lolcat"
 
 # Pure laziness
 alias open="xdg-open"
+alias c="code"
+alias c.="code ."
+alias cl="clear"
+
+# Integrated kitty support over ssh
+alias s="kitty +kitten ssh"
 
 # Fancy password manager
-alias getskate="skate list -k | gum filter | xargs skate get"
+alias skate-pick="skate list -k | gum filter | xargs skate get"
 
 # Fancy help viewer
 # Usage: help <command>
