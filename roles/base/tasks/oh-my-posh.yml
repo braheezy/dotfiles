@@ -1,5 +1,6 @@
 ---
 - name: Download latest release
+  become: true
   ansible.builtin.get_url:
     url: "https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64"
     dest: /usr/local/bin/oh-my-posh
@@ -11,7 +12,6 @@
   register: theme_folder
 
 - name: Install themes
-  become: false
   when: theme_folder.stat.isdir is not defined or not theme_folder.stat.isdir
   block:
     - name: Download themes

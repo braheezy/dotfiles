@@ -31,5 +31,4 @@
 
 - name: Add oh-my-posh
   ansible.builtin.import_tasks: oh-my-posh.yml
-  become: true
   when: do_install
