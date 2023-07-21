@@ -1,5 +1,5 @@
 ---
-- name: Install dotfiles and other basics customizations
+- name: Install dotfiles and other basic customizations
   hosts: localhost
   connection: local
   vars:
@@ -16,10 +16,10 @@
     - tools
     - base
     - bat
+    - neovim
     - btop
     - vs_code
     - kitty
-    - neovim
     - ulauncher
     - wallpapers
     - plymouth
