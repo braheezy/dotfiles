@@ -1,18 +1,10 @@
 ---
-- name: Ensure .bashrc.d exists
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.bashrc.d/"
-    state: directory
-    mode: "0644"
-
 - name: Ensure dots are in .bashrc.d
   ansible.builtin.file:
-    src: '{{ item }}'
-    dest: "{{ ansible_env.HOME }}/.bashrc.d/{{ item | basename }}"
+    src: "{{ role_path }}/files/bashrc.d/"
+    dest: "{{ ansible_env.HOME }}/.bashrc.d"
     state: link
-    mode: "0644"
-  with_fileglob:
-    - "{{ role_path }}/files/bashrc.d/*"
+    force: true
 
 - name: Ensure home dots are in {{ ansible_env.HOME }}
   ansible.builtin.file:
@@ -20,7 +12,6 @@
     dest: "{{ ansible_env.HOME }}/.{{ item | basename }}"
     state: link
     force: true
-    mode: "0644"
   with_fileglob:
     - "{{ role_path }}/files/home/*"
 
