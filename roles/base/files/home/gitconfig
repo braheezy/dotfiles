@@ -1,9 +1,8 @@
 [user]
 	name = braheezy
 	email = michael.c.braha@gmail.com
-
 [init]
-defaultBranch = main
+	defaultBranch = main
 [core]
 	editor = nvim -c 'startinsert'
 [color]
