@@ -2,52 +2,88 @@
 
 set -euo pipefail
 
+SCRIPT_DIR=$(dirname "$0")
+
 DO_INSTALL=true
 DRY_RUN=false
 
 # Set charm binary paths
 GUM=gum
 GLOW=glow
-SKATE=skate
+LOCAL_CHARMS=$SCRIPT_DIR/local_bin
 
-print_fetch_message() {
+# Try to support different machines
+if command -v yum &>/dev/null; then
+    PKG_MAN=yum
+elif command -v apt &>/dev/null; then
+    PKG_MAN=apt
+fi
+
+ARCH=$(uname -m)
+if [[ $ARCH == "aarch64" ]]; then
+    ARCH="arm64"
+fi
+
+start_spinner() {
     if [ -z "${QUIET+x}" ]; then
-        echo "$(tput setaf 3)Installing ${1} locally. This may take a minute...$(tput sgr 0)"
+    chars=("▁▃▄▅▆▇█▇▆▅▄▃")
+    delay=0.2
+    i=1
+    color=$(( ($RANDOM % 18) + 34))
+    msg=$1
+
+    while true; do
+        echo -ne "\r\e[38;5;${color}m${chars:i++%${#chars}:1}\e[0m ${msg}. This may take a minute..."
+        sleep $delay
+    done
     fi
+}
+stop_spinner() {
+  echo -ne "\r\033[K"  # Clear the line
 }
 
 # Install local copies of charm binaries
 get_local_charm() {
-    mkdir -p local_bin
+    mkdir -p "$LOCAL_CHARMS"
     case $1 in
         gum)
-            if [[ ! -e local_bin/gum ]]; then
-                print_fetch_message gum
+            if [[ ! -e $LOCAL_CHARMS/gum ]]; then
+                start_spinner "Adding gum locally" &
+                pid=$!
                 wget -qO- \
-                    https://github.com/charmbracelet/gum/releases/download/v0.10.0/gum_0.10.0_Linux_x86_64.tar.gz \
-                    | tar -xz -C local_bin/ gum
+                    "https://github.com/charmbracelet/gum/releases/download/v0.10.0/gum_0.10.0_Linux_$ARCH.tar.gz" \
+                    | tar -xz -C "$LOCAL_CHARMS" gum
+                stop_spinner
+                kill $pid
             fi
-            GUM=./local_bin/gum
+            GUM=$LOCAL_CHARMS/gum
             ;;
         glow)
-            if [[ ! -e local_bin/glow ]]; then
-                print_fetch_message glow
+            if [[ ! -e $LOCAL_CHARMS/glow ]]; then
+                start_spinner "Adding glow locally" &
+                pid=$!
                 wget -qO- \
-                    https://github.com/charmbracelet/glow/releases/download/v1.5.1/glow_Linux_x86_64.tar.gz \
-                    | tar -xz -C local_bin/ glow
+                    "https://github.com/charmbracelet/glow/releases/download/v1.5.1/glow_Linux_$ARCH.tar.gz" \
+                    | tar -xz -C "$LOCAL_CHARMS" glow
+                stop_spinner
+                kill $pid
             fi
-            GLOW=./local_bin/glow
-            ;;
-        skate)
-            if [[ ! -e local_bin/skate ]]; then
-                print_fetch_message skate
-                wget -qO- \
-                    https://github.com/charmbracelet/skate/releases/download/v0.2.2/skate_0.2.2_Linux_x86_64.tar.gz \
-                    | tar -xz -C local_bin/ skate
-            fi
-            SKATE=./local_bin/skate
+            GLOW=$LOCAL_CHARMS/glow
             ;;
     esac
+}
+
+# Run commands behind a pretty spinner
+print_and_run() {
+    if [ -z ${CI+z} ]; then
+        title=$1
+        shift
+        cmd=$@
+        $GUM spin --spinner minidot --title "$title" -- $cmd
+    else
+        # Simply print and run commands
+        echo "$1" && shift && $@
+    fi
 }
 
 # Process command line options
@@ -74,52 +110,40 @@ while getopts ":dnh" opt; do
 done
 shift $((OPTIND - 1))
 
-SCRIPT_DIR=$(dirname "$0")
 
-# Get Gum
+if [[ "$DO_INSTALL" == true ]]; then
+    if ! command -v tput &>/dev/null || ! command -v wget &>/dev/null; then
+        start_spinner "Installing ncurses and wget to system" &
+        pid=$!
+        sudo "$PKG_MAN" install -y ncurses wget &>/dev/null
+        stop_spinner
+        kill $pid
+    fi
+fi
+
 if ! command -v $GUM &>/dev/null; then
     get_local_charm $GUM
 fi
 
-if [ -z ${CI+z} ]; then
-    # Run commands behind a pretty spinner
-    print_and_run() {
-        title=$1
-        shift
-        cmd=$@
-        $GUM spin --spinner minidot --title "$title" -- $cmd
-    }
-else
-    # Simply print and run commands
-    print_and_run() {
-        echo "$1" && shift && "$@"
-    }
+if [[ "$DO_INSTALL" == true ]]; then
+
+    print_and_run "Ensuring the system is up to date..." sudo "$PKG_MAN" update -y
+
+    print_and_run "Ensuring Ansible is installed..." sudo "$PKG_MAN" install -y ansible cowsay python3-psutil python3-jmespath
+
+    print_and_run "Ensuring Ansible collections are installed..." ansible-galaxy collection install community.general
 fi
-
-# Get skate and try to get a spotify client id
-if ! command -v $SKATE &>/dev/null; then
-    get_local_charm $SKATE
-fi
-print_and_run "Ensuring the system is up to date..." sudo yum -y update
-
-print_and_run "Ensuring Ansible is installed..." sudo yum install -y ansible cowsay python3-psutil python3-jmespath
-
-print_and_run "Ensuring Ansible collections are installed..." ansible-galaxy collection install community.general
-
-if [ -z ${SPOTIFY_CLIENT_ID+x} ]; then
-    export SPOTIFY_CLIENT_ID=$($GUM spin --spinner minidot --show-output --title "Using skate to fetch Spotify Client ID..." -- $SKATE get spotify_client_id | echo "")
-fi
-
 
 export ANSIBLE_CONFIG="$SCRIPT_DIR/ansible.cfg"
 export ANSIBLE_COW_SELECTION=hellokitty
 
 ANSIBLE_ARGS=""
-if ! $DO_INSTALL; then
-    ANSIBLE_ARGS+=" -e do_install=false"
+if [[ $DO_INSTALL == false ]];then
+    ANSIBLE_ARGS+="-e do_install="
 fi
 if $DRY_RUN; then
     ANSIBLE_ARGS+=" --check --diff"
 fi
+
 
 ansible-playbook "$SCRIPT_DIR/setup.yml" $ANSIBLE_ARGS
