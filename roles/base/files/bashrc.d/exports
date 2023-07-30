@@ -34,6 +34,9 @@ pathmunge "$HOME/.cargo/bin" after
 # Set the default text editor
 export EDITOR=nvim
 
+# My local bins
+pathmunge "$HOME/.bin"
+
 # Better manpage viewer
 if command -V bat &> /dev/null; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
