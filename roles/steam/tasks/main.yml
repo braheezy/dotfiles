@@ -30,6 +30,6 @@
 
 - name: Install Adwaita for Steam skin
   ansible.builtin.command:
-    cmd: ./install.py --web-theme full --color-theme catppuccin-mocha
+    cmd: ./install.py --color-theme catppuccin-mocha
     chdir: '{{ role_path }}/dot_Adwaita-for-Steam'
   changed_when: true
