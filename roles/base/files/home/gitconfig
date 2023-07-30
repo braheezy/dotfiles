@@ -5,6 +5,7 @@
 	defaultBranch = main
 [core]
 	editor = nvim -c 'startinsert'
+	excludesFile = ~/.gitignore
 [color]
 	ui = auto
 [format]
