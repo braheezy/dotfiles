@@ -1,7 +1,36 @@
+#!/bin/bash
+
 change-prompt() {
     random_prompt=$(ls ~/.poshthemes/*.omp.json | shuf -n1)
     echo "export POSH_THEME=$random_prompt" > ~/.bashrc.d/current_prompt
     gum style --foreground $(shuf -i 1-255 -n 1) \
               --padding "0 2" --italic\
               "Shell prompt was updated. Be sure to reload it to see effects!"
+}
+
+trash() {
+    mv $1 ~/.local/share/Trash/files/
+}
+
+
+print_message() {
+    gum style "$1" \
+    --background=$SLATE \
+    --foreground=$ORANGE \
+    --align="center" \
+    --italic
+}
+
+print_error() {
+    gum style "$1" \
+    --foreground=$RED \
+    --bold
+}
+
+uppy() {
+    sudo yum update -y | lolcat
+    sudo yum makecache | lolcat
+
+    print_message "Updating Flatpaks next 🔨"
+    flatpak update -y
 }

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Quickly edit dots
+alias doted='$EDITOR ~/.bashrc.d'
+
+# Install an RPM
+alias yumget='sudo yum install'
+
 # Ansible power user stuff
 alias ap="ansible-playbook"
 
@@ -15,16 +21,17 @@ alias vs="vagrant status"
 alias vbl="vagrant box list"
 alias vbrm="vagrant box remove"
 alias vgs="vagrant global-status"
+alias vR="vagrant destroy -f && vagrant up"
 
 # Python virtual environment stuff
 # Create a new virtual environment
 alias ve="python3 -m venv venv"
 alias va="source venv/bin/activate"
 
-# Exa (ls replacement) stuff
-alias lx="exa --long --icons --all"
+# exa (ls replacement) stuff
+alias lx="exa --icons --all --classify --color-scale --group-directories-first"
 alias tree="exa --tree --icons --all"
-alias ll="lx"
+alias ll="lx --long --no-user --octal-permissions --no-permissions"
 
 # Kitty can render arbitrary images directly
 alias icat="kitty +kitten icat"
@@ -32,14 +39,12 @@ alias icat="kitty +kitten icat"
 # Process checker
 alias psa="ps aux | rg -i"
 
-# Update the machine prettily
-alias yummy="sudo yum update -y | lolcat"
-
 # Pure laziness
 alias open="xdg-open"
 alias c="code"
 alias c.="code ."
 alias cl="clear"
+alias cd..='cd ..'
 
 # Integrated kitty support over ssh
 alias s="kitty +kitten ssh"

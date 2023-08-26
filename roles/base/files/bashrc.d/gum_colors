@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -eou pipefail
+
 export BLACK='#45475A'
 export RED='#F38BA8'
 export GREEN='#A6E3A1'
@@ -7,3 +11,5 @@ export CYAN='#94E2D5'
 export MAUVE='#cba6f7'
 export PINK='#f5c2e7'
 export WHITE='#A6ADC8'
+export SLATE='#2c3e50'
+export ORANGE='#f39c12'
