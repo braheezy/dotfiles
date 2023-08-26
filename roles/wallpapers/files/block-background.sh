@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Get the directory where the script is located
+script_dir=$(dirname "$(readlink -f "$0")")
+
+# Get the current wallpaper's file name
+current_wallpaper=$1
+if [[ -z $1 ]]; then
+    current_wallpaper=$(gsettings get org.gnome.desktop.background picture-uri | awk -F "'" '{print $2}')
+fi
+current_wallpaper_name=$(basename "$current_wallpaper")
+
+blocklist_file="$script_dir/blocklist.txt"
+# Add the current wallpaper to the blocklist
+echo "$current_wallpaper_name" >> "$blocklist_file"
+
+# Call the wallpaper changer script to set a new wallpaper
+change-background.sh
+
+print_message "Current wallpaper added to the blocklist. Wallpaper changed."
