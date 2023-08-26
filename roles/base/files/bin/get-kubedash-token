@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+TOKEN=$(ssh pibox k3s kubectl -n kubernetes-dashboard create token admin-user 2>/dev/null)
+
+gum style --foreground $PINK "Here's a token for the kubernetes-dashboard login:"
+echo ""
+gum style --foreground $GREEN "$TOKEN"
+
