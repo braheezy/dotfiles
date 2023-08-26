@@ -28,6 +28,9 @@
     state: link
     force: true
 
+- name: Setup ~/.bin
+  ansible.builtin.import_tasks: install_bin.yml
+
 - name: Add fonts
   ansible.builtin.import_tasks: install_fonts.yml
   become: true
