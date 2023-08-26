@@ -29,6 +29,7 @@ start_spinner() {
     chars=("▁▃▄▅▆▇█▇▆▅▄▃")
     delay=0.2
     i=1
+    # shellcheck disable=SC2004
     color=$(( ($RANDOM % 18) + 34))
     msg=$1
 
@@ -78,10 +79,11 @@ print_and_run() {
     if [ -z ${CI+z} ]; then
         title=$1
         shift
-        cmd=$@
-        $GUM spin --spinner minidot --title "$title" -- $cmd
+        # shellcheck disable=SC2068
+        $GUM spin --spinner minidot --title "$title" -- $@
     else
         # Simply print and run commands
+        # shellcheck disable=SC2068
         echo "$1" && shift && $@
     fi
 }
@@ -128,7 +130,9 @@ fi
 if [[ "$DO_INSTALL" == true ]]; then
 
     print_and_run "Ensuring the system is up to date..." sudo "$PKG_MAN" update -y
-
+    if [[ $PKG_MAN == "yum " ]]; then
+        print_and_run "Making local package metadata cache..." sudo "$PKG_MAN" makecache
+    fi
     print_and_run "Ensuring Ansible is installed..." sudo "$PKG_MAN" install -y ansible cowsay python3-psutil python3-jmespath
 
     print_and_run "Ensuring Ansible collections are installed..." ansible-galaxy collection install community.general
@@ -145,5 +149,5 @@ if $DRY_RUN; then
     ANSIBLE_ARGS+=" --check --diff"
 fi
 
-
+# shellcheck disable=SC2086
 ansible-playbook "$SCRIPT_DIR/setup.yml" $ANSIBLE_ARGS
