@@ -56,3 +56,23 @@
       value: "True"
     - option: AutomaticLogin
       value: "{{ ansible_user_id }}"
+
+# not really a GNOME thing per-se...
+- name: Set fastmirror for dnf
+  become: true
+  community.general.ini_file:
+    path: /etc/dnf/dnf.conf
+    section: main
+    option: fastmirror
+    value: 1
+    mode: "0644"
+  loop:
+    # By default, not set
+    - option: fastmirror
+      value: 1
+    # By default, 3
+    - option: max_parallel_downloads
+      value: 15
+    # By default, 3
+    - option: installonly_limit
+      value: 10
