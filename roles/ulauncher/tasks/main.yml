@@ -15,6 +15,25 @@
   when: "'ulauncher' in ansible_facts.packages or ulauncher_installed.changed" # noqa: no-handler
   block:
 
+    - name: Ensure theme git project is checked out
+      ansible.builtin.git:
+        repo: https://github.com/catppuccin/ulauncher.git
+        dest: '{{ role_path }}/dot_ulauncher'
+        version: main
+
+    - name: Ensure the ulauncher theme files are present
+      ansible.builtin.command:
+        cmd: python3 install.py --flavor mocha --accent mauve
+        chdir: '{{ role_path }}/dot_ulauncher'
+        creates: '{{ ansible_env.HOME }}/.config/ulauncher/user-themes/Catpuccin-Mocha-Mauve/'
+
+    - name: Ensure config file is present
+      ansible.builtin.file:
+        src: '{{ role_path }}/files/settings.json'
+        dest: '{{ ansible_env.HOME }}/.config/ulauncher/settings.json'
+        state: link
+        mode: "0755"
+
     - name: Add keyboard shortcut for ulauncher (b/c Wayland)
       community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name"
@@ -53,22 +72,3 @@
       community.general.dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings"
         value: "{{ updated_keybindings }}"
-
-    - name: Ensure theme git project is checked out
-      ansible.builtin.git:
-        repo: https://github.com/catppuccin/ulauncher.git
-        dest: '{{ role_path }}/dot_ulauncher'
-        version: main
-
-    - name: Ensure the ulauncher theme files are present
-      ansible.builtin.command:
-        cmd: sh install.sh --mocha-mauve
-        chdir: '{{ role_path }}/dot_ulauncher'
-        creates: '{{ ansible_env.HOME }}/.config/ulauncher/user-themes/Catpuccin-Mocha-Mauve/'
-
-    - name: Ensure config file is present
-      ansible.builtin.file:
-        src: '{{ role_path }}/files/settings.json'
-        dest: '{{ ansible_env.HOME }}/.config/ulauncher/settings.json'
-        state: link
-        mode: "0755"
