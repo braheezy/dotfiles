@@ -9,7 +9,7 @@
       - ripgrep
       - duf
       - fd-find
-      - exa
+      - eza
       - figlet
       - unzip
       - git

@@ -28,9 +28,9 @@ alias vR="vagrant destroy -f && vagrant up"
 alias ve="python3 -m venv venv"
 alias va="source venv/bin/activate"
 
-# exa (ls replacement) stuff
-alias lx="exa --icons --all --classify --color-scale --group-directories-first"
-alias tree="exa --tree --icons --all"
+# eza (ls replacement) stuff
+alias lx="eza --icons --all --classify --color-scale --group-directories-first"
+alias tree="eza --tree --icons --all"
 alias ll="lx --long --no-user --octal-permissions --no-permissions"
 
 # Kitty can render arbitrary images directly
