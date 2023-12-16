@@ -2,7 +2,7 @@
 
 - name: Download GTK theme
   ansible.builtin.get_url:
-    url: https://github.com/catppuccin/gtk/releases/download/v0.4.1/Catppuccin-Mocha-Standard-Mauve-Dark.zip
+    url: https://github.com/catppuccin/gtk/releases/download/v0.7.1/Catppuccin-Mocha-Standard-Mauve-Dark.zip
     dest: /tmp/
     mode: "0755"
 
