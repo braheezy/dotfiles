@@ -22,4 +22,5 @@ The great thing about Ansible is the idempotency and support for dry running. Yo
 ## Development
 To test locally, try something like this:
 
-    docker run --rm -it -v `pwd`:`pwd` -w `pwd` fedora:37
+    docker run --rm -it -v $(pwd):$(pwd) -w $(pwd) fedora:39
+    ./install.sh
