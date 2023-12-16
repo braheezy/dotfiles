@@ -24,6 +24,9 @@ if [[ $ARCH == "aarch64" ]]; then
     ARCH="arm64"
 fi
 
+PURPLE_BOLD='\e[1;95m'
+RESET='\e[0m'
+
 start_spinner() {
     if [ -z "${QUIET+x}" ]; then
     chars=("▁▃▄▅▆▇█▇▆▅▄▃")
@@ -49,7 +52,7 @@ get_local_charm() {
     case $1 in
         gum)
             if [[ ! -e $LOCAL_CHARMS/gum ]]; then
-                start_spinner "Adding gum locally" &
+                start_spinner "Adding ${PURPLE_BOLD}gum${RESET} locally" &
                 pid=$!
                 wget -qO- \
                     "https://github.com/charmbracelet/gum/releases/download/v0.10.0/gum_0.10.0_Linux_$ARCH.tar.gz" \
@@ -61,7 +64,7 @@ get_local_charm() {
             ;;
         glow)
             if [[ ! -e $LOCAL_CHARMS/glow ]]; then
-                start_spinner "Adding glow locally" &
+                start_spinner "Adding ${PURPLE_BOLD}glow${RESET} locally" &
                 pid=$!
                 wget -qO- \
                     "https://github.com/charmbracelet/glow/releases/download/v1.5.1/glow_Linux_$ARCH.tar.gz" \
@@ -115,7 +118,7 @@ shift $((OPTIND - 1))
 
 if [[ "$DO_INSTALL" == true ]]; then
     if ! command -v tput &>/dev/null || ! command -v wget &>/dev/null; then
-        start_spinner "Installing ncurses and wget to system" &
+        start_spinner "Installing ${PURPLE_BOLD}ncurses${RESET} and ${PURPLE_BOLD}wget${RESET} to system" &
         pid=$!
         sudo "$PKG_MAN" install -y ncurses wget &>/dev/null
         stop_spinner
