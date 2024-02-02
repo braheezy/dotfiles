@@ -118,9 +118,9 @@ shift $((OPTIND - 1))
 
 if [[ "$DO_INSTALL" == true ]]; then
     if ! command -v tput &>/dev/null || ! command -v wget &>/dev/null; then
-        start_spinner "Installing ${PURPLE_BOLD}ncurses${RESET} and ${PURPLE_BOLD}wget${RESET} to system" &
+        start_spinner "Installing ${PURPLE_BOLD}ncurses${RESET}, ${PURPLE_BOLD}wget${RESET}, and ${PURPLE_BOLD}tar${RESET} to system" &
         pid=$!
-        sudo "$PKG_MAN" install -y ncurses wget &>/dev/null
+        sudo "$PKG_MAN" install -y ncurses wget tar &>/dev/null
         stop_spinner
         kill $pid
     fi
