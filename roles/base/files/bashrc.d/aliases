@@ -77,3 +77,5 @@ alias gtail="g log -n1"
 alias gd="g diff"
 alias gdc="g diff --cached"
 alias gdh="g diff HEAD"
+
+alias pb='packer build'
