@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/bash -i
 
-set -euo pipefail
+set +u
 
 # Get the directory where the script is located
 script_dir=$(dirname "$(readlink -f "$0")")
@@ -17,6 +17,6 @@ blocklist_file="$script_dir/blocklist.txt"
 echo "$current_wallpaper_name" >> "$blocklist_file"
 
 # Call the wallpaper changer script to set a new wallpaper
-change-background.sh
+change-background
 
 print_message "Current wallpaper added to the blocklist. Wallpaper changed."
