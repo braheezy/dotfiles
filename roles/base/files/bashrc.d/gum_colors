@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -eou pipefail
-
 export BLACK='#45475A'
 export RED='#F38BA8'
 export GREEN='#A6E3A1'
