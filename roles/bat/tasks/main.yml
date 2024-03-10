@@ -12,7 +12,7 @@
   block:
     - name: Ensure the bat theme file is downloaded
       ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/catppuccin/bat/main/Catppuccin-mocha.tmTheme
+        url: https://raw.githubusercontent.com/catppuccin/bat/main/themes/Catppuccin-Mocha.tmTheme
         dest: "{{ role_path }}/dot_Catppuccin-mocha.tmTheme"
         mode: "0755"
 
