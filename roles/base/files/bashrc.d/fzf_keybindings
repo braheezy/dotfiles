@@ -1,0 +1,3 @@
+#!/bin/bash
+
+[ -f /usr/share/fzf/shell/key-bindings.bash ] && . /usr/share/fzf/shell/key-bindings.bash

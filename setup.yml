@@ -16,6 +16,7 @@
     - tools
     - base
     - bat
+    - fzf
     - neovim
     - btop
     - vs_code
