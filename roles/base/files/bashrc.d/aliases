@@ -5,6 +5,8 @@ alias doted='$EDITOR ~/.bashrc.d'
 
 # Install an RPM
 alias yumget='sudo yum install'
+# Remove an RPM
+alias yumrm='sudo yum remove'
 
 # Ansible power user stuff
 alias ap="ansible-playbook"
