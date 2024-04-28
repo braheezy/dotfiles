@@ -5,7 +5,6 @@
   ansible.builtin.yum:
     name:
       - ulauncher
-      # https://github.com/Ulauncher/Ulauncher/wiki/Hotkey-In-Wayland
       - wmctrl
     state: present
   register: ulauncher_installed
