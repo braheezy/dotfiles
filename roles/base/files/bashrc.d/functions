@@ -34,3 +34,13 @@ uppy() {
     print_message "Updating Flatpaks next 🔨"
     flatpak update -y
 }
+
+gogowasm() {
+    GOROOT=$(go env GOROOT)
+    if [ ! -d "$GOROOT/misc/wasm/" ]; then
+        echo "Could not find WASM helper files in $GOROOT/misc/wasm"
+        exit 1
+    fi
+    cp $GOROOT/misc/wasm/wasm_exec.js .
+    cp $GOROOT/misc/wasm/wasm_exec.html .
+}
