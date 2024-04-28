@@ -69,14 +69,14 @@
 - name: Ensure the user's AccountsService file exists
   become: true
   ansible.builtin.file:
-    path: /var/lib/AccountsService/users/{{ user }}
+    path: /var/lib/AccountsService/users/{{ ansible_user_id }}
     state: touch
     mode: "0600"
 
 - name: Change the user login icon
   become: true
   ansible.builtin.lineinfile:
-    path: /var/lib/AccountsService/users/{{ user }}
+    path: /var/lib/AccountsService/users/{{ ansible_user_id }}
     regexp: '^Icon='
     line: Icon=/usr/share/pixmaps/cat.png
     mode: "0600"
