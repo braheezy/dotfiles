@@ -1,47 +1,5 @@
 ---
 
-- name: Ensure minimize button is present
-  community.general.dconf:
-    key: "/org/gnome/desktop/wm/preferences/button-layout"
-    value: "'appmenu:minimize,close'"
-    state: present
-
-- name: Enable Focus on Hover for windows
-  community.general.dconf:
-    key: "/org/gnome/desktop/wm/preferences/focus-mode"
-    value: "'sloppy'"
-    state: present
-
-- name: Enable workspace switching for all monitors
-  community.general.dconf:
-    key: "/org/gnome/mutter/workspaces-only-on-primary"
-    value: "false"
-    state: present
-
-- name: Set favorite apps list
-  community.general.dconf:
-    key: "/org/gnome/shell/favorite-apps"
-    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop', 'com.spotify.Client.desktop']"
-    state: present
-
-- name: Disable screen turning off
-  community.general.dconf:
-    key: "/org/gnome/desktop/session/idle-delay"
-    value: "uint32 0"
-    state: present
-
-- name: Prefer Dark Mode
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/color-scheme"
-    value: "'prefer-dark'"
-    state: present
-
-- name: Set clock display to 12h format
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/clock-format"
-    value: "'12h'"
-    state: present
-
 - name: Enable auto-login
   become: true
   community.general.ini_file:
@@ -76,3 +34,6 @@
     # By default, 3
     - option: installonly_limit
       value: 10
+
+- name: Apply bulk dconf settings
+  ansible.builtin.import_tasks: dconf_settings.yml

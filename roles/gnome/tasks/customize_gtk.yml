@@ -13,12 +13,6 @@
     dest: /usr/share/themes/
     mode: "0755"
 
-- name: Set GTK theme
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
-    state: present
-
 - name: Ensure gtk-4 folder exists
   ansible.builtin.file:
     path: '{{ ansible_env.HOME }}/.config/gtk-4.0/'
@@ -72,16 +66,6 @@
       logo='/usr/share/pixmaps/cat.png'
     mode: "0644"
 
-- name: Update the dconf database
-  become: true
-  ansible.builtin.command: dconf update
-  changed_when: true
-
-# Because I think ansible_user_id changes after become: true
-- name: Set current user fact
-  ansible.builtin.set_fact:
-    user: '{{ ansible_user_id }}'
-
 - name: Ensure the user's AccountsService file exists
   become: true
   ansible.builtin.file:
@@ -105,28 +89,10 @@
       - gnome-shell-extension-user-theme
     state: present
 
-- name: Ensure extensions are enabled
-  community.general.dconf:
-    key: "/org/gnome/shell/enabled-extensions"
-    value: "['user-theme@gnome-shell-extensions.gcampax.github.com']"
-    state: present
-
-- name: Set shell theme
-  community.general.dconf:
-    key: "/org/gnome/shell/extensions/user-theme/name"
-    value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
-    state: present
-
 - name: Ensure the papirus icons are installed
   become: true
   ansible.builtin.yum:
     name: papirus-icon-theme
-    state: present
-
-- name: Ensure the icon theme is set to papirus
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/icon-theme"
-    value: "'Papirus-Dark'"
     state: present
 
 - name: Ensure the color switcher installer is available

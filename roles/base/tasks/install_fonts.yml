@@ -45,27 +45,3 @@
       - fira-code-fonts
     state: present
   when: do_install
-
-- name: Set font-name
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/font-name"
-    value: "'Noto Sans 12'"
-    state: present
-
-- name: Set document-font-name
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/document-font-name"
-    value: "'Noto Serif 12'"
-    state: present
-
-- name: Set monospace-font-name
-  community.general.dconf:
-    key: "/org/gnome/desktop/interface/monospace-font-name"
-    value: "'CaskaydiaCove Nerd Font Mono 11'"
-    state: present
-
-- name: Set titlebar-font
-  community.general.dconf:
-    key: "/org/gnome/desktop/wm/preferences/titlebar-font"
-    value: "'Noto Serif Bold Italic 12'"
-    state: present

@@ -1,0 +1,73 @@
+#!/bin/bash
+
+set -euo pipefail
+
+SOURCE=${BASH_SOURCE[0]}
+while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+  SOURCE=$(readlink "$SOURCE")
+  [[ $SOURCE != /* ]] && SOURCE=$DIR/$SOURCE # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
+
+# Define the output file for the Ansible playbook
+OUTPUT_FILE="${DIR}/../../../gnome/tasks/dconf_settings.yml"
+
+dconf_folders=(
+    /org/gnome/shell/
+    /org/gnome/desktop/interface/
+    /org/gnome/desktop/wm/preferences/
+    /org/gnome/mutter/
+    /org/gnome/desktop/session/
+)
+# Define an array of keys to skip
+skip_keys=("app-picker-layout" "locations")
+[ -f "$OUTPUT_FILE" ] && rm "$OUTPUT_FILE"
+
+# Loop through each folder in the array
+for folder in "${dconf_folders[@]}"; do
+    # Dump the keys and values using dconf
+    dconf dump "$folder" | while IFS= read -r line; do
+        # Check if the line contains a key-value pair
+        if [[ "$line" =~ ^[[:space:]]*[^[][^=]*= ]]; then
+            # Extract the key and value
+            key=$(echo "$line" | cut -d'=' -f1 | xargs)
+            value=$(echo "$line" | cut -d'=' -f2-)
+
+            # Check if the key is in the skip list
+            skip_key_flag=0
+            for skip_key in "${skip_keys[@]}"; do
+                if [[ "$key" == *"$skip_key"* ]]; then
+                    skip_key_flag=1
+                    break
+                fi
+            done
+
+            # Output the Ansible task if key is not skipped
+            if [[ $skip_key_flag -eq 0 ]]; then
+                {
+                    echo "- name: Set $folder$key"
+                    echo "  community.general.dconf:"
+                    echo "    key: \"$folder$key\""
+                    echo "    value: \"$value\""
+                    echo "    state: present"
+                    echo ""
+                } >> "$OUTPUT_FILE"
+            fi
+        fi
+    done
+done
+
+{
+    echo "- name: Update the dconf database"
+    echo "  become: true"
+    echo "  ansible.builtin.command: dconf update"
+    echo "  changed_when: true"
+    echo ""
+} >> "$OUTPUT_FILE"
+gum style \
+    --border rounded \
+    --padding "1" \
+    --border-foreground "#ff03c5"  \
+    --foreground  "#34df33"\
+    "Ansible playbook generated in dotfiles: $(basename "$OUTPUT_FILE")"

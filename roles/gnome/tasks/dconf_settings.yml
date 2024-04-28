@@ -1,0 +1,178 @@
+- name: Set /org/gnome/shell/disable-user-extensions
+  community.general.dconf:
+    key: "/org/gnome/shell/disable-user-extensions"
+    value: "true"
+    state: present
+
+- name: Set /org/gnome/shell/disabled-extensions
+  community.general.dconf:
+    key: "/org/gnome/shell/disabled-extensions"
+    value: "['background-logo@fedorahosted.org', 'gamemode@christian.kellner.me', 'places-menu@gnome-shell-extensions.gcampax.github.com', 'window-list@gnome-shell-extensions.gcampax.github.com']" # noqa yaml[line-length]
+    state: present
+
+- name: Set /org/gnome/shell/enabled-extensions
+  community.general.dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "['user-theme@gnome-shell-extensions.gcampax.github.com']"
+    state: present
+
+- name: Set /org/gnome/shell/favorite-apps
+  community.general.dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop', 'com.spotify.Client.desktop', 'virt-manager.desktop']"
+    state: present
+
+- name: Set /org/gnome/shell/last-selected-power-profile
+  community.general.dconf:
+    key: "/org/gnome/shell/last-selected-power-profile"
+    value: "'performance'"
+    state: present
+
+- name: Set /org/gnome/shell/welcome-dialog-last-shown-version
+  community.general.dconf:
+    key: "/org/gnome/shell/welcome-dialog-last-shown-version"
+    value: "'41.0'"
+    state: present
+
+- name: Set /org/gnome/shell/window-maximized
+  community.general.dconf:
+    key: "/org/gnome/shell/window-maximized"
+    value: "false"
+    state: present
+
+- name: Set /org/gnome/shell/window-size
+  community.general.dconf:
+    key: "/org/gnome/shell/window-size"
+    value: "(640, 440)"
+    state: present
+
+- name: Set /org/gnome/shell/name
+  community.general.dconf:
+    key: "/org/gnome/shell/name"
+    value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/clock-format
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/clock-format"
+    value: "'12h'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/color-scheme
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/cursor-size
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/cursor-size"
+    value: "32"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/cursor-theme
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/cursor-theme"
+    value: "'Catppuccin-Mocha-Mauve-Cursors'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/document-font-name
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/document-font-name"
+    value: "'Noto Serif 12'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/font-antialiasing
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/font-antialiasing"
+    value: "'rgba'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/font-hinting
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/font-hinting"
+    value: "'slight'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/font-name
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/font-name"
+    value: "'Noto Sans 12'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/gtk-theme
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Catppuccin-Mocha-Standard-Mauve-Dark'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/icon-theme
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    value: "'Papirus-Dark'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/monospace-font-name
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/monospace-font-name"
+    value: "'CaskaydiaCove Nerd Font Mono 11'"
+    state: present
+
+- name: Set /org/gnome/desktop/interface/toolkit-accessibility
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/toolkit-accessibility"
+    value: "false"
+    state: present
+
+- name: Set /org/gnome/desktop/wm/preferences/button-layout
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/button-layout"
+    value: "'appmenu:minimize,close'"
+    state: present
+
+- name: Set /org/gnome/desktop/wm/preferences/focus-mode
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/focus-mode"
+    value: "'sloppy'"
+    state: present
+
+- name: Set /org/gnome/desktop/wm/preferences/resize-with-right-button
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/resize-with-right-button"
+    value: "true"
+    state: present
+
+- name: Set /org/gnome/desktop/wm/preferences/theme
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/theme"
+    value: "'Catppuccin-Mocha'"
+    state: present
+
+- name: Set /org/gnome/desktop/wm/preferences/titlebar-font
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/titlebar-font"
+    value: "'Noto Serif Bold Italic 12'"
+    state: present
+
+- name: Set /org/gnome/mutter/center-new-windows
+  community.general.dconf:
+    key: "/org/gnome/mutter/center-new-windows"
+    value: "true"
+    state: present
+
+- name: Set /org/gnome/mutter/workspaces-only-on-primary
+  community.general.dconf:
+    key: "/org/gnome/mutter/workspaces-only-on-primary"
+    value: "false"
+    state: present
+
+- name: Set /org/gnome/desktop/session/idle-delay
+  community.general.dconf:
+    key: "/org/gnome/desktop/session/idle-delay"
+    value: "uint32 0"
+    state: present
+
+- name: Update the dconf database
+  become: true
+  ansible.builtin.command: dconf update
+  changed_when: true
