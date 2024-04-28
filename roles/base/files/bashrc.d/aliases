@@ -31,7 +31,7 @@ alias ve="python3 -m venv venv"
 alias va="source venv/bin/activate"
 
 # eza (ls replacement) stuff
-alias lx="eza --icons --all --classify --color-scale --group-directories-first"
+alias ls="eza --icons --classify --color-scale --group-directories-first"
 alias tree="eza --tree --icons --all"
 alias ll="lx --long --no-user --octal-permissions --no-permissions"
 
@@ -81,3 +81,6 @@ alias gdc="g diff --cached"
 alias gdh="g diff HEAD"
 
 alias pb='packer build'
+alias dl='http --download --body'
+
+
