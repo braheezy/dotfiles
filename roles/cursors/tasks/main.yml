@@ -9,7 +9,7 @@
 - name: Unpack cursors
   become: true
   ansible.builtin.unarchive:
-    src: /tmp/Catppuccin-Mocha-Mauve-Cursors.zip
+    src: /tmp/catppuccin-mocha-mauve-cursors.zip
     dest: /usr/share/icons
     remote_src: true
     mode: "0755"
