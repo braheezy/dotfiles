@@ -22,7 +22,7 @@
 
 - name: Ensure the theme file exists
   ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/catppuccin/spotify-player/main/src/theme.toml
+    url: https://raw.githubusercontent.com/catppuccin/spotify-player/main/theme.toml
     dest: "{{ role_path }}/dot_theme.toml"
     mode: "0755"
 
