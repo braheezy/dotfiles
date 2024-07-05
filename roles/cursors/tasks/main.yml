@@ -2,7 +2,7 @@
 
 - name: Download cursors
   ansible.builtin.get_url:
-    url: https://github.com/catppuccin/cursors/blob/main/cursors/Catppuccin-Mocha-Mauve-Cursors.zip?raw=true
+    url: https://github.com/catppuccin/cursors/releases/latest/download/catppuccin-mocha-mauve-cursors.zip
     dest: /tmp
     mode: "0755"
 
